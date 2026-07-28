@@ -1,0 +1,204 @@
+<style>
+.au-demo{margin-top:clamp(44px,6vw,76px);perspective:1600px;display:flex;flex-direction:column;align-items:center}
+.au-lap{width:min(640px,100%);transform:rotateX(14deg);transform-origin:top center;will-change:transform}
+.au-lid{background:#1a1a1a;border:1px solid #303030;border-bottom:none;border-radius:clamp(16px,2.2vw,28px) clamp(16px,2.2vw,28px) 0 0;padding:clamp(10px,1.5vw,18px) clamp(10px,1.5vw,18px) clamp(6px,1vw,12px);position:relative}
+.au-cam{position:absolute;top:clamp(10px,1.5vw,18px);left:50%;transform:translateX(-50%);width:clamp(64px,9vw,122px);height:clamp(11px,1.6vw,19px);background:#1a1a1a;border-radius:0 0 clamp(6px,1vw,10px) clamp(6px,1vw,10px);z-index:30;display:flex;align-items:center;justify-content:center}
+.au-cam span{width:4px;height:4px;border-radius:50%;background:#3a3a3a}
+.au-scr{background:#fff;border-radius:clamp(8px,1.2vw,14px) clamp(8px,1.2vw,14px) 0 0;overflow:hidden;display:flex;flex-direction:column;aspect-ratio:16/10}
+.au-bar{display:flex;align-items:center;gap:10px;padding:clamp(7px,1vw,11px) 12px;border-bottom:1px solid #e8e4dc;background:#f4f1ea}
+.au-dots{display:flex;gap:6px}
+.au-dots span{width:8px;height:8px;border-radius:50%;background:#ddd6c9}
+.au-url{font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:11px;color:#71695d}
+.au-cnt{margin-left:auto;color:#171310}
+.au-page{display:flex;flex-direction:column;flex:1;min-height:0;overflow:hidden;background:#fff;font-family:system-ui,'Segoe UI',sans-serif}
+.au-nav{display:flex;justify-content:space-between;align-items:center;padding:clamp(7px,1.1vw,13px) clamp(12px,2vw,28px);border-bottom:1px solid #e8eaed;background:#fff}
+.au-nav2{padding:clamp(8px,1.2vw,14px) clamp(12px,2vw,28px);border-bottom-color:#e6ebf1}
+.au-bl{display:inline-flex;align-items:center;gap:clamp(4px,.6vw,7px)}
+.au-lsq{width:clamp(10px,1.3vw,16px);height:clamp(10px,1.3vw,16px);background:#2f6cb0;border-radius:3px}
+.au-bt{font-weight:700;font-size:clamp(9px,1.1vw,13px);color:#22303e}
+.au-wm{font-weight:800;letter-spacing:-.01em;font-size:clamp(10px,1.2vw,15px);color:#22303e}
+.au-wm span{color:#2f6cb0}
+.au-ln{display:inline-flex;align-items:center;gap:clamp(7px,1.2vw,15px)}
+.au-ln2{gap:clamp(7px,1.2vw,16px)}
+.au-l{font-size:clamp(6px,.85vw,10px);color:#5b6470}
+.au-l2{font-weight:500;color:#22303e}
+.au-nb,.au-pb,.au-sb,.au-fs,.au-sm{background:#2f6cb0;color:#fff}
+.au-nb{font-size:clamp(6px,.85vw,10px);font-weight:600;padding:clamp(3px,.5vw,6px) clamp(6px,1vw,12px);border-radius:999px}
+.au-nb2{padding:clamp(3px,.55vw,7px) clamp(7px,1.1vw,14px);border-radius:6px}
+.au-bd{display:flex;gap:clamp(10px,2vw,28px);padding:clamp(12px,2.2vw,32px);flex:1;min-height:0}
+.au-cl{flex:1.25;min-width:0;display:flex;flex-direction:column;gap:clamp(14px,2.4vw,30px);justify-content:center}
+.au-hot{position:relative;cursor:pointer;padding:clamp(6px,1vw,12px)}
+.au-hc{align-self:stretch}
+.au-hf{flex:.85;min-width:0;padding:clamp(4px,.7vw,8px)}
+.au-proof{border-top:1px solid #e8eaed;padding:clamp(8px,1.4vw,16px) clamp(12px,2.2vw,32px);background:#ffffff}
+.au-proof.is-on{background:#22303e}
+.au-hot:hover{outline:1px dashed #ff4d00;outline-offset:2px}
+.au-hot:focus-visible{outline:2px solid #ff4d00;outline-offset:2px}
+.au-proof:hover,.au-proof:focus-visible{outline-offset:-2px}
+.au-plus,.au-bg{background:#ff4d00;color:#171310;font-weight:800;font-family:'Urbanist',system-ui,sans-serif}
+.au-plus{position:absolute;top:clamp(0px,.3vw,4px);right:clamp(0px,.3vw,4px);width:clamp(16px,2vw,26px);height:clamp(16px,2vw,26px);display:flex;align-items:center;justify-content:center;font-size:clamp(12px,1.4vw,18px);line-height:1;animation:auPulse 1.6s ease-out infinite;z-index:4}
+.au-plp{top:clamp(4px,.7vw,8px);right:clamp(4px,.7vw,8px)}
+.au-bg{font-size:clamp(11px,1.4vw,18px);letter-spacing:-.01em;padding:clamp(4px,.7vw,8px) clamp(8px,1.2vw,14px);white-space:nowrap}
+.au-bw{position:absolute;z-index:6;pointer-events:none;display:flex;flex-direction:column;align-items:flex-end}
+.au-bwh{bottom:calc(100% - clamp(4px,.6vw,8px));right:clamp(6px,1.2vw,14px)}
+.au-bwc{bottom:clamp(-10px,-1.2vw,-16px);right:clamp(4px,1vw,12px)}
+.au-bwf{top:clamp(-4px,-.5vw,-8px);left:clamp(-14px,-2vw,-26px);flex-direction:row;align-items:center}
+.au-bwp{bottom:calc(100% - clamp(2px,.3vw,4px));right:clamp(6px,1.2vw,14px)}
+.au-ld{width:1px;height:clamp(8px,1.2vw,14px);background:#171310;margin-right:clamp(12px,2vw,24px)}
+.au-ldh{height:clamp(10px,1.6vw,18px)}
+.au-lh{width:clamp(10px,1.6vw,18px);height:1px;background:#171310}
+.au-hoc{text-align:center;display:flex;flex-direction:column;gap:clamp(5px,.8vw,9px);align-items:center}
+.au-t1{font-weight:700;font-size:clamp(13px,1.9vw,25px);color:#22303e}
+.au-s1{font-size:clamp(7px,1vw,12px);line-height:1.6;color:#5b6470;max-width:85%}
+.au-cd{display:inline-flex;gap:5px;margin-top:clamp(2px,.4vw,5px)}
+.au-cd span{width:6px;height:6px;border-radius:50%;background:#d4dae1}
+.au-cd span:first-child{background:#2f6cb0}
+.au-eb{display:inline-flex;align-items:center;gap:6px;margin-bottom:clamp(5px,.8vw,9px)}
+.au-esq{width:5px;height:5px;background:#2f6cb0}
+.au-et{font-size:clamp(6px,.8vw,9px);font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#2f6cb0}
+.au-h2{font-weight:800;letter-spacing:-.025em;line-height:1.04;font-size:clamp(16px,2.7vw,36px);color:#22303e;margin-bottom:clamp(4px,.7vw,8px)}
+.au-s2{font-size:clamp(8px,1.1vw,13px);line-height:1.55;color:#5b6470;max-width:90%}
+.au-cr{display:flex;align-items:center;justify-content:center;gap:clamp(8px,1.4vw,18px);flex-wrap:wrap}
+.au-pb{font-weight:600;font-size:clamp(7px,1vw,12px);padding:clamp(4px,.8vw,9px) clamp(10px,1.6vw,20px);border-radius:999px}
+.au-ul{font-size:clamp(7px,.95vw,11px);color:#5b6470;text-decoration:underline}
+.au-cn{display:flex;flex-direction:column;gap:clamp(5px,.9vw,10px);align-items:flex-start}
+.au-cw{display:inline-flex;align-items:center;gap:clamp(8px,1.4vw,18px);flex-wrap:wrap}
+.au-sb{font-weight:700;font-size:clamp(8px,1vw,12px);padding:clamp(5px,.9vw,10px) clamp(9px,1.5vw,18px);border-radius:6px;white-space:nowrap}
+.au-rl{font-size:clamp(7px,.95vw,11px);font-weight:600;color:#22303e;text-decoration:underline;text-underline-offset:3px}
+.au-nt{font-size:clamp(6px,.8vw,9px);color:#5b6470}
+.au-fc{border:1px solid #e2e6ea;border-radius:8px;background:#fff;height:100%;box-sizing:border-box;overflow:hidden;display:flex;flex-direction:column;gap:clamp(3px,.55vw,7px);padding:clamp(6px,1vw,13px)}
+.au-ft{font-weight:700;font-size:clamp(8px,1.05vw,12px);color:#22303e}
+.au-in{border:1px solid #dde2e7;border-radius:5px;background:#fbfcfd;padding:clamp(2px,.45vw,5px) clamp(4px,.7vw,8px);font-size:clamp(6px,.8vw,9px);color:#8a93a0}
+.au-ta{flex:1;min-height:clamp(10px,1.5vw,18px)}
+.au-fs{align-self:center;font-weight:600;font-size:clamp(6px,.85vw,10px);padding:clamp(3px,.55vw,6px) clamp(10px,1.6vw,18px);border-radius:999px}
+.au-fn{font-size:clamp(5px,.7vw,8px);color:#8a93a0;text-align:center;white-space:nowrap}
+.au-fc2{border:1px solid #dfe5ec;border-radius:10px;background:#fff;height:100%;box-sizing:border-box;display:flex;flex-direction:column;gap:clamp(6px,1vw,12px);padding:clamp(8px,1.4vw,18px);justify-content:center}
+.au-ft2{font-weight:800;letter-spacing:-.01em;font-size:clamp(10px,1.3vw,15px);color:#22303e}
+.au-in2{border:1px solid #dfe5ec;border-radius:6px;background:#f8fafc;padding:clamp(4px,.8vw,9px);font-size:clamp(7px,.95vw,11px);color:#8a93a0}
+.au-sm{font-weight:700;font-size:clamp(8px,1vw,12px);padding:clamp(5px,.9vw,10px);text-align:center;border-radius:6px}
+.au-n2{font-size:clamp(6px,.8vw,9px);color:#5b6470;text-align:center}
+.au-pr{display:flex;align-items:center;justify-content:center;gap:clamp(6px,1.2vw,14px);flex-wrap:wrap}
+.au-chip{border:1px solid #dde2e7;border-radius:999px;padding:clamp(2px,.4vw,5px) clamp(6px,1vw,12px);font-size:clamp(6px,.8vw,9px);color:#5b6470}
+.au-pw{display:flex;align-items:center;justify-content:space-between;gap:clamp(10px,2vw,24px);flex-wrap:wrap;padding-right:clamp(16px,3vw,40px)}
+.au-rw{display:inline-flex;align-items:baseline;gap:clamp(5px,.8vw,10px)}
+.au-rt{font-weight:800;letter-spacing:-.02em;font-size:clamp(11px,1.5vw,18px);color:#ffffff}
+.au-rs{font-size:clamp(7px,.9vw,10px);color:rgba(255,255,255,.65)}
+.au-lw{display:inline-flex;align-items:center;gap:clamp(6px,1.2vw,14px)}
+.au-ll{font-size:clamp(6px,.8vw,9px);color:rgba(255,255,255,.65);text-transform:uppercase;letter-spacing:.08em;font-weight:600}
+.au-lb{width:clamp(34px,4.5vw,60px);height:clamp(9px,1.3vw,15px);background:rgba(255,255,255,.3)}
+.au-base{height:clamp(12px,1.8vw,20px);background:#232323;border-top:1px solid #3a3a3a;border-radius:2px 2px clamp(10px,1.6vw,18px) clamp(10px,1.6vw,18px);margin:0 -3.5%;position:relative}
+.au-base span{position:absolute;top:0;left:50%;transform:translateX(-50%);width:11%;height:48%;background:#303030;border-radius:0 0 8px 8px}
+.au-sh{width:70%;height:clamp(10px,1.6vw,20px);margin:clamp(10px,1.6vw,20px) auto 0;background:rgba(23,19,16,.06);border-radius:50%}
+.au-fr{background:#1a1a1a;border:1px solid #303030;border-radius:42px;padding:9px;position:relative}
+.au-ps{background:#fff;border-radius:34px;overflow:hidden;position:relative;font-family:system-ui,'Segoe UI',sans-serif}
+.au-no{position:absolute;top:9px;left:50%;transform:translateX(-50%);width:82px;height:21px;background:#1a1a1a;border-radius:12px;z-index:30}
+.au-st{display:flex;justify-content:space-between;align-items:center;padding:12px 22px 8px}
+.au-tm{font-weight:700;font-size:12px;color:#171310}
+.au-cm{font-family:ui-monospace,Menlo,monospace;font-size:10px;color:#171310}
+.au-hb{display:inline-flex;flex-direction:column;gap:3px}
+.au-hb span{width:16px;height:2px;background:#5b6470}
+.au-hb2 span{background:#22303e}
+.au-mc{display:flex;flex-direction:column;gap:12px;padding:14px}
+.au-cx{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+@keyframes auPulse{0%,100%{box-shadow:0 0 0 0 rgba(255,77,0,.55)}50%{box-shadow:0 0 0 14px rgba(255,77,0,0)}}
+@media (prefers-reduced-motion:reduce){[data-aupulse]{animation:none!important}}
+[data-fix] .au-new{display:none}
+[data-fix].is-on .au-old{display:none}
+[data-fix].is-on .au-new{display:block}
+[data-au-demo] [data-au-nav-new]{display:none}
+[data-au-demo].is-all [data-au-nav-old]{display:none}
+[data-au-demo].is-all [data-au-nav-new]{display:flex}
+@media (min-width:768px){.au-demo--mobile{display:none}}
+@media (max-width:767px){
+.au-demo--desktop{display:none}
+.au-lap{width:min(370px,96%)}
+.au-plus{top:0;right:0;width:18px;height:18px;font-size:13px}
+.au-plp{top:4px;right:4px}
+.au-bg{font-size:13px;letter-spacing:normal;padding:4px 9px}
+.au-ld{height:8px;margin-right:14px}
+.au-lh{width:10px}
+.au-bwh{bottom:calc(100% - 6px);right:4px}
+.au-bwc{bottom:auto;top:calc(100% - 4px);right:4px}
+.au-bwf{top:-6px;left:-2px}
+.au-bwp{bottom:calc(100% - 2px);right:4px}
+.au-hot{padding:8px}
+.au-proof{padding:12px 16px 16px}
+.au-nav{padding:8px 16px}
+.au-bl{gap:5px}
+.au-lsq{width:12px;height:12px}
+.au-bt{font-size:11px}
+.au-wm{font-size:12px}
+.au-hoc{gap:6px}
+.au-t1{font-size:15px}
+.au-s1{font-size:10px;max-width:none}
+.au-cd{margin-top:2px}
+.au-eb{gap:5px;margin-bottom:6px}
+.au-et{font-size:8px}
+.au-h2{line-height:1.05;font-size:22px;margin-bottom:5px}
+.au-s2{font-size:11px;max-width:none}
+.au-cr{gap:12px}
+.au-pb{font-size:10px;padding:6px 14px}
+.au-ul{font-size:9px}
+.au-cn{gap:7px;align-items:stretch}
+.au-sm{font-size:11px;padding:8px}
+.au-smc{font-size:12px;padding:9px}
+.au-rl{font-size:10px}
+.au-nt{font-size:9px}
+.au-fc{gap:5px;padding:10px}
+.au-ft{font-size:10px}
+.au-in{padding:4px 6px;font-size:8px}
+.au-ta{min-height:18px}
+.au-fs{font-size:9px;padding:4px 14px}
+.au-fn{font-size:7px;white-space:normal}
+.au-fc2{gap:8px;padding:12px}
+.au-ft2{font-size:12px}
+.au-in2{padding:7px;font-size:10px}
+.au-n2{font-size:8px}
+.au-pr{gap:6px;padding-right:20px}
+.au-chip{padding:3px 8px;font-size:8px}
+.au-pw{flex-direction:column;align-items:stretch;gap:8px;padding-right:0}
+.au-rw{gap:7px}
+.au-rt{font-size:14px}
+.au-rs{font-size:9px}
+.au-lw{gap:8px}
+.au-ll{font-size:8px}
+.au-lb{width:38px;height:10px}
+.au-sh{width:60%;height:12px;margin:12px auto 0}
+}
+</style>
+<div class="au-demo au-demo--desktop" data-au-demo="1">
+<div class="au-lap">
+<div class="au-lid">
+<span class="au-cam" aria-hidden="true"><span></span></span>
+<div class="au-scr">
+<div class="au-bar"><span class="au-dots"><span></span><span></span><span></span></span><span class="au-url">www.trimex-stavby.cz</span><span class="au-url au-cnt">opraveno <span data-au-count>0</span> / 4</span></div>
+<div class="au-page">
+<div class="au-nav" data-au-nav-old="1"><span class="au-bl"><span class="au-lsq"></span><span class="au-bt">TRIMEX stavby</span></span><span class="au-ln"><span class="au-l">Domů</span><span class="au-l">O nás</span><span class="au-l">Služby</span><span class="au-l">Reference</span><span class="au-l">Kariéra</span><span class="au-nb">Kontaktujte nás</span></span></div>
+<div class="au-nav au-nav2" data-au-nav-new="1"><span class="au-bl"><span class="au-wm">TRIMEX<span>.</span></span></span><span class="au-ln au-ln2"><span class="au-l au-l2">Haly</span><span class="au-l au-l2">Reference</span><span class="au-l au-l2">O firmě</span><span class="au-nb au-nb2">Nezávazná poptávka</span></span></div>
+<div class="au-bd">
+<div class="au-cl">
+<div class="au-hot" data-fix="h" role="button" tabindex="0" title="Kliknutím opravíte / vrátíte" aria-pressed="false">
+<div class="au-old"><span class="au-plus" data-aupulse="1" aria-hidden="true">+</span><div class="au-hoc"><div class="au-t1">Kvalitní stavby na míru</div><div class="au-s1">Spolehlivost, tradice a kvalita. Jsme tu pro vás již více než 25 let a vážíme si každého zákazníka.</div><span class="au-cd"><span></span><span></span><span></span></span></div></div>
+<div class="au-new"><span class="au-bw au-bwh"><span class="au-bg">+93 % konverzí</span><span class="au-ld au-ldh"></span></span><span class="au-eb"><span class="au-esq"></span><span class="au-et">Ocelové haly na klíč</span></span><div class="au-h2">Postavíme vám halu do 90 dnů.</div><div class="au-s2">Projekt, výroba i montáž. Jedna smlouva, jeden termín, pevná cena.</div></div>
+</div>
+<div class="au-hot au-hc" data-fix="c" role="button" tabindex="0" title="Kliknutím opravíte / vrátíte" aria-pressed="false">
+<div class="au-old"><span class="au-plus" data-aupulse="1" aria-hidden="true">+</span><div class="au-cr"><span class="au-pb">Zjistit více</span><span class="au-ul">Více o nás »</span></div></div>
+<div class="au-new"><span class="au-bw au-bwc"><span class="au-ld"></span><span class="au-bg">+202 % konverzí</span></span><div class="au-cn"><span class="au-cw"><span class="au-sb">Chci nezávaznou nabídku →</span><span class="au-rl">Prohlédnout reference</span></span><span class="au-nt">Ozveme se do 24 hodin.</span></div></div>
+</div>
+</div>
+<div class="au-hot au-hf" data-fix="f" role="button" tabindex="0" title="Kliknutím opravíte / vrátíte" aria-pressed="false">
+<div class="au-old"><span class="au-plus" data-aupulse="1" aria-hidden="true">+</span><div class="au-fc"><span class="au-ft">Kontaktujte nás</span><span class="au-in">Jméno</span><span class="au-in">E-mail *</span><span class="au-in">Telefon *</span><span class="au-in au-ta">Vaše zpráva…</span><span class="au-fs">Odeslat zprávu</span><span class="au-fn">* povinné údaje · Odpovídáme do 3 dnů</span></div></div>
+<div class="au-new"><span class="au-bw au-bwf"><span class="au-bg">+12 mil. $ ročně</span><span class="au-lh"></span></span><div class="au-fc2"><span class="au-ft2">Nezávazná poptávka</span><span class="au-in2">Jméno a příjmení</span><span class="au-in2">E-mail</span><span class="au-in2">Telefon</span><span class="au-sm">Odeslat poptávku →</span><span class="au-n2">Ozveme se do 24 hodin.</span></div></div>
+</div>
+</div>
+<div class="au-hot au-proof" data-fix="p" role="button" tabindex="0" title="Kliknutím opravíte / vrátíte" aria-pressed="false">
+<div class="au-old"><span class="au-plus au-plp" data-aupulse="1" aria-hidden="true">+</span><div class="au-pr"><span class="au-chip">✓ ISO 9001:2015</span><span class="au-chip">✓ 25 let na trhu</span><span class="au-chip">✓ Individuální přístup</span><span class="au-chip">✓ Férové ceny</span></div></div>
+<div class="au-new"><span class="au-bw au-bwp"><span class="au-bg">+270 % konverzí</span><span class="au-ld"></span></span><div class="au-pw"><span class="au-rw"><span class="au-rt">4,8 / 5</span><span class="au-rs">126 hodnocení na Googlu</span></span><span class="au-lw"><span class="au-ll">Postavili jsme pro</span><span class="au-lb"></span><span class="au-lb"></span><span class="au-lb"></span></span></div></div>
+</div>
+</div>
+</div>
+</div>
+<div class="au-base"><span aria-hidden="true"></span></div>
+<div class="au-sh" aria-hidden="true"></div>
+</div>
+</div>
