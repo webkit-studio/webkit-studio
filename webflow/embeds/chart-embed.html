@@ -1,0 +1,61 @@
+<!-- CODE EMBED: Graf „návštěvnost vs. poptávky" — sekce Ztráty.
+     Vložit jako Webflow Embed do section_ztraty (pod grid 3 karet).
+     Samostatný, žádné závislosti. < 10 000 znaků. -->
+<div id="au-chart" style="margin: 0 auto; max-width: 90%;">
+  <svg viewBox="0 0 720 250" style="width: 100%; height: auto; display: block;" role="img" aria-label="Návštěvnost webu roste, poptávky stagnují — po opravách webu se předpokládá růst poptávek">
+    <line x1="0" y1="220" x2="720" y2="220" stroke="#e5ddcf" stroke-width="1"></line>
+    <line data-fade="1" x1="440" y1="34" x2="440" y2="220" stroke="#d9cfbf" stroke-width="1" stroke-dasharray="4 4"></line>
+    <text data-fade="1" x="440" y="22" text-anchor="middle" font-family="ui-monospace, Menlo, monospace" font-size="13" fill="#71695d">dnes</text>
+    <path data-draw="1" d="M0,84 C88,72 154,96 236,80 C318,64 380,72 440,66 C536,57 628,54 720,44" fill="none" stroke="#c9c0b0" stroke-width="2"></path>
+    <path data-draw="1" d="M0,196 C112,198 280,193 440,196" fill="none" stroke="#171310" stroke-width="2"></path>
+    <path data-forecast="1" d="M440,196 C520,191 610,164 720,128" fill="none" stroke="#ff4d00" stroke-width="2.5" stroke-dasharray="7 6"></path>
+    <text data-fade="1" x="10" y="62" font-family="ui-monospace, Menlo, monospace" font-size="13" fill="#71695d">návštěvnost</text>
+    <text data-plabel="1" x="10" y="182" font-family="ui-monospace, Menlo, monospace" font-size="13" fill="#71695d">poptávky</text>
+  </svg>
+</div>
+<script>
+(function () {
+  var el = document.getElementById('au-chart');
+  if (!el || el.__wired) return;
+  el.__wired = true;
+  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var draws = Array.prototype.slice.call(el.querySelectorAll('[data-draw]'));
+  var fades = Array.prototype.slice.call(el.querySelectorAll('[data-fade]'));
+  var fc = el.querySelector('[data-forecast]');
+  var pl = el.querySelector('[data-plabel]');
+  function hi() {
+    if (!pl) return;
+    pl.style.transition = 'fill 300ms ease';
+    pl.style.fill = '#ff4d00';
+    pl.setAttribute('font-weight', '800');
+  }
+  if (reduced) { hi(); return; }
+  draws.forEach(function (p) {
+    var L = p.getTotalLength();
+    p.style.strokeDasharray = String(L);
+    p.style.strokeDashoffset = String(L);
+  });
+  fades.forEach(function (f) { f.style.opacity = '0'; });
+  if (fc) fc.style.opacity = '0';
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (en) {
+      if (!en.isIntersecting) return;
+      io.disconnect();
+      draws.forEach(function (p, i) {
+        p.style.transition = 'stroke-dashoffset 900ms cubic-bezier(0.7,0,0.15,1) ' + (i * 200) + 'ms';
+        p.style.strokeDashoffset = '0';
+      });
+      fades.forEach(function (f, i) {
+        f.style.transition = 'opacity 400ms ease ' + (700 + i * 120) + 'ms';
+        f.style.opacity = '1';
+      });
+      if (fc) {
+        fc.style.transition = 'opacity 600ms ease 1800ms';
+        fc.style.opacity = '1';
+      }
+      setTimeout(hi, 2400);
+    });
+  }, { threshold: 0.4 });
+  io.observe(el);
+})();
+</script>
