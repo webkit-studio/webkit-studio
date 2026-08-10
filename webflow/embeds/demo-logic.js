@@ -35,7 +35,26 @@
         c.textContent = String(cnt);
       });
       root.classList.toggle('is-all', all);
+      fit(root);
     });
+  }
+
+  /* Necha obrazovku narust jen kdyz se obsah do pomeru 16/10 nevejde
+     (zdrojova ukazka tomu davala prostor zoomem pri scrollu). */
+  function fit(root) {
+    var scr = root.querySelector('.au-scr');
+    if (!scr) return;
+    var pg = scr.querySelector('.au-page');
+    scr.classList.remove('au-grow');
+    var bd = scr.querySelector('.au-bd');
+    var over = (pg && pg.scrollHeight > pg.clientHeight + 1);
+    if (!over && bd) {
+      var tol = Math.max(18, window.innerWidth / 60);
+      over = (bd.scrollHeight - bd.clientHeight) > tol;
+    }
+    if (over) scr.classList.add('au-grow');
+    if (scr.scrollTop) scr.scrollTop = 0;
+    if (pg && pg.scrollTop) pg.scrollTop = 0;
   }
 
   function toggle(k) {
@@ -59,4 +78,5 @@
   });
 
   render();
+  window.addEventListener('resize', function () { roots.forEach(fit); });
 })();

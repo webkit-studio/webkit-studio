@@ -1,6 +1,6 @@
 <style>
-.au-demo{margin-top:clamp(44px,6vw,76px);perspective:1600px;display:flex;flex-direction:column;align-items:center}
-.au-lap{width:min(640px,100%);transform:rotateX(14deg);transform-origin:top center;will-change:transform}
+.au-demo{perspective:1600px;width:100%;display:flex;flex-direction:column;align-items:center}
+.au-lap{width:min(640px,100%);margin-left:auto;margin-right:auto;transform-origin:top center;will-change:transform}
 .au-lid{background:#1a1a1a;border:1px solid #303030;border-bottom:none;border-radius:clamp(16px,2.2vw,28px) clamp(16px,2.2vw,28px) 0 0;padding:clamp(10px,1.5vw,18px) clamp(10px,1.5vw,18px) clamp(6px,1vw,12px);position:relative}
 .au-cam{position:absolute;top:clamp(10px,1.5vw,18px);left:50%;transform:translateX(-50%);width:clamp(64px,9vw,122px);height:clamp(11px,1.6vw,19px);background:#1a1a1a;border-radius:0 0 clamp(6px,1vw,10px) clamp(6px,1vw,10px);z-index:30;display:flex;align-items:center;justify-content:center}
 .au-cam span{width:4px;height:4px;border-radius:50%;background:#3a3a3a}
@@ -100,6 +100,7 @@
 .au-hb2 span{background:#22303e}
 .au-mc{display:flex;flex-direction:column;gap:12px;padding:14px}
 .au-cx{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.au-scr.au-grow{aspect-ratio:auto}
 @keyframes auPulse{0%,100%{box-shadow:0 0 0 0 rgba(255,77,0,.55)}50%{box-shadow:0 0 0 14px rgba(255,77,0,0)}}
 @media (prefers-reduced-motion:reduce){[data-aupulse]{animation:none!important}}
 [data-fix] .au-new{display:none}

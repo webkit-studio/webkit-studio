@@ -1,19 +1,12 @@
 <!doctype html>
-<html lang="cs">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>TRIMEX hero demo — test</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;600;700;800&display=swap" rel="stylesheet">
-<style>body{margin:0;background:#faf6ef;font-family:'Urbanist',system-ui,sans-serif;padding-bottom:80px}</style>
-</head>
-<body>
-<!-- EMBED A: styly + desktop -->
+<html lang="cs"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>body{margin:0;background:#faf6ef;padding:60px 16px;font-family:Urbanist,system-ui,sans-serif}</style>
+</head><body>
 <style>
-.au-demo{margin-top:clamp(44px,6vw,76px);perspective:1600px;display:flex;flex-direction:column;align-items:center}
-.au-lap{width:min(640px,100%);transform:rotateX(14deg);transform-origin:top center;will-change:transform}
+.au-demo{perspective:1600px;width:100%;display:flex;flex-direction:column;align-items:center}
+.au-lap{width:min(640px,100%);margin-left:auto;margin-right:auto;transform-origin:top center;will-change:transform}
 .au-lid{background:#1a1a1a;border:1px solid #303030;border-bottom:none;border-radius:clamp(16px,2.2vw,28px) clamp(16px,2.2vw,28px) 0 0;padding:clamp(10px,1.5vw,18px) clamp(10px,1.5vw,18px) clamp(6px,1vw,12px);position:relative}
 .au-cam{position:absolute;top:clamp(10px,1.5vw,18px);left:50%;transform:translateX(-50%);width:clamp(64px,9vw,122px);height:clamp(11px,1.6vw,19px);background:#1a1a1a;border-radius:0 0 clamp(6px,1vw,10px) clamp(6px,1vw,10px);z-index:30;display:flex;align-items:center;justify-content:center}
 .au-cam span{width:4px;height:4px;border-radius:50%;background:#3a3a3a}
@@ -113,6 +106,7 @@
 .au-hb2 span{background:#22303e}
 .au-mc{display:flex;flex-direction:column;gap:12px;padding:14px}
 .au-cx{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.au-scr.au-grow{aspect-ratio:auto}
 @keyframes auPulse{0%,100%{box-shadow:0 0 0 0 rgba(255,77,0,.55)}50%{box-shadow:0 0 0 14px rgba(255,77,0,0)}}
 @media (prefers-reduced-motion:reduce){[data-aupulse]{animation:none!important}}
 [data-fix] .au-new{display:none}
@@ -215,7 +209,7 @@
 <div class="au-sh" aria-hidden="true"></div>
 </div>
 </div>
-<!-- EMBED B: mobil -->
+
 <div class="au-demo au-demo--mobile" data-au-demo="1">
 <div class="au-lap">
 <div class="au-fr">
@@ -247,6 +241,7 @@
 <div class="au-sh" aria-hidden="true"></div>
 </div>
 </div>
+
 <script>
 /* CODE EMBED: logika hero dema TRIMEX (vanilla JS, sdílený stav desktop+mobil).
    Očekávaná struktura markupu (viz demo markup embed / BUILD_PLAN.md):
@@ -285,7 +280,26 @@
         c.textContent = String(cnt);
       });
       root.classList.toggle('is-all', all);
+      fit(root);
     });
+  }
+
+  /* Necha obrazovku narust jen kdyz se obsah do pomeru 16/10 nevejde
+     (zdrojova ukazka tomu davala prostor zoomem pri scrollu). */
+  function fit(root) {
+    var scr = root.querySelector('.au-scr');
+    if (!scr) return;
+    var pg = scr.querySelector('.au-page');
+    scr.classList.remove('au-grow');
+    var bd = scr.querySelector('.au-bd');
+    var over = (pg && pg.scrollHeight > pg.clientHeight + 1);
+    if (!over && bd) {
+      var tol = Math.max(18, window.innerWidth / 60);
+      over = (bd.scrollHeight - bd.clientHeight) > tol;
+    }
+    if (over) scr.classList.add('au-grow');
+    if (scr.scrollTop) scr.scrollTop = 0;
+    if (pg && pg.scrollTop) pg.scrollTop = 0;
   }
 
   function toggle(k) {
@@ -309,7 +323,8 @@
   });
 
   render();
+  window.addEventListener('resize', function () { roots.forEach(fit); });
 })();
+
 </script>
-</body>
-</html>
+</body></html>
