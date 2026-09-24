@@ -47,6 +47,7 @@ Jen podpůrné: žádné měření návštěvnosti, stará verze WordPressu nebo
 - **Chrome sám zkouší https.** Web na `http://` neznamená „Nezabezpečeno“. Vždycky pusť `httpscheck.mjs`.
 - **Blokace zahraničních IP.** Google (USA) dostal stránku bez stylů, z Česka se načetla normálně. Když Google vidí rozbitý web, ale soubory z Česka vrací 200, je to blokace, ne argument.
 - **Adresa s www a bez www.** Firmy.cz může odkazovat na `www.`, která hází chybu 500, zatímco adresa bez www funguje. To je dobrý a ověřitelný háček: „když na vás kliknu z Firmy.cz…“.
+- **Firma může mít novější web jinde.** Firmy.cz někdy odkazuje na starou doménu. Před hovorem vyhledej název firmy a porovnej IČO. Podobný název ještě neznamená stejnou firmu (GARANTSTAV Strakonice ≠ GARANTSTAV Praha).
 - **Čísla na webu stárnou.** Web psal 18 zaměstnanců, ARES 6–9. Počet lidí říkej jen podle ARES.
 - **Střední skóre PSI (např. 58/84) není důvod.** Rychlost jen podle R4.
 - **Napadené weby.** `SPAM` v shortlistu = skrytý text o sázkách nebo lécích. Ověř ve zdrojovém kódu (Ctrl+U). Do telefonu říkej „nejspíš napadený“, ne „hacknutý“.
