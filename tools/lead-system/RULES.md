@@ -21,7 +21,7 @@ Cíl: zavolat majiteli a domluvit 30min videohovor s rozborem webu zdarma. Prod�
 |---|---|---|---|
 | R1 | Na mobilu zmenšená verze pro počítač | `mobile.jpg` + `dom.viewportMeta = false` | Nový web |
 | R2 | Chrome píše „Nezabezpečeno“ | `finalUrl` začíná `http://` **a zároveň** `httpscheck.mjs` potvrdí, že https nefunguje | Opravy a zrychlení |
-| R3 | Web je rozbitý | Chybová stránka, lorem ipsum, rozsypané rozložení na screenshotu | Opravy a zrychlení |
+| R3 | Web je rozbitý | Chybová stránka, lorem ipsum, rozsypané rozložení, výchozí stránka hostingu místo webu, reklama bezplatného hostingu, skrytý spam (sázky, léky) ve zdrojovém kódu | Opravy a zrychlení |
 | R4 | Web je pomalý | PSI mobil < 30 **a zároveň** desktop < 60 | Opravy a zrychlení |
 | R5 | Vzhled o dekádu pozadu | Na obou screenshotech zjevně 2008–2015 i pro laika | Nový web |
 
@@ -49,6 +49,8 @@ Jen podpůrné: žádné měření návštěvnosti, stará verze WordPressu nebo
 - **Adresa s www a bez www.** Firmy.cz může odkazovat na `www.`, která hází chybu 500, zatímco adresa bez www funguje. To je dobrý a ověřitelný háček: „když na vás kliknu z Firmy.cz…“.
 - **Čísla na webu stárnou.** Web psal 18 zaměstnanců, ARES 6–9. Počet lidí říkej jen podle ARES.
 - **Střední skóre PSI (např. 58/84) není důvod.** Rychlost jen podle R4.
+- **Napadené weby.** `SPAM` v shortlistu = skrytý text o sázkách nebo lécích. Ověř ve zdrojovém kódu (Ctrl+U). Do telefonu říkej „nejspíš napadený“, ne „hacknutý“.
+- **Špička Firmy.cz je přelidněná.** 1.–2. místo ve velkém městě obvolávají všichni. Známku A nedávej jen za velikost, když je firma zároveň nahoře ve velkém městě.
 
 ## Známka
 

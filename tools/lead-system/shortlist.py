@@ -19,6 +19,7 @@ for f in glob.glob('runs/*/sites/*/result.json'):
     if o.get('eshop'): fl.append('ESHOP')
     t=(o.get('title') or '')+' '+(o.get('textSample') or '')[:120]
     if not o or re.search(r'(?i)internal server error|forbidden|not found|chyba serveru|error occurred|503|502',t): fl.append('ERR?')
+    if re.search(r'(?i)mostbet|1xbet|\bkasin|\bcasino|sázková kancelář|\bviagra\b|\bcialis\b|payday', (o.get('textSample') or '')+(o.get('title') or '')): fl.append('SPAM')
     if 'C' in sys.argv[1:] and o and o.get('viewportMeta') and not o.get('telLinks') and not o.get('inquiryForms'): fl.append('C?')
     if not [x for x in fl if x!='ESHOP']: continue
     c=cand.get(h,{})

@@ -31,9 +31,10 @@ cp jobs.example.txt jobs.txt  # upravit obory a města
 ./queue.sh                    # 3 obory najednou, ~40 min na obor
 SKIP=5 ./queue.sh             # přeskočí top 5 na firmy.cz – ty obvolává každý
 ./repsi.sh                    # přeměří weby, kde PSI selhalo (kvóta)
-python3 shortlist.py          # vypíše weby s nálezem (R1?, HTTP?, R4, ERR?)
+python3 shortlist.py          # vypíše weby s nálezem (R1?, HTTP?, R4, ERR?, SPAM)
 python3 shortlist.py C        # + kandidáti na známku C (bez tel: odkazu a formuláře)
 node httpscheck.mjs www.firma.cz   # potvrdí, jestli https opravdu nefunguje
+node sheet.mjs shortlist.json runs/prehled   # screenshoty 10 na list, rychlá vizuální kontrola
 ```
 
 Formát `jobs.txt` (řádek = jeden běh):
@@ -54,6 +55,7 @@ Menší města vychází líp. Na firmy.cz se nahoru dostávají firmy, které s
 | `verify2.mjs` | Měření z Google PSI (mobil + desktop, screenshoty) a statická fakta ze stránky |
 | `httpscheck.mjs` | Pustí PSI na `https://` verzi – potvrdí nebo vyvrátí „Nezabezpečeno“ |
 | `shortlist.py` | Projde všechny běhy a vypíše weby s nálezem. Přeskočí domény z `done_hosts.txt` |
+| `sheet.mjs` | Složí mobilní screenshoty ze shortlistu do přehledových obrázků (10 na list) |
 | `cleanup.mjs` | Přeověří existující leady z Notionu (`cleanup.tsv`: id, web, obor) |
 | `queue.sh`, `repsi.sh` | Fronta běhů a přeměření |
 | `RULES.md` | Pravidla hodnocení, známky, texty a pasti, na které jsme narazili |
