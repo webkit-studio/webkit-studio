@@ -1,0 +1,11 @@
+# Výsledky běhů a seznamy firem do veřejného repa nepatří.
+node_modules/
+runs/
+*.out
+jobs.txt
+done_hosts.txt
+known_domains.txt
+cleanup.tsv
+shortlist.json
+repsi_list.txt
+.psi_env
