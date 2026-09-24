@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="cs"><head><meta charset="utf-8">
+<style>
+@font-face{font-family:"Bricolage";src:url(bricolage-grotesque-var.woff2) format("woff2");font-weight:200 800;font-stretch:75% 100%}
+@font-face{font-family:"Instrument";src:url(instrument-sans-var.woff2) format("woff2");font-weight:400 700}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1200px;height:630px;overflow:hidden}
+/* brandová modrá #1D2BE8 + jemné bubliny světla a hloubky */
+body{position:relative;color:#fff;font-family:"Instrument",sans-serif;-webkit-font-smoothing:antialiased;
+  background:
+    radial-gradient(520px 440px at 88% 8%, rgba(96,132,255,.55), transparent 70%),
+    radial-gradient(420px 360px at 58% 78%, rgba(70,100,255,.28), transparent 70%),
+    radial-gradient(560px 460px at 4% 104%, rgba(12,18,150,.60), transparent 70%),
+    radial-gradient(360px 300px at 30% 10%, rgba(20,30,190,.35), transparent 70%),
+    #1D2BE8}
+.logo{position:absolute;left:72px;top:64px;display:flex;align-items:center;gap:16px;font-weight:600;font-size:38px;letter-spacing:-.012em}
+.logo img{width:46px;height:46px;display:block}
+h1{position:absolute;left:72px;bottom:var(--hb,66px);font-family:"Bricolage";font-weight:560;font-variation-settings:"opsz" 96;font-size:var(--hs,132px);line-height:.91;letter-spacing:-.042em}
+h1 .b{color:#A6D4FF}
+.proof{position:absolute;left:var(--pl,880px);top:var(--pt,213px);bottom:var(--pb,75px);display:flex;flex-direction:column;justify-content:space-between}
+.num{font-family:"Bricolage";font-weight:380;font-variation-settings:"opsz" 96;font-size:var(--ns,104px);line-height:.82;letter-spacing:-.045em}
+.lab{margin-top:14px;font-weight:500;font-size:25px;line-height:1.15;color:#DCE6FF}
+</style></head>
+<body>
+  <div class="logo"><img src="symbol-white.png" alt="">Webkit.Studio</div>
+  <h1><span class="b">Ptáme se.</span><br>Navrhujeme.<br>Stavíme.</h1>
+  <div class="proof">
+    <div class="stat"><div class="num">30+</div><div class="lab">úspěšných<br>projektů</div></div>
+    <div class="stat"><div class="num">5+</div><div class="lab">let<br>zkušeností</div></div>
+  </div>
+</body></html>
