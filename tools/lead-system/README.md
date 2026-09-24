@@ -29,6 +29,7 @@ export PSI_API_KEY=...        # nikam neukládat do repa
 
 cp jobs.example.txt jobs.txt  # upravit obory a města
 ./queue.sh                    # 3 obory najednou, ~40 min na obor
+SKIP=5 ./queue.sh             # přeskočí top 5 na firmy.cz – ty obvolává každý
 ./repsi.sh                    # přeměří weby, kde PSI selhalo (kvóta)
 python3 shortlist.py          # vypíše weby s nálezem (R1?, HTTP?, R4, ERR?)
 python3 shortlist.py C        # + kandidáti na známku C (bez tel: odkazu a formuláře)
@@ -42,6 +43,8 @@ slozka|Obor|dotaz 1;dotaz 2;dotaz 3
 ```
 
 Menší města vychází líp. Na firmy.cz se nahoru dostávají firmy, které se o marketing starají, a ty mívají dobrý web.
+
+**Pozor na přeplněnou špičku.** Firmy na prvních místech Firmy.cz s webem nepřizpůsobeným pro mobil obvolávají i jiné agentury a AI nástroje. Dvě firmy hned první den řekly, že jim kvůli webu volal už někdo jiný. Proto `SKIP=5`: bere se 6.–12. místo.
 
 ## Soubory
 

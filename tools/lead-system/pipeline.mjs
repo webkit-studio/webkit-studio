@@ -8,12 +8,14 @@ const dom = u => { try { return new URL(u).hostname.replace(/^www\./, ''); } cat
 const b = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH || '/opt/pw-browsers/chromium-1194/chrome-linux/chrome', args: ['--no-sandbox', '--disable-dev-shm-usage', '--ignore-certificate-errors'] });
 const p = await (await b.newContext({ locale: 'cs-CZ', ignoreHTTPSErrors: true })).newPage();
 const details = []; const rankMap = {};
+// SKIP=5 přeskočí prvních 5 výsledků: firmy na špičce Firmy.cz obvolává každý
+const SKIP = +(process.env.SKIP || 0);
 for (const q of queries) {
   let links = [];
   for (let i = 1; i <= 3 && !links.length; i++) {
     try { await p.goto('https://www.firmy.cz/?q=' + encodeURIComponent(q), { waitUntil: 'domcontentloaded', timeout: 45000 }); await p.waitForTimeout(4000); for (let s = 0; s < 3; s++) { await p.mouse.wheel(0, 3000); await p.waitForTimeout(700); } links = await p.evaluate(() => [...new Set([...document.querySelectorAll('a[href*="/detail/"]')].map(a => a.href.split('#')[0].split('?')[0]))]); } catch {}
   }
-  log(`search "${q}": ${links.length}`); links.slice(0, +perQ).forEach((l, i) => { if (!details.includes(l)) { details.push(l); rankMap[l] = { query: q, rank: i + 1 }; } });
+  log(`search "${q}": ${links.length}`); links.slice(SKIP, SKIP + +perQ).forEach((l, i) => { if (!details.includes(l)) { details.push(l); rankMap[l] = { query: q, rank: SKIP + i + 1 }; } });
 }
 await b.close();
 // 2) details via curl (server-rendered JSON-LD)
