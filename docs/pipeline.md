@@ -91,14 +91,14 @@ Stav je jen snímek. Pravdu drží issue.
 | B02 | Trh, vyhledávání, GEO | #11 | B01 | opus-5.5 · high | čeká |
 | T01 | Strategie webu a měřicí plán | #12 | ✋A | opus-5.5 · xhigh | čeká na schválení |
 | D01 | Design systém, komponenty a náhled 3 služeb | #13 | K00 (hned, souběžně s B01) | opus-5.5 · xhigh | čeká |
-| T02 | Vzorové texty (homepage a `/webflow-vyvoj`) | | ✋B | opus-5.5 · xhigh | čeká na schválení |
-| T03 | Zbylé texty, FAQ, SEO meta | | ✋C | opus-5.5 · high | čeká na schválení |
-| S01 | Webflow základ a styleguide | | ✋B | opus-5.5 · high | čeká na schválení |
-| S02 | CMS Projekty a `/nase-prace` | | S01 | opus-5.5 · high | čeká |
-| S03 | Úprava styleguidu a stránky | | S02, T03 | opus-5.5 · high | čeká |
-| S04 | Měření a lead flow | | S03 | opus-5.5 · high | čeká |
-| S05 | SEO a GEO technika | | S03 | opus-5.5 · high | čeká |
-| P01 | Výkon 100/100 | | S04, S05 | opus-5.5 · xhigh | čeká |
-| R01 | Revize | | P01 | opus-5.5 · high | čeká |
-| L01 | Publikace a ověření | | ✋D | opus-5.5 · high | čeká na schválení |
-| M01 | Rutina ladění (každé 2 týdny) | | L01 | opus-5.5 · high | čeká |
+| T02 | Vzorové texty (homepage a `/webflow-vyvoj`) | #16 | ✋B | opus-5.5 · xhigh | čeká na schválení |
+| T03 | Zbylé texty, FAQ, SEO meta | #17 | ✋C | opus-5.5 · high | čeká na schválení |
+| S01 | Webflow základ a styleguide | #18 | ✋B | opus-5.5 · high | čeká na schválení |
+| S02 | CMS Projekty a `/nase-prace` | #19 | S01 | opus-5.5 · high | čeká |
+| S03 | Úprava styleguidu a stránky | #20 | S02, T03 | opus-5.5 · high | čeká |
+| S04 | Měření a lead flow | #21 | S03 | opus-5.5 · high | čeká |
+| S05 | SEO a GEO technika | #22 | S03 | opus-5.5 · high | čeká |
+| P01 | Výkon 100/100 | #23 | S04, S05 | opus-5.5 · xhigh | čeká |
+| R01 | Revize | #24 | P01 | opus-5.5 · high | čeká |
+| L01 | Publikace a ověření | #25 | ✋D | opus-5.5 · high | čeká na schválení |
+| M01 | Rutina ladění (každé 2 týdny) | #26 | L01 | opus-5.5 · high | čeká |
