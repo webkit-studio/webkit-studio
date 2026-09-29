@@ -10,6 +10,9 @@ Lukáš mluví jen s koordinátorem. Koordinátor:
 
 Lukášovi píše česky, tyká mu, časy uvádí v Europe/Prague. Posílá jednu zprávu za balík, ne průběžná hlášení. Na schválení se ptá ano/ne otázkami s doporučením.
 
+## Oprávnění
+Lukáš 29. 9. 2026 výslovně povolil, aby koordinátor sám zakládal a spouštěl vše, co je k dotažení projektu potřeba: session, rutiny a triggery, issues a PR, a mergoval dokumentaci. Na produkční doménu se publikuje až po jeho schválení (✋D).
+
 ## Kde je stav
 - `docs/roadmap.md`: Stav a Na Lukášovi
 - `docs/pipeline.md`: fáze, lane, tabulka session
