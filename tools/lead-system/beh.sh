@@ -1,6 +1,6 @@
 #!/bin/bash
 # Jeden běh pro jeden obor: hledání → měření → přeměření → shortlist → přehled screenshotů.
-# Použití: SKIP=5 ./beh.sh <slozka> "<Obor>" "dotaz 1;dotaz 2;..."
+# Použití: SKIP=5 NA_DOTAZ=7 ./beh.sh <slozka> "<Obor>" "dotaz 1;dotaz 2;..."
 # Používá noční rutina (rutiny/nocni-hledani.md), jde pustit i ručně.
 set -u
 cd "$(dirname "$0")"

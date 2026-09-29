@@ -37,7 +37,7 @@ npm install --no-audit --no-fund --silent
 4. **Města:** `dotazu_za_noc` měst podle `STRATEGIE.md` → „Trhy“:
    - okresní města ze zásobníku,
    - u tohoto oboru ne ta, která byla v deníku za posledních 30 dní,
-   - střídej kraje, max 2 města z jednoho kraje.
+   - střídej kraje, max 4 města z jednoho kraje.
 5. **Dotazy:** klíčové slovo oboru + město, např. `rekonstrukce bytů Kolín`. Když má obor víc klíčových slov, střídej je mezi městy.
 
 ## 4. Známé domény
@@ -48,7 +48,7 @@ Vytáhni z výstupu weby **všech** leadů (všechny stavy) a ulož domény do `
 
 ```bash
 cd tools/lead-system
-SKIP=<skip z Nastavení> ./beh.sh <slozka> "<Obor>" "<dotaz 1>;<dotaz 2>;..."
+SKIP=<skip> NA_DOTAZ=<na_dotaz> ./beh.sh <slozka> "<Obor>" "<dotaz 1>;<dotaz 2>;..."
 ```
 
 - `<slozka>` je krátký název bez mezer a diakritiky, např. `rekonstrukce-0930`.
@@ -56,7 +56,9 @@ SKIP=<skip z Nastavení> ./beh.sh <slozka> "<Obor>" "<dotaz 1>;<dotaz 2>;..."
 - Výsledkem je `shortlist.json` a přehledy screenshotů `runs/<slozka>/prehled-*.png`.
 - Log je v `runs/<slozka>/log.txt`. Počet řádků `+ kandidát` = kandidátů, počet řádků se `search` = dotazy.
 
-**Když `shortlist.json` obsahuje 0 webů:** zapiš běh do deníku s výsledkem „Málo leadů“ a skonči.
+**Druhé kolo:** když po posouzení (krok 6) vychází méně než 3 leady a od začátku uplynulo méně než 90 minut, pusť druhé kolo. Stejný obor, dalších `dotazu_za_noc` měst (jiná než v prvním kole), nová složka. Do deníku jde jeden řádek za oba běhy.
+
+**Když ani po druhém kole nic není:** zapiš běh do deníku s výsledkem „Málo leadů“ a skonči.
 
 ## 6. Posuď kandidáty
 
@@ -67,7 +69,7 @@ Pro každý web ze `shortlist.json` (v poli `dir` je složka s `result.json`, `m
    - Příznak `HTTP?` → `node httpscheck.mjs <host>`.
    - Příznak `SPAM` → ověř ve zdrojovém kódu.
    - Příznak `ERR?` → zkus i adresu s `www.` a bez něj.
-3. **Vyřaď** vše, co spadá pod N1–N5 nebo pod „Nechceme“ ve `STRATEGIE.md`.
+3. **Vyřaď** vše, co spadá pod N1–N5 nebo pod „Nechceme“ ve `STRATEGIE.md`. Obchodní řetězce a velkoprodejny (Kaufland, Tesco, Globus, OBI, Hornbach, Bauhaus, Mountfield a podobně) vyřaď hned, bez měření.
 4. **Firma žije a nemá novější web jinde:**
    - Vyhledej název firmy na webu a porovnej IČO a telefon. Podobný název ještě neznamená stejnou firmu.
    - Když má firma novější web, lead nezapisuj.
