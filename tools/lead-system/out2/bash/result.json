@@ -1,0 +1,17 @@
+{
+  "url": "https://bash",
+  "host": "bash",
+  "checkedAt": "2026-09-29T09:52:22.659Z",
+  "psi": {
+    "mobile": {
+      "error": "Lighthouse returned error: FAILED_DOCUMENT_REQUEST. Nástroji Lighthouse se požadovanou stránku nepodařilo spolehlivě načíst. Zkontrolujte, zda testujete správnou adresu URL a zda server správně odpoví"
+    },
+    "desktop": {
+      "error": "Lighthouse returned error: FAILED_DOCUMENT_REQUEST. Nástroji Lighthouse se požadovanou stránku nepodařilo spolehlivě načíst. Zkontrolujte, zda testujete správnou adresu URL a zda server správně odpoví"
+    }
+  },
+  "dom": {
+    "failed": true
+  },
+  "errors": []
+}

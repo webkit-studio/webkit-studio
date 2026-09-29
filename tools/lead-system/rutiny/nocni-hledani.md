@@ -1,6 +1,6 @@
 # Noční hledání – postup rutiny
 
-Běží každý všední den v noci. **Cíl: přidat do zásoby 3–8 ověřených leadů z jednoho oboru.** Kvalita je přednější než počet: raději 2 jisté leady než 8 sporných. Každý lead, který Lukáš ráno vyřadí, stojí víc než lead, který nevznikl.
+Běží pondělí až pátek ve 2:00. **Cíl: přidat do zásoby 3–8 ověřených leadů z jednoho oboru.** Kvalita je přednější než počet: raději 2 jisté leady než 8 sporných. Každý lead, který Lukáš ráno vyřadí, stojí víc než lead, který nevznikl.
 
 ## 0. Pravidla
 

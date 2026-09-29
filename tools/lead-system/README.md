@@ -16,15 +16,22 @@ Výtěžnost je kolem **5 %**: z 60 firem v oboru vyjdou 2–5 leady. Zbytek má
 
 ## Rutiny
 
-Systém běží sám ve dvou rutinách v cloudovém prostředí **Webkit.Studio**. **Rutina v sobě instrukce nemá.** Při každém běhu si stáhne tohle repo a řídí se soubory níž. Strategie se tak mění úpravou souboru, ne rutiny.
+Systém běží sám v jedné rutině **„Webkit · lead engine (Po–Pá hledání, So vyhodnocení)“** v cloudovém prostředí **Webkit.Studio**:
+
+- **pondělí až pátek ve 2:00** noční hledání,
+- **v sobotu ve 2:00** týdenní vyhodnocení.
+
+Výsledek přijde e-mailem.
+
+**Rutina v sobě instrukce nemá.** Při každém běhu si stáhne tohle repo a podle dne otevře jeden ze souborů níž. Strategie se tak mění úpravou souboru, ne rutiny.
 
 ```mermaid
 flowchart LR
   S[STRATEGIE.md<br>co a kde hledat, cíle, testy] --> N
   S --> T
-  N[Noční hledání<br>Po–Pá v noci] -->|nové leady| L[(Notion Lead engine<br>později dashboard)]
+  N[Noční hledání<br>Po–Pá 2:00] -->|nové leady| L[(Notion Lead engine<br>později dashboard)]
   N -->|řádek| D[(Deník běhů)]
-  L -->|hovory a výsledky| T[Týdenní vyhodnocení<br>sobota ráno]
+  L -->|hovory a výsledky| T[Týdenní vyhodnocení<br>sobota 2:00]
   D --> T
   T -->|návrhy změn| S
 ```
