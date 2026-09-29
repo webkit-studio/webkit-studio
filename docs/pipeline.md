@@ -87,7 +87,7 @@ Stav je jen snímek. Pravdu drží issue.
 
 | Kód | Název | Issue | Závisí na | Model · effort | Stav |
 |---|---|---|---|---|---|
-| B01 | Služby, zákazníci, nabídka | #10 | K00 | opus-5.5 · xhigh | čeká |
+| B01 | Služby, zákazníci, nabídka | #10 | K00 | opus-5.5 · xhigh | hotovo |
 | B02 | Trh, vyhledávání, GEO | #11 | B01 | opus-5.5 · high | čeká |
 | T01 | Strategie webu a měřicí plán | #12 | ✋A | opus-5.5 · xhigh | čeká na schválení |
 | D01 | Design systém, komponenty a náhled 3 služeb | #13 | K00 (hned, souběžně s B01) | opus-5.5 · xhigh | hotovo |

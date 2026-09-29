@@ -69,13 +69,16 @@ Ve Webflow jako proměnné (Variables) ve složkách Barvy, Písmo, Mezery, Radi
 | `--c-blue-on-dark` | `#86A2FF` | akcent na tmavé patičce | |
 | `--c-success` | `#0B7A48` | potvrzení | |
 | `--c-error` | `#C0261B` | chyby formuláře | |
+| `--c-on-blue`, `--c-on-blue-2` | `#FFFFFF`, bílá 78 % | text na modré ploše | |
+| `--c-on-ink-2`, `--c-line-on-dark` | bílá 70 %, bílá 14 % | druhotný text a linky v patičce | |
+| `--c-warn-bg`, `--c-warn-ink` | `#FFF4D6`, `#6B4A00` | jen štítky `[DOPLNIT]` v návrhu, na webu nebudou | |
 
 **Pravidla barev**
 - Text je vždy Ink, Ink 2 nebo Ink 3. Na modré jen bílá. Všechny kombinace splňují AA.
 - Modrá znamená akci nebo zvýraznění. Nikdy velké plochy textu.
 - Jedna sytě modrá plocha na stránce: velké CTA.
 - Světlé odstíny modré jsou posunuté k chladné modré (odstín kolem 225°), aby nepůsobily fialově.
-- Stín jen u plovoucích prvků. Jinak plochy oddělují tón a 1px linka.
+- Stíny nepoužíváme. Plochy oddělují tón a 1px linka.
 - Gradient jen jako maska okraje marquee. Nikde jinde.
 
 ### Typografie
@@ -100,11 +103,11 @@ Ve Webflow jako proměnné (Variables) ve složkách Barvy, Písmo, Mezery, Radi
 
 | Token | Hodnota |
 |---|---|
-| `--s-1` až `--s-10` | 4, 8, 12, 16, 24, 32, 48, 64, 96, 128 px |
+| `--s-1` až `--s-10` | 4, 8, 12, 16, 24, 32, 48, 64, 96, 128 px (v náhledu zapsané přímo v rem, ve Webflow jako proměnné) |
 | `--sec-y` (odsazení sekce) | `clamp(4rem, 2.4rem + 6vw, 8.5rem)` |
 | `--gutter` (okraj stránky) | `clamp(16px, 4.2vw, 56px)` |
 | Max. šířka obsahu | 1312 px včetně okrajů |
-| `--r-xs` / `--r-sm` / `--r-md` / `--r-lg` / pill | 6 / 10 / 16 / 24 / 999 px (štítek / pole / karta / CTA plocha / tlačítko) |
+| `--r-xs` / `--r-sm` / `--r-md` / `--r-lg` / pill | 6 / 10 / 16 / 24 / 999 px (drobnosti / pole / karta / CTA plocha / tlačítko a štítek) |
 | `--z-raised` / header / menu / overlay / modal / toast | 1 / 50 / 60 / 80 / 90 / 100 |
 
 ### Pohyb
@@ -170,11 +173,11 @@ Všechno ve vanilla JS a CSS, bez knihoven. Při `prefers-reduced-motion` se vyp
 | Text tlačítka se odroluje, šipka v kolečku | Text je v DOM jednou, kopie přes `::after` s `attr(data-t)`. `translateY(-100%)`, 300 ms. Šipka vyjede doprava a klon přijede zleva. |
 | Podtržení odkazu | `background-size` z 0 na 100 %, kreslí se zleva a odchází doprava. 500 ms, ease-draw. |
 | Odhalení řádků nadpisu | Slova se obalí do `span.w`, seskupí se podle `offsetTop` do řádků, každý řádek o 80 ms později. Čeká na `document.fonts.ready`. |
-| Scroll reveal | IntersectionObserver při 10 %, sourozenci po 70 ms, jednou. Prvky nad ohybem se neskrývají. |
+| Scroll reveal | IntersectionObserver při 10 %, sourozenci po 70 ms, jednou. Prvky nad ohybem se neskrývají, nadpis nad ohybem se jen jemně posune bez zprůhlednění. |
 | Hover karty projektu | Obrázek `scale(1.035)` za 800 ms, vyjede štítek „Zobrazit projekt“, šipka se posune. |
 | Náhled u kurzoru | V seznamu projektů náhled sleduje kurzor (lerp přes requestAnimationFrame). Jen jemný ukazatel, na dotyku se místo něj ukáže miniatura. |
 | FAQ | Nativní `details` s `name` (otevřená jen jedna). Plynulá výška přes `::details-content`, kde to prohlížeč umí. |
-| Marquee log | CSS `translateX(-50%)`, 38 s, pauza při hoveru. |
+| Marquee log | CSS `translateX(-50%)`, 38 s, pauza při hoveru a tlačítko „Zastavit pohyb“ (WCAG 2.2.2). |
 | Skrývání navbaru | Schová se po 40 px scrollu dolů (od 120 px), vrátí se po 30 px nahoru. Otevřené menu ho drží. |
 
 ## Výkonnostní rozpočet
@@ -194,6 +197,7 @@ Webflow vždy načte jQuery a webflow.js. Proto je rozpočet na vlastní kód p�
 ## Kontrola bran
 
 - **c (texty):** žádná zakázaná vata, žádné „—“ ani „·“ ve webových textech, fakta jako `[DOPLNIT]`. Hlas „my“, vykání.
+- **d (review):** nezávislá kontrola našla 20 bodů. Opraveno: akordeon (`inert`, nadpis mimo tlačítko), odeslání formuláře jako `button`, chyby přes `aria-describedby`, návrat fokusu z menu, pauza marquee, únik posluchačů, H1 nad ohybem se neskrývá, neoznačená fakta, nadpisy bez slovesa, žargon.
 - **h (přístupnost):** axe-core 4 (WCAG 2.2 AA, včetně `target-size`) na všech 5 obrazovkách v šířce 1440 i 390: **0 chyb**. Kontrast AA, klikací plochy ≥ 24 px, konzole bez chyb, reduced motion vypne animace.
 - Snímky 1440 a 390 px všech 4 stránek: `docs/web-v2/navrh/snimky/`.
 
