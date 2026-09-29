@@ -1,7 +1,7 @@
 // sheet.mjs <shortlist.json> <out-prefix> – skládá mobilní screenshoty do přehledových obrázků (10 na list)
-import { chromium } from 'playwright'; import fs from 'node:fs'; import path from 'node:path';
+import { chromium } from 'playwright'; import { chromePath } from './chrome.mjs'; import fs from 'node:fs'; import path from 'node:path';
 const [,, src, out] = process.argv; const S = JSON.parse(fs.readFileSync(src, 'utf8'));
-const b = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH || '/opt/pw-browsers/chromium-1194/chrome-linux/chrome', args: ['--no-sandbox'] });
+const b = await chromium.launch({ executablePath: chromePath(), args: ['--no-sandbox'] });
 const p = await b.newPage({ viewport: { width: 1400, height: 800 } });
 for (let i = 0; i < S.length; i += 10) {
   const cells = S.slice(i, i + 10).map((s, k) => { const img = path.resolve(s.dir, 'mobile.jpg'); const d = fs.existsSync(img) ? fs.readFileSync(img).toString('base64') : '';

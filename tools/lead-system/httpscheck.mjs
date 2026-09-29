@@ -1,4 +1,5 @@
 const KEY = process.env.PSI_API_KEY; const hosts = process.argv.slice(2);
+if (!KEY) { console.error('Chybí PSI_API_KEY (Google PageSpeed Insights API klíč), viz README → Klíč PSI.'); process.exit(2); }
 async function one(h) {
   for (let i = 1; i <= 6; i++) {
     const u = `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent('https://' + h + '/')}&strategy=mobile&category=best-practices&key=${KEY}`;

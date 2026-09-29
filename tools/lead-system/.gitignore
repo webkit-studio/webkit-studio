@@ -9,3 +9,4 @@ cleanup.tsv
 shortlist.json
 repsi_list.txt
 .psi_env
+__pycache__/

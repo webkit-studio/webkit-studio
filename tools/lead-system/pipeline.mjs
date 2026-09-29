@@ -1,11 +1,11 @@
 // pipeline.mjs <runDir> <perQuery> "<obor label>" "<query>"...
-import { chromium } from 'playwright'; import fs from 'node:fs'; import path from 'node:path'; import { execFile } from 'node:child_process';
+import { chromium } from 'playwright'; import { chromePath } from './chrome.mjs'; import fs from 'node:fs'; import path from 'node:path'; import { execFile } from 'node:child_process';
 const [,, runDir, perQ, obor, ...queries] = process.argv; fs.mkdirSync(runDir, { recursive: true });
 const log = (...a) => { const l = a.join(' '); console.log(l); fs.appendFileSync(path.join(runDir, 'log.txt'), l + '\n'); };
 const known = new Set((fs.existsSync('known_domains.txt') ? fs.readFileSync('known_domains.txt', 'utf8') : '').split(/\s+/).filter(Boolean));
 const dom = u => { try { return new URL(u).hostname.replace(/^www\./, ''); } catch { return null; } };
 // 1) search lists (Chromium, JS-rendered)
-const b = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH || '/opt/pw-browsers/chromium-1194/chrome-linux/chrome', args: ['--no-sandbox', '--disable-dev-shm-usage', '--ignore-certificate-errors'] });
+const b = await chromium.launch({ executablePath: chromePath(), args: ['--no-sandbox', '--disable-dev-shm-usage', '--ignore-certificate-errors'] });
 const p = await (await b.newContext({ locale: 'cs-CZ', ignoreHTTPSErrors: true })).newPage();
 const details = []; const rankMap = {};
 // SKIP=5 přeskočí prvních 5 výsledků: firmy na špičce Firmy.cz obvolává každý

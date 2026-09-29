@@ -1,8 +1,9 @@
 // verify2.mjs <url> <outdir> — measurements from Google PSI (outside our proxy) + static DOM facts from Chromium (only if page really loaded)
-import { chromium } from 'playwright';
+import { chromium } from 'playwright'; import { chromePath } from './chrome.mjs';
 import fs from 'node:fs'; import path from 'node:path';
-const CHROME = process.env.CHROMIUM_PATH || '/opt/pw-browsers/chromium-1194/chrome-linux/chrome';
+const CHROME = chromePath();
 const KEY = process.env.PSI_API_KEY;
+if (!KEY) { console.error('Chybí PSI_API_KEY (Google PageSpeed Insights API klíč), viz README → Klíč PSI.'); process.exit(2); }
 const [,, urlArg, outdirArg] = process.argv;
 const url = urlArg.startsWith('http') ? urlArg : 'https://' + urlArg;
 const host = new URL(url).hostname.replace(/^www\./,'');

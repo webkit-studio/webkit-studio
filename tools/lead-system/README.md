@@ -14,6 +14,57 @@ flowchart LR
 
 Výtěžnost je kolem **5 %**: z 60 firem v oboru vyjdou 2–5 leady. Zbytek má web v pořádku.
 
+## Rutiny
+
+Systém běží sám ve dvou rutinách v cloudovém prostředí **Webkit.Studio**. **Rutina v sobě instrukce nemá.** Při každém běhu si stáhne tohle repo a řídí se soubory níž. Strategie se tak mění úpravou souboru, ne rutiny.
+
+```mermaid
+flowchart LR
+  S[STRATEGIE.md<br>co a kde hledat, cíle, testy] --> N
+  S --> T
+  N[Noční hledání<br>Po–Pá v noci] -->|nové leady| L[(Notion Lead engine<br>později dashboard)]
+  N -->|řádek| D[(Deník běhů)]
+  L -->|hovory a výsledky| T[Týdenní vyhodnocení<br>sobota ráno]
+  D --> T
+  T -->|návrhy změn| S
+```
+
+| Soubor | Kdo ho čte | Kdy ho měnit |
+|---|---|---|
+| `STRATEGIE.md` | obě rutiny | **Tady se mění strategie:** obory, města, cíle, testy, kam zapisovat. |
+| `RULES.md` | noční hledání | Když se změní, co je důvod k hovoru a jak psát texty. |
+| `rutiny/nocni-hledani.md` | noční hledání | Postup krok za krokem. Mění se zřídka. |
+| `rutiny/tydenni-vyhodnoceni.md` | sobotní vyhodnocení | Co se počítá a jak vypadá vyhodnocení. |
+| `rutiny/vystup-notion.md`, `rutiny/vystup-dashboard.md` | obě rutiny | Jak zapisovat a číst. Který platí, určuje `výstup` ve `STRATEGIE.md`. |
+
+**Jak změnit strategii:** uprav `STRATEGIE.md` na větvi `main`. Úprava platí od dalšího běhu. Můžeš ji udělat přímo na GitHubu, nebo napsat Claudovi, co chceš změnit. Každou změnu zapiš do Historie změn na konci souboru.
+
+**Jak zkusit jinou strategii (větev):**
+1. Založ větev, třeba `strategie/mala-mesta`, a uprav v ní `STRATEGIE.md`.
+2. V promptu rutiny přepiš `větev: main` na název nové větve.
+3. Zpátky jde stejně, vrácením na `main`.
+
+**Přepnutí na dashboard:**
+1. V dashboardu: Nastavení → Tokeny → nový token pro rutinu.
+2. V prostředí Webkit.Studio přidej proměnnou `WKD_TOKEN`.
+3. Ve `STRATEGIE.md` změň `výstup` na `dashboard`.
+
+Co musí dashboard ještě umět, je v `rutiny/vystup-dashboard.md`.
+
+## Klíč PSI
+
+**PSI = Google PageSpeed Insights.** Je to bezplatná služba Googlu, která web změří a vyfotí na mobilu i počítači. Systém se jí ptá na každý web, který prověřuje.
+
+**Klíč** je dlouhý kód začínající `AIza…`. Google podle něj pozná, kdo se ptá. Bez klíče pustí jen pár měření a pak odmítá. S klíčem je zdarma 25 000 dotazů denně. Umí jen měřit weby, k ničemu jinému v Google účtu nepustí.
+
+**Kde ho najdeš:** [console.cloud.google.com](https://console.cloud.google.com) → vlevo nahoře vyber projekt → APIs & Services → **Credentials** → řádek API key → **Show key**. Když tam žádný není, vytvoříš ho na [developers.google.com/speed/docs/insights/v5/get-started](https://developers.google.com/speed/docs/insights/v5/get-started) tlačítkem **Get a Key**.
+
+**Kam ho dát:** do prostředí, ve kterém rutiny běží. Nikdy do repa ani do promptu rutiny.
+1. Otevři v Claude libovolnou session v prostředí **Webkit.Studio**.
+2. V záhlaví klikni na název prostředí → **Edit**.
+3. Do **Environment variables** přidej řádek `PSI_API_KEY=AIza…` (celý klíč).
+4. Ulož. Další běh rutiny si ho vezme sám.
+
 ## Co je potřeba
 
 - Node 20+ a `npm install` (Playwright s Chromiem).
@@ -30,6 +81,7 @@ export PSI_API_KEY=...        # nikam neukládat do repa
 cp jobs.example.txt jobs.txt  # upravit obory a města
 ./queue.sh                    # 3 obory najednou, ~40 min na obor
 SKIP=5 ./queue.sh             # přeskočí top 5 na firmy.cz – ty obvolává každý
+SKIP=5 ./beh.sh rekonstrukce "Rekonstrukce bytů a domů" "rekonstrukce bytů Kolín;rekonstrukce bytů Tábor"   # celý běh jednoho oboru
 ./repsi.sh                    # přeměří weby, kde PSI selhalo (kvóta)
 python3 shortlist.py          # vypíše weby s nálezem (R1?, HTTP?, R4, ERR?, SPAM)
 python3 shortlist.py C        # + kandidáti na známku C (bez tel: odkazu a formuláře)
@@ -51,7 +103,9 @@ Menší města vychází líp. Na firmy.cz se nahoru dostávají firmy, které s
 
 | Soubor | Co dělá |
 |---|---|
+| `beh.sh` | Celý běh pro jeden obor jedním příkazem: hledání, měření, přeměření, shortlist, přehled screenshotů |
 | `pipeline.mjs` | firmy.cz → detail firmy (JSON-LD) → předsítko → `verify2.mjs` → ARES |
+| `chrome.mjs` | Najde Chromium (`CHROMIUM_PATH`, jinak `/opt/pw-browsers`) |
 | `verify2.mjs` | Měření z Google PSI (mobil + desktop, screenshoty) a statická fakta ze stránky |
 | `httpscheck.mjs` | Pustí PSI na `https://` verzi – potvrdí nebo vyvrátí „Nezabezpečeno“ |
 | `shortlist.py` | Projde všechny běhy a vypíše weby s nálezem. Přeskočí domény z `done_hosts.txt` |
@@ -59,6 +113,8 @@ Menší města vychází líp. Na firmy.cz se nahoru dostávají firmy, které s
 | `cleanup.mjs` | Přeověří existující leady z Notionu (`cleanup.tsv`: id, web, obor) |
 | `queue.sh`, `repsi.sh` | Fronta běhů a přeměření |
 | `RULES.md` | Pravidla hodnocení, známky, texty a pasti, na které jsme narazili |
+| `STRATEGIE.md` | Co, kde a proč hledat, cíle trychtýře, testy, rozhodovací pravidla, nastavení rutin |
+| `rutiny/` | Postupy nočního hledání a týdenního vyhodnocení a jak zapisovat do Notionu a dashboardu |
 
 Lokální soubory, které do repa nejdou (jsou v `.gitignore`): `runs/`, `jobs.txt`, `done_hosts.txt`, `known_domains.txt`, `cleanup.tsv`. Obsahují seznamy firem a repo je veřejné.
 

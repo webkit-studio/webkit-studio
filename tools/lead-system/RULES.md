@@ -1,6 +1,6 @@
 # Pravidla hodnocení leadů
 
-Cíl: zavolat majiteli a domluvit 30min videohovor s rozborem webu zdarma. Prodává se **výsledek**: víc zákazníků z webu.
+Cíl: zavolat majiteli a domluvit 20min videohovor s rozborem webu zdarma. Proč a kde hledat, je ve `STRATEGIE.md`. Prodává se **výsledek**: víc zákazníků z webu.
 
 **Každý důvod k hovoru musí jít ověřit za 10 sekund.** Otevřu web na telefonu nebo v PageSpeed Insights a vidím totéž.
 
@@ -69,7 +69,7 @@ Jen podpůrné: žádné měření návštěvnosti, stará verze WordPressu nebo
 2. „Ale když otevřu váš web na telefonu, …“ + důvod úrovně 1.
 3. „Tak jsem si říkal, že vám zavolám.“
 
-**Co nabízím** (2–3 věty): 30 minut na videu, projdeme web z telefonu očima zákazníka. Rozbor dostanou sepsaný a můžou ho dát svému dodavateli. Když budou chtít, pomůžeš se [Služba].
+**Co nabízím** (2–3 věty): 20 minut na videu, projdeme web z telefonu očima zákazníka. Rozbor dostanou sepsaný a můžou ho dát svému dodavateli. Když budou chtít, pomůžeš se [Služba]. U varianty B testu T2 platí text ze `STRATEGIE.md` → Běžící testy.
 
 **Důkaz**: co přesně je ověřené (PSI, screenshot, `tel:` odkazy, pořadí na Firmy.cz, ARES). A velkými písmeny, co **neříkat** (např. „Rychlost OK – NEŘÍKAT“).
 
