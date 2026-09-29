@@ -10,3 +10,4 @@
 | 29. 9. 2026 | Repo i issues zůstávají veřejné. Nic interního do nich nepatří. | jsDelivr servíruje jen z veřejného repa. |
 | 29. 9. 2026 | Na produkční doménu publikuje jen L01 po schválení. Ostatní session publikují jen na staging `webkit-studio.webflow.io`. | Živý web nesmí spadnout během přestavby. |
 | 29. 9. 2026 | Lighthouse: přístupnost, best practices a SEO musí mít 100. Výkon na mobilu aspoň 95, cíl je 100. | Webflow vždy načítá jQuery a webflow.js (~350 kB), 100 na mobilu nelze slíbit předem. |
+| 29. 9. 2026 | B01: ceny v analýze jsou tržní rozpětí se zdrojem, naše balíčky jen jako návrh do potvrzení Lukášem. Čísla z mockupů projektů se nepoužívají. | Fakta o nás se nevymýšlejí, mockupy nemusí ukazovat skutečná data. |
