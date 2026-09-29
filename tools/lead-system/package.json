@@ -1,0 +1,9 @@
+{
+  "name": "lead-system",
+  "private": true,
+  "type": "module",
+  "description": "Hledání a ověřování leadů pro cold calling (firmy.cz → Google PageSpeed → hodnocení)",
+  "dependencies": {
+    "playwright": "^1.63.0"
+  }
+}
