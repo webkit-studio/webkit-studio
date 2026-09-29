@@ -12,15 +12,16 @@ Plán celého projektu je v `docs/pipeline.md`, tabulka session a zadání v `do
 | G · Ladění | M01 (rutina), O0x | data před a po |
 
 ## Stav
-_Aktualizováno: 29. 9. 2026 · K00 (koordinátor)_
+_Aktualizováno: 30. 9. 2026 · D01_
 
-**Hotovo:** K00 – založená štafeta, zadání, reference Halo Lab, issues.
-**Rozpracováno:** B01 (#10) a D01 (#13) souběžně. B02 (#11) po B01.
-**Další krok:** 30. 9. ráno Lukáš schvaluje náhled z D01 (web, 3 služby, komponenty). Pak ✋A (positioning a nabídka).
+**Hotovo:** K00 – založená štafeta, zadání, reference Halo Lab, issues. D01 (#13) – design systém, knihovna komponent a náhled homepage a 3 služeb ([artifact](https://claude.ai/artifact/3rGAWQ952JovDCbNPHzFM1), `docs/web-v2/D01-design-system.md`).
+**Rozpracováno:** B01 (#10). B02 (#11) po B01.
+**Další krok:** 30. 9. ráno Lukáš schvaluje náhled z D01 a odpoví na 5 ano/ne otázek v #13. Pak ✋A (positioning a nabídka).
 **Blokery:** žádné.
 
 ### Na Lukášovi
 | Co | Proč | Od kdy |
 |---|---|---|
+| Odpovědět na 5 ano/ne otázek k designu v #13 (začátek `D01-design-system.md`) | Bez nich S01 nezačne stavět | 30. 9. |
 | Vyplnit dotazník faktů z B01 (přijde v issue, stačí krátké odpovědi) | Bez faktů zůstanou v textech `[DOPLNIT]` | po B01 |
 | Přístup k GA4 a Search Console pro session (servisní účet / token v prostředí) | Rutina M01 a ověření v L01 | před L01 |
