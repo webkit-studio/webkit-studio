@@ -24,7 +24,8 @@ Cesty jsou vůči `tools/lead-system/` v repu.
   - Firma, Obor, Známka, Stav, Služba,
   - Osloveno (datum), Follow-up,
   - Odpověď firmy, Poznámka,
-  - Kanál, Varianta zprávy, Zdroj, Běh enginu, datum založení.
+  - Kanál, Varianta zprávy, Zdroj, Běh enginu,
+  - Ověřeno (u leadů z rutiny je to datum založení).
 - **Deník běhů** (Notion databáze „Lead engine – běhy“) za posledních 7 dní.
 
 ## 3. Výsledek každého hovoru

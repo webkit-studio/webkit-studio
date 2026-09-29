@@ -122,7 +122,7 @@ Postup, který se osvědčil při ruční práci 24. 9. 2026. Výtěžnost je ko
 
 - **Telefon** podle scénáře v Notionu: stránka „📞 Cold call – scénář (2 min)“ v Marketingu.
 - **Otvírák:** konkrétní pochvala z faktů → „Ale když otevřu váš web na telefonu…“ + co zákazník zažije → „Tak jsem si říkal, že vám zavolám.“
-- **Nabídka:** 20 minut na videu, projdeme web očima zákazníka, rozbor dostanou sepsaný zdarma a můžou ho dát svému dodavateli.
+- **Nabídka:** „20 minut na videu, projdeme váš web očima zákazníka. Rozbor dostanete sepsaný zdarma a můžete ho dát svému dodavateli.“ Vždy přímo k firmě, nikdy „dostanou, můžou“.
 - **Recepce:** ptát se na majitele **jménem** (jednatel z ARES).
 - **E-mail místo hovoru** (recepce, „pošlete to e-mailem“): přirozeně, vřele, věcně, nic úlisného. Stavba je vždy stejná:
   1. odkud mám kontakt,
@@ -213,6 +213,15 @@ Podle nich sobotní vyhodnocení navrhuje změny. Týdně se mění **nejvýš 3
   - **Kontrola novějšího webu je povinná** (je v `RULES.md`).
   - **Špička Firmy.cz je přelidněná.** Proto `skip` 5 a test T1.
 
+**29. 9. 2026 odpoledne, první domluvený videohovor.**
+
+- **Stavební firma z nočního běhu:** web jim dělá dodavatel a je drahý. Jednatel chce podklady, aby je dodavateli „omlátil o hlavu“.
+  - **„Má dodavatele“ tedy není automaticky konec.** Sepsaný rozbor je pro majitele argument proti drahému nebo pomalému dodavateli.
+  - Proto v nabídce zůstává „můžete ho dát svému dodavateli“.
+- **Námitka „web teď neřešíme, není na to čas“ má odpověď, která funguje:** „Právě to je moje role. Projekt se odkládá, protože na něj není čas. Pusťte mě na to…“
+  - Takhle Lukáš domluvil schůzku s bývalým klientem, na které připraví zadání projektu.
+  - Celé znění je ve scénáři hovoru v Notionu.
+
 ## Historie změn
 
 | Datum | Změna | Proč |
@@ -220,3 +229,5 @@ Podle nich sobotní vyhodnocení navrhuje změny. Týdně se mění **nejvýš 3
 | 2026-09-29 | První verze podle ručního postupu z 24. 9., rutiny čtou strategii z repa | aby šla strategie měnit bez sahání na rutiny |
 | 2026-09-29 | `dotazu_za_noc` 12 → 30, nový klíč `na_dotaz` 7, „pergoly“ → „pergoly na míru“ | první tři běhy: 8–10 dotazů po 5 firmách daly dohromady 2 leady, „pergoly“ vrací Kaufland a Tesco |
 | 2026-09-29 | Follow-up po e-mailu 3–5 pracovních dní, vlastní termín firmy nebo Lukáše má přednost | zkušební vyhodnocení: follow-upy po e-mailu byly rozházené (3 dny až 2 měsíce) |
+| 2026-09-29 | Rutiny čtou Notion jen přes pohled a při chybě čtení pokračují. Obchodní řetězce vynechává už pipeline. | Odpolední běh oken skončil bez hledání kvůli limitu SQL dotazů v Notionu. Kaufland a Tesco zbytečně zabíraly měření. |
+| 2026-09-29 | Nabídka v „Jak oslovujeme“ v přímé řeči | Rutina podle ní psala „dostanou, můžou“ místo „dostanete, můžete“. |

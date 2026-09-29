@@ -8,6 +8,7 @@ Běží pondělí až pátek ve 2:00. **Cíl: přidat do zásoby 3–8 ověřen�
 - **`PSI_API_KEY` nikdy nevypisuj** – ani v příkazu (`echo`), ani v logu, ani ve shrnutí. Ověřuj jen, jestli existuje.
 - Co neprošlo ověřením podle `RULES.md`, nezapisuj. Co nevidíš na screenshotu nebo v datech, neexistuje.
 - Nejvýš 2,5 hodiny práce. Pak zapiš, co máš, a skonči.
+- **Chyba při čtení výstupu (Notion, dashboard) není důvod skončit.** Postup je v `rutiny/vystup-<výstup>.md` → Když čtení selže.
 
 ## 1. Přečti
 
@@ -32,7 +33,7 @@ npm install --no-audit --no-fund --silent
 ## 3. Vyber obor a města
 
 1. **Deník běhů** (Notion databáze „Lead engine – běhy“): přečti běhy za posledních 30 dní.
-2. **Zásoba:** z výstupu spočítej leady po oborech ve stavu Oslovit + Ověřit (v dashboardu k_osloveni + navrh).
+2. **Zásoba:** z výstupu spočítej leady po oborech ve stavu Oslovit + Ověřit (v dashboardu k_osloveni + navrh). Jak číst, je v `rutiny/vystup-<výstup>.md` → Čtení.
 3. **Obor** vyber podle `STRATEGIE.md` → „Jak rutina vybere obor na noc“. Dnešní den v týdnu ber v čase Europe/Prague.
 4. **Města:** `dotazu_za_noc` měst podle `STRATEGIE.md` → „Trhy“:
    - okresní města ze zásobníku,
@@ -69,7 +70,7 @@ Pro každý web ze `shortlist.json` (v poli `dir` je složka s `result.json`, `m
    - Příznak `HTTP?` → `node httpscheck.mjs <host>`.
    - Příznak `SPAM` → ověř ve zdrojovém kódu.
    - Příznak `ERR?` → zkus i adresu s `www.` a bez něj.
-3. **Vyřaď** vše, co spadá pod N1–N5 nebo pod „Nechceme“ ve `STRATEGIE.md`. Obchodní řetězce a velkoprodejny (Kaufland, Tesco, Globus, OBI, Hornbach, Bauhaus, Mountfield a podobně) vyřaď hned, bez měření.
+3. **Vyřaď** vše, co spadá pod N1–N5 nebo pod „Nechceme“ ve `STRATEGIE.md`. Obchodní řetězce a velkoprodejny (Kaufland, Tesco, OBI, Hornbach, Mountfield a podobně) pipeline vynechá sama, seznam je v `pipeline.mjs` → `CHAIN`. Když nějaký proklouzne, vyřaď ho a napiš jeho doménu do Poznámky v deníku.
 4. **Firma žije a nemá novější web jinde:**
    - Vyhledej název firmy na webu a porovnej IČO a telefon. Podobný název ještě neznamená stejnou firmu.
    - Když má firma novější web, lead nezapisuj.
