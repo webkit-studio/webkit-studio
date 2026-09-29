@@ -2,24 +2,26 @@
 
 _Analýza v2, session B02, 29. 9. 2026, issue #11_
 
-Podklady: `docs/web-v2/zadani.md`, `sitemap-relume.csv`, `B01-sluzby-zakaznici.md` a rešerše veřejného webu 29. 9. 2026 (zdroje v kapitole 9). Staré texty webu ani živý web webkit.studio jsem nečetl. Fakta o nás, která nemám, jsou označená `[DOPLNIT]`. Co se nepodařilo ověřit, je `[OVĚŘIT]`.
+Podklady: `docs/web-v2/zadani.md`, `sitemap-relume.csv`, `B01-sluzby-zakaznici.md` a rešerše veřejného webu 29. 9. 2026 (zdroje v kapitole 9). Staré texty webu ani živý web webkit.studio jsme nečetli. Fakta o nás, která nemáme, označujeme `[DOPLNIT]`. Co jsme nemohli ověřit, označujeme `[OVĚŘIT]`.
+
+**Slovníček:** **SEO** je optimalizace pro vyhledávače. **GEO** je optimalizace pro odpovědi AI (ChatGPT, Perplexity, Google AI Overviews). **SERP** je stránka s výsledky hledání. **Kanibalizace** znamená, že si dvě naše stránky konkurují o stejné slovo. **Dlouhý chvost** jsou delší, méně hledané, ale přesnější dotazy. **NAP** je název, adresa a telefon. **Dofollow** odkaz předává webu hodnotu pro vyhledávače.
 
 ## TL;DR
 
 1. **Lidé hledají „tvorba webu“, ne „vývoj webu“.** Stránku o webech přejmenovat na `/tvorba-webovych-stranek`. Design webu a grafický design samostatně skoro nikdo nehledá, proto potvrzuji sloučení z B01.
-2. **Ceny ukazuje 8 z 11 hráčů, ale balíček s cenou a termínem mají v ČR jen dva.** Formulář s rozpočtem a termínem nemá nikdo. Tady se dá odlišit hned.
+2. **Ceny ukazuje 8 z 11 hráčů, balíček s cenou i termínem má v ČR jen Animato.** Formulář s rozpočtem a termínem nemá nikdo. Od Webflow freelancerů, kteří ceny tají, se tu odlišíme hned.
 3. **Prázdná místa na trhu:** veřejná nabídka pro agentury, měřené výsledky Webflow projektů, placený audit webu jako první krok a balíček MVP s cenou.
-4. **AI odpovědi citují ceníkové články s rokem v titulku, tabulkou rozpětí a čerstvým datem.** U otázky „kdo“ rozhodují katalogy (Clutch, Webflow partneři, Firmy.cz). Webkit.Studio jsme v adresáři Webflow partnerů pro ČR nenašli.
+4. **Souhrny vyhledávačů citují ceníkové články s rokem v titulku a tabulkou rozpětí.** U otázky „kdo“ vybírají katalogy (Clutch, Webflow partneři). Webkit.Studio jsme v adresáři Webflow partnerů pro ČR nenašli.
 5. **Spustit 8 stránek služeb, MVP zatím jako sekci stránky aplikací.** Hledanost MVP je minimální, stránky by si konkurovaly a chybí nám reference MVP.
 
 ### Rozhodnutí pro Lukáše
 
 | # | Otázka | Doporučení | Proč |
 |---|---|---|---|
-| 1 | Přejmenovat `/vyvoj-webovych-stranek` na `/tvorba-webovych-stranek`? | **Ano** | „Vývoj webu“ má v Google Suggest i Trends prakticky nulovou hledanost, „tvorba webových stránek“ vysokou (kapitola 2). U aplikací zůstává „vývoj“, tam je to naopak. |
-| 2 | Sloučit `/design-webovych-stranek` do tvorby webu a `/graficky-design` s `/vizualni-identita` do jedné stránky `/logo-a-vizualni-identita`? | **Ano** | Potvrzuje B01. „Design webových stránek“ má zhruba desetinu hledanosti „tvorby webu“. „Grafický design“ hledají hlavně studenti a uchazeči o práci. Obchodní poptávka jde přes „tvorba loga“. |
+| 1 | Přejmenovat `/vyvoj-webovych-stranek` na `/tvorba-webovych-stranek`? | **Ano** | „Vývoj webu“ má v Trends index pod 1 a Suggest ho nabídne jen bez variant. „Tvorba webových stránek“ má hledanost vysokou (kapitola 2). U aplikací zůstává „vývoj“, tam je to naopak. |
+| 2 | Sloučit `/design-webovych-stranek` do tvorby webu a `/graficky-design` s `/vizualni-identita` do jedné stránky `/logo-a-vizualni-identita`? | **Ano** | Potvrzuje B01. „Design webových stránek“ má desetinu až pětinu hledanosti „tvorby webu“. „Grafický design“ hledají hlavně studenti a uchazeči o práci. Obchodní poptávka jde přes „tvorba loga“. |
 | 3 | Spustit MVP zatím jako sekci stránky `/vyvoj-webovych-aplikaci` a samostatnou stránku přidat, až bude reference MVP? | **Ano** | „Vývoj MVP“ Suggest nezná a Trends ukazuje 0. Dvě stránky by soutěžily o stejná slova. Balíček MVP s cenou je ale na trhu volný, proto ho v sekci ukázat. |
-| 4 | Zveřejnit ceník s rozpětím a termínem u každé služby a CTA „Ceník“ hned v úvodu webu? | **Ano** | Potvrzuje B01. Balíček s cenou a termínem má v ČR jen Animato a Semibold. AI přebírá tabulky cen doslova (8 z 18 testovaných dotazů je cenových). |
+| 4 | Zveřejnit ceník s rozpětím a termínem u každé služby a CTA „Ceník“ hned v úvodu webu? | **Ano** | Potvrzuje B01. Balíček s cenou i termínem má v ČR jen Animato, úrovně s cenou Semibold. Souhrny vyhledávačů přebírají tabulky cen doslova (8 z 18 testovaných dotazů je cenových). |
 | 5 | Mít stránku pro agentury jen česky a anglickou verzi odložit? | **Ano** | Anglická verze je mimo rozsah v2. Česky nikdo „white label Webflow“ nenabízí, i malá stránka tak má šanci. Anglické dotazy dnes drží zahraniční agentury a tržiště. |
 
 ### Na Lukášovi (fakta, ne rozhodnutí)
@@ -33,9 +35,9 @@ Podklady: `docs/web-v2/zadani.md`, `sitemap-relume.csv`, `B01-sluzby-zakaznici.m
 
 ---
 
-## 1. Konkurence
+## 1. Jak si stojí konkurence
 
-### Výběr
+### Koho jsme vybrali
 
 11 hráčů podle pozic v Seznamu, adresáře Webflow partnerů a relevance pro MSP a startupy. Vyřazení: Moravio (už nestaví weby), Orwin (staví na Pimcore), Wizzy (převádí weby z Webflow pryč). [K1–K3]
 
@@ -53,6 +55,22 @@ Podklady: `docs/web-v2/zadani.md`, `sitemap-relume.csv`, `B01-sluzby-zakaznici.m
 | **Broworks** [K13] | Zahraniční, Webflow pro B2B a SaaS | Balíčky $10K / $15K / $20K+, měsíčně $3,9K / $6,5K / $10K+ | „Turn Your Website Into a Revenue Engine“ | 150+ klientů, case studies s čísly | „Schedule a call“ a „Check our pricing“ vedle sebe v úvodu |
 | **Flowout** [K14] | Zahraniční, Webflow předplatné | $5,9–9,9K měsíčně, hodinové balíčky 25 / 50 / 100 h | „The Webflow partner behind names that move markets“ | Enterprise Partner, 460+ klientů | „Schedule a call“ a „See pricing“ |
 
+**Nabídka, silné a slabé stránky** (z pohledu MSP zákazníka)
+
+| Hráč | Nabídka | Silné | Slabé |
+|---|---|---|---|
+| Semibold | Webflow design a vývoj, správa, migrace z WordPressu, branding | rozpětí cen, autorita prvního partnera, velké značky | spodní hranice 80 tis. odradí menší firmy, bez formuláře, bez čísel výsledků |
+| Animato | weby, e-shopy, branding, UX, marketing, Webflow | balíček s cenou i termínem, rychlá odezva, konkrétní člověk | široký záběr rozmělňuje Webflow profil, rozpočet jako volný text |
+| Galandr | PPC, SEO, weby na Webflow a WordPressu | nejlepší český obsah o Webflow, řekne, kdy Webflow nedoporučí | bez cen, hodně žargonu, Webflow je vedlejší služba |
+| Softmedia | weby, e-shopy, aplikace, AI, správa, Webflow | nízký vstupní práh, ceny i za správu, okamžitý odhad | Webflow jen okrajově, profil WordPress studia |
+| Jan Vodvárka | Webflow vývoj, UI/UX, animace, migrace, automatizace | Premium Partner, rozpočet v pásmech, práce pro agentury | bez cen, menší firma se v „prémiových značkách“ nenajde |
+| Lukáš Augusta | design a Webflow, měsíční partnerství, konzultace | nejjasnější ceny freelancera | bez důkazů a formuláře, odmítá agentury |
+| Simon Koran | Webflow vývoj, redesign, správa | míří na stejné 3 skupiny, silné citace, důraz na termín | bez cen, jen vývoj, obecný formulář |
+| Le Artist | weby Next.js, e-shopy, redesign, SEO | ceny, termín ve smlouvě, čísla výsledků | regionální (Ostrava), jeden člověk, nestaví na Webflow |
+| Flow Ninja | transformace webu, vývoj, průběžná péče, SEO | srovnání nákladů s vlastním týmem, audit zdarma | ceník si protiřečí ($25K+ proti minimu $30–45K) |
+| Broworks | Webflow vývoj, redesign, SEO, CRO, branding | balíčky s „pro koho“, CTA na ceník v úvodu | cílí na SaaS, pro české MSP drahé |
+| Flowout | Webflow jako měsíční předplatné | pevná měsíční cena, hodinové balíčky | enterprise, mimo dosah MSP |
+
 ### Kdo ukazuje ceny a jak
 
 | Forma | Kdo | Počet |
@@ -62,18 +80,18 @@ Podklady: `docs/web-v2/zadani.md`, `sitemap-relume.csv`, `B01-sluzby-zakaznici.m
 | Nic | Galandr, Vodvárka, Koran | 3 |
 | **Termín dodání u ceny** | Animato, Le Artist, Flow Ninja | 3 |
 
-**Závěr pro rozhodnutí 2 z B01 (cenová rozpětí):** ceny ukazuje 5 z 8 českých hráčů a všichni 3 zahraniční. Ceny tají právě dva nejsilnější Webflow freelanceři. Rozpětí s termínem nás proto odliší od nejbližší konkurence, ne od trhu obecně.
+**Co z toho plyne pro rozhodnutí 2 z B01 (cenová rozpětí):** ceny ukazuje 5 z 8 českých hráčů a všichni 3 zahraniční. Ceny tají právě dva nejsilnější Webflow freelanceři. Rozpětí s termínem nás proto odliší od nejbližší konkurence, ne od trhu obecně.
 
-### Vzorce na trhu
+### Co dělají všichni stejně
 
 1. **Úvod slibuje kvalitu, ne výsledek.** Na poptávky nebo obchod míří jen Le Artist a Broworks.
 2. **Důkazem jsou loga a citace, ne čísla.** Měřené výsledky klientských Webflow webů neukazuje žádný český hráč.
 3. **Odznak Webflow partnera je vpředu, ale nikdo nevysvětlí, co z něj má zákazník.**
 4. **Formuláře jsou obecné.** Na termín se neptá nikdo. Rozpočet v pásmech má jen Vodvárka.
 5. **„Webflow vs WordPress“ a „Kolik stojí Webflow“** mají skoro všichni jako článek.
-6. **Bezplatný automatický audit** jako lákadlo (Flow Ninja, Le Artist, SHEAN).
+6. **Bezplatný audit** jako lákadlo: automatický u Flow Ninja a Le Artist, marketingový u agentury SHEAN (Webflow partner z Blanska, mimo výběr).
 
-### Kde je prázdné místo
+### Kde je na trhu prázdné místo
 
 | # | Prázdné místo | Důkaz z rešerše | Co to znamená pro nás |
 |---|---|---|---|
@@ -83,15 +101,15 @@ Podklady: `docs/web-v2/zadani.md`, `sitemap-relume.csv`, `B01-sluzby-zakaznici.m
 | 4 | **Placený lidský audit webu s pevnou cenou** | Ve vzorku Webflow hráčů jsou jen audity zdarma, nebo rovnou projekt. Na širším trhu audity od 20–39 tis. Kč existují (B01, Z12a–Z12d). | Odlišení je odečet ceny auditu z projektu (B01 rozhodnutí 3). |
 | 5 | **Balíček MVP pro startupy s cenou a termínem** | Startupy zmiňují Koran, Galandr a Broworks, balíček s cenou nemá nikdo. Zahraniční hráči začínají na $10–45K. [K6, K10, K12, K13] | Sekce MVP s cenou a termínem na stránce aplikací (rozhodnutí 3). |
 
-**Nejbližší konkurent je Simon Koran.** Míří na stejné tři skupiny, ale neukazuje ceny, nemá audit ani stránku pro agentury. Odlišit nás může transparentnost a vstupní produkty, ne samotný Webflow.
+**Nejbližší konkurent je Simon Koran.** Míří na stejné tři skupiny, ale neukazuje ceny, nemá audit a nezveřejňuje podmínky pro agentury. Odlišit nás může transparentnost a vstupní produkty, ne samotný Webflow.
 
 ---
 
-## 2. Klíčová slova
+## 2. Co zákazníci hledají
 
-### Jak jsem měřil
+### Jak jsme měřili
 
-Keyword Planner ani Sklik nejsou k dispozici, **všechny objemy jsou relativní.** Kombinoval jsem tři signály:
+Keyword Planner ani Sklik nemáme, **všechny objemy jsou relativní.** Kombinovali jsme tři signály:
 
 | Signál | Co ukazuje | Omezení |
 |---|---|---|
@@ -99,7 +117,7 @@ Keyword Planner ani Sklik nejsou k dispozici, **všechny objemy jsou relativní.
 | Google Trends CZ | Poměr hledanosti proti kotvě „tvorba webu“ = 100 | U malých slov hlásí 0. „Tvorba webových stránek“ má od 9/2025 nevysvětlený skok asi 10×. |
 | Pořadí v Seznamu, WebSearch | Kdo dnes rankuje | Google CZ se scrapovat nedá, WebSearch hledá z USA. První 1–2 místa v Seznamu bývají reklama. |
 
-Stupnice: **vysoký** (index 50+), **střední** (10–50), **nízký** (1–10), **minimální** (pod 1).
+Stupnice: **vysoký** (index 50+), **střední** (10–50), **nízký** (1–10), **minimální** (pod 1). U slov s převážně informačním záměrem to píšeme k objemu, protože takové hledání poptávky nenosí.
 
 ### Tvorba, vývoj, nebo design?
 
@@ -107,27 +125,87 @@ Stupnice: **vysoký** (index 50+), **střední** (10–50), **nízký** (1–10)
 |---|---|---|
 | tvorba webových stránek | nad 100 | vysoký |
 | tvorba webu | 100 | vysoký |
-| webdesign, web design | asi 70 | střední, **hlavně informační a anglický** |
+| webdesign, web design | asi 70 | vysoký, ale **hlavně informační a anglický** |
 | design webových stránek | asi 8–20 | nízký |
 | vývoj webových stránek, vývoj webu | pod 1 | minimální |
-| vývoj aplikací | asi 50 | střední (u aplikací vyhrává „vývoj“, asi 20× nad „tvorba aplikací“) |
+| vývoj aplikací | asi 50 | vysoký, ale i mobilní aplikace (u aplikací vyhrává „vývoj“, asi 20× nad „tvorba aplikací“) |
 
 ### Slova podle stránek
 
-Hlavní slovo je tučně. Záměr: I = informační, K = komerční, T = transakční.
+Záměr: I = informační, K = komerční, T = transakční. Objem podle stupnice výše. Hlavní slovo je u každé stránky první a tučně.
 
-| Stránka (návrh URL) | Hlavní a související slova | Záměr | Objem | Kdo dnes rankuje (Seznam, WebSearch) |
-|---|---|---|---|---|
-| `/tvorba-webovych-stranek` (dnes `/vyvoj-webovych-stranek`) | **tvorba webových stránek**, tvorba webu, tvorba webových stránek cena, kolik stojí webové stránky, tvorba webu pro firmy, web na míru, tvorba webových stránek Praha, design webových stránek (sekce) | K, T | vysoký (hlavní), střední (cena, Praha), nízký (ostatní) | webnode.cz, wix.com, webfusion.cz, webglobe.cz, webrenovace.cz. Hlavní slovo drží stavebnice. **Reálný cíl jsou dlouhé varianty.** |
-| `/redesign-webu` (dnes `/redesign-webovych-stranek`) | **redesign webu**, redesign webu cena, redesign webových stránek, modernizace webu, předělání webu | K, T | nízký až minimální | webrenovace.cz, smejkalpetr.cz, mytimi.cz, webvizitky.cz. **Slabá konkurence, jasně obchodní záměr.** |
-| `/webflow` (dnes `/webflow-vyvoj`) | **tvorba webu ve Webflow**, Webflow agentura, webflow cena, webflow šablony, webflow vs wordpress (článek) | K | minimální česky. „Webflow“ samo je navigační (login, pricing). | webfusion.cz, animato.cz, shean.cz, janvodvarka.cz, galandr.com, semibold.cz |
-| `/landing-page` | **landing page cena**, tvorba landing page, jednostránkový web, landing page co to je (FAQ) | T (cena), I (hlavní slovo) | hlavní vysoký, obchodní nízký | grainstudio.cz, marf.cz, expert-dev.cz, better.cz. **Slabě obsazené:** blogy, slovníčky. |
-| `/ux-audit` | **UX audit webu**, audit webu, audit webu zdarma, analýza použitelnosti webu, uživatelské testování webu | K | nízký | webasist.cz, mytimi.cz, portadesign.cz, koncepto.cz, uxf.cz |
-| `/vyvoj-webovych-aplikaci` | **vývoj webových aplikací**, vývoj aplikací na míru, software na míru, webová aplikace na míru, MVP (sekce), prototyp aplikace | K | nízký. „Vývoj aplikací“ střední, ale i mobilní. | memos.cz, pixelmate.cz, thinkeasy.cz, peach-dev.cz, eluvia.com. **Silná konkurence softwarových firem.** |
-| `/logo-a-vizualni-identita` (sloučí `/vizualni-identita` a `/graficky-design`) | **tvorba loga**, tvorba loga cena, logo na míru, vizuální identita firmy, vizuální identita cena, grafický design pro firmy | K, T | střední (tvorba loga), minimální (vizuální identita) | tvorbalogalevne.cz, artlogo.cz, tridvajedna.cz, studioaestas.cz, cognito.cz |
-| `/pro-agentury` (nová, B01) | **Webflow subdodávka**, white label Webflow, Webflow vývojář pro agentury | K | minimální česky | Česky nic relevantního. Anglicky e2msolutions.com, fiverr.com, flowout.com. **Prázdné pole.** |
+| Stránka (návrh URL) | Slovo | Záměr | Objem |
+|---|---|---|---|
+| `/tvorba-webovych-stranek` | **tvorba webových stránek** | K | vysoký |
+| | tvorba webu | K | vysoký |
+| | tvorba webových stránek cena, ceník | T | střední |
+| | kolik stojí webové stránky | I s nákupním úmyslem | nízký až střední |
+| | tvorba webových stránek Praha | K | střední |
+| | tvorba webu pro firmy, pro podnikatele | K | nízký |
+| | tvorba webových stránek na míru, web na míru | K | nízký |
+| | tvorba webových stránek poptávka | T | nízký |
+| | design webových stránek (sekce) | smíšený | nízký |
+| `/redesign-webu` | **redesign webu** | K | nízký |
+| | redesign webu cena | T | minimální |
+| | redesign webových stránek | K | minimální |
+| | modernizace webu | K | minimální |
+| | předělání webu | K | minimální |
+| | nový web | smíšený | nepoužitelné (hlavně zprávy o cizích webech) |
+| `/webflow` | **tvorba webu ve Webflow** | K | minimální |
+| | Webflow agentura | K | minimální, Suggest nenabízí |
+| | webflow cena, webflow pricing | I | nízký |
+| | webflow šablony | I | nízký |
+| | webflow developer, webflow expert | K, anglicky | nízký |
+| | webflow vs wordpress (článek) | I | nízký |
+| | webflow vs framer (článek) | I | nízký |
+| `/landing-page` | **landing page cena** | T | nízký |
+| | tvorba landing page | T | minimální |
+| | landing page co to je (FAQ) | I | střední |
+| | jednostránkový web | K | minimální |
+| | prodejní stránka | smíšený | minimální |
+| | microsite | smíšený | minimální |
+| `/ux-audit` | **UX audit webu** | K | nízký |
+| | audit webu | K | nízký |
+| | audit webu zdarma | T | minimální |
+| | ux audit cena | T | minimální |
+| | analýza použitelnosti webu | K | minimální |
+| | uživatelské testování webu | K | minimální |
+| `/vyvoj-webovych-aplikaci` | **vývoj webových aplikací** | K | nízký |
+| | vývoj aplikací na míru | K | nízký |
+| | software na míru | K | nízký |
+| | webová aplikace na míru | K | minimální |
+| | vývoj aplikací Praha | K | nízký |
+| | co je MVP, MVP aplikace (sekce) | I | minimální až nízký |
+| | prototyp aplikace | K | minimální |
+| `/logo-a-vizualni-identita` | **tvorba loga** | K | vysoký (index 60–80), část „zdarma“ a „AI“ |
+| | tvorba loga cena, pro firmu | T | nízký |
+| | logo na míru | K | nízký |
+| | tvorba loga Praha | K | nízký |
+| | vizuální identita firmy | K | minimální |
+| | vizuální identita cena | T | minimální |
+| | grafický design pro firmy | K | nízký |
+| | grafické studio Praha | K | nízký |
+| `/pro-agentury` | **Webflow subdodávka** | K | minimální |
+| | white label Webflow | K | minimální česky |
+| | Webflow vývojář | K | minimální |
+| | white label web development | K, anglicky | nízký globálně |
+| | webflow developer freelance | K, anglicky | nízký |
+| | webflow expert hire | K, anglicky | nízký |
 
-### Riziko kanibalizace a jak ho rozdělit
+### Kdo na hlavní slova dnes rankuje
+
+| Stránka | Kdo je nahoře (Seznam, WebSearch) | Síla konkurence |
+|---|---|---|
+| Tvorba webových stránek | webnode.cz, wix.com, webfusion.cz, webglobe.cz, webrenovace.cz | silná, drží stavebnice. **Reálný cíl jsou dlouhé varianty.** |
+| Redesign webu | webrenovace.cz, smejkalpetr.cz, mytimi.cz, webvizitky.cz | **slabá**, jasně obchodní záměr |
+| Webflow | webfusion.cz, animato.cz, shean.cz, janvodvarka.cz, galandr.com, semibold.cz | střední |
+| Landing page | grainstudio.cz, marf.cz, expert-dev.cz, better.cz | **slabá**, blogy a slovníčky |
+| UX audit | webasist.cz, mytimi.cz, portadesign.cz, koncepto.cz, uxf.cz | střední, specializovaní UX konzultanti |
+| Webové aplikace | memos.cz, pixelmate.cz, thinkeasy.cz, peach-dev.cz, eluvia.com | silná, softwarové firmy |
+| Logo a identita | tvorbalogalevne.cz, artlogo.cz, tridvajedna.cz, studioaestas.cz, cognito.cz | střední |
+| Pro agentury | česky nic relevantního, anglicky e2msolutions.com, fiverr.com, flowout.com | **prázdné pole** |
+
+### Kde si stránky konkurují a jak je rozdělit
 
 | Dvojice | Sporná slova | Řešení |
 |---|---|---|
@@ -140,7 +218,7 @@ Hlavní slovo je tučně. Záměr: I = informační, K = komerční, T = transak
 | vizuální identita × grafický design | logo, grafik, grafické studio | **Sloučit** do `/logo-a-vizualni-identita`. |
 | Webflow × pro agentury | webflow developer, webflow expert | Webflow míří na koncové firmy. Pro agentury drží „white label“, „subdodávka“, „pro agentury“. |
 
-### Lokální dotazy
+### Hledají lidé web podle místa?
 
 | Dotaz | Stupeň | Doporučení |
 |---|---|---|
@@ -148,9 +226,9 @@ Hlavní slovo je tučně. Záměr: I = informační, K = komerční, T = transak
 | tvorba webových stránek Brno | nízký až střední | Nedělat, nemáme tam přítomnost. |
 | tvorba webu Čelákovice, Praha-východ, Brandýs | minimální, Suggest nenabízí | **Vlastní stránku nedělat.** Stačí adresa v patičce, Firmy.cz, Google Business Profile a `areaServed` ve schema. |
 
-GEO test ukázal, že AI na dotaz „kdo udělá web v Čelákovicích“ odpoví obecnou Prahou (kapitola 3). Lokální stránka by tu mezeru zaplnila. Při nulové hledanosti ale hrozí tenký obsah. Doporučuji proto nejdřív profily v katalozích a jednu větu o působnosti na `/kontakt`.
+GEO test ukázal, že vyhledávač na dotaz „kdo udělá web v Čelákovicích“ odpoví obecnou Prahou (kapitola 3). Lokální stránka by tu mezeru zaplnila. Při nulové hledanosti ale hrozí tenký obsah. Doporučujeme proto nejdřív profily v katalozích a jednu větu o působnosti na `/kontakt`.
 
-### Doporučená mapa URL
+### Jak upravit mapu URL
 
 | Plán ze zadání | Doporučení | Nová URL |
 |---|---|---|
@@ -169,13 +247,13 @@ Kratší URL (`/redesign-webu`, `/webflow`) jsou doporučení, ne nutnost. O fin
 
 ---
 
-## 3. GEO: koho AI cituje
+## 3. Koho citují AI a vyhledávače (GEO)
 
 ### Co šlo otestovat
 
-18 dotazů zákazníků, 29. 9. 2026. **Veřejné AI chaty bez přihlášení nešly:** Perplexity vrátil 403, Brave 429, Duck.ai a Bing Copilot nevrátily odpověď. Nejbližší náhradou byl souhrn se zdroji z vyhledávacího nástroje (WebSearch, hledá z USA) a pořadí v Seznamu. Google AI Overviews nešly načíst přímo. [G1]
+18 dotazů zákazníků, 29. 9. 2026. **Veřejné AI chaty bez přihlášení nešly:** Perplexity vrátil 403, Brave 429, Duck.ai a Bing Copilot nevrátily odpověď. Nejbližší náhradou byl souhrn se zdroji z vyhledávacího nástroje (WebSearch, hledá z USA) a pořadí v Seznamu. Google AI Overviews nešly načíst přímo. Závěry proto platí pro souhrny vyhledávačů jako nejbližší náhradu AI odpovědí. [G1]
 
-### Dotazy a citované zdroje (výběr)
+### Kdo se objevil u jednotlivých dotazů
 
 | Dotaz | Citované domény | Typ obsahu | Proč je vybral |
 |---|---|---|---|
@@ -183,19 +261,22 @@ Kratší URL (`/redesign-webu`, `/webflow`) jsou doporučení, ne nutnost. O fin
 | kolik stojí webová stránka 2026 | le-artist.cz, webfusion.cz, pajskr.cz, webmorava.cz, designee.cz | ceníkové články | Souhrn převzal kategorie „landing 10–30 tis., firemní web 30–80 tis.“ doslova |
 | Webflow agentura Praha | flowify.cz, clutch.co, pixelfield.cz, mediar.cz (článek o Semiboldu), semibold.cz, firmy.cz | stránky služeb, žebříček Clutch, katalog, PR článek | „Webflow“ a „Praha“ v titulku, fakt „první Webflow partner v ČR, 60+ projektů“, nezávislý žebříček |
 | kdo udělá MVP | pixelmate.cz, memos.cz, coex.cz, rascasone.com | články „co je MVP“ a stránky služeb | definice a fakta o firmě („od roku 2003“) |
+| kolik stojí MVP aplikace | pixelmate.cz, memos.cz, peach-dev.cz, le-artist.cz, devboys.cz | ceníkové články | konkrétní hranice („od 80 000 Kč“), rok v titulku |
 | Webflow nebo WordPress pro firmu | cognito.cz, janvodvarka.cz, etomak.cz, semibold.cz, jgregor.cz | srovnávací články | jasný verdikt „kdy co“ |
 | jak vybrat agenturu na tvorbu webu | blueghost.cz, expert-dev.cz, justdigital.cz, pixlo.cz | návody | číslovaný seznam v titulku („7 kroků“) |
 | redesign webu cena | redesignwebstranek.cz, oxystudio.cz, webmorava.cz, le-artist.cz | ceníky | citovatelné pravidlo „redesign ≈ 65 % ceny nového webu“ |
 | landing page cena | weblik.cz, thewild.cz, le-artist.cz, designee.cz | ceníky | pevná cena v titulku |
 | UX audit webu cena | feo.cz, anfilov.cz, koncepto.cz, davidkoci.cz | stránky služeb | úrovně auditu s cenou |
+| tvorba vizuální identity cena | jetome.cz, tridvajedna.cz, anfilov.cz, brainwave.cz, pixelot.cz | ceníkový článek a stránky freelancerů | titulek „přehled od 7 000 do 500 000 Kč“ (anfilov) |
 | nejlepší webové studio Praha | dvojkastudio.cz, studioustal.cz, design-online.cz, firmy.cz | homepage studií, katalog | „Webové studio Praha“ v titulku, cena, roky praxe |
 | webflow developer freelancer čr | contra.com, upwork.com, webflow.com/hire, linkedin.com | tržiště, katalogy | **česká stránka chybí** |
 | white label webflow vývoj | e2msolutions.com, flowout.com, minutecreative.com | anglické stránky služeb | **česká stránka chybí** |
 | jak dlouho trvá tvorba webu | studioustal.cz, webplatform.cz, webouky.cz | FAQ články | časy podle typu webu |
+| web pro malou firmu co musí obsahovat | webouky.cz, vas-webmaster.cz, webmorava.cz, webeno.cz | kontrolní seznamy | výčet sekcí webu |
 | kdo udělá web Čelákovice / Praha-východ | udelam-web.cz, pajskr.cz, tvorba-webu-praha.cz, firmy.cz | lokální stránky „Praha“ | **lokální stránka chybí**, AI spadla na Prahu |
 | vývoj webové aplikace cena | pixelmate.cz, thinkeasy.cz, dostaljakub.cz | ceníkové články | pásma cen |
 
-Celá tabulka 18 dotazů je v podkladu [G1]. Nejčastěji citované domény: **le-artist.cz** (5 dotazů), **webfusion.cz** (5), **webmorava.cz** (4), **firmy.cz** (4, jen Seznam), pixelmate.cz, pajskr.cz, memos.cz, studioustal.cz (3).
+Tabulka ukazuje všech 18 dotazů. Nejčastěji citované domény: **le-artist.cz** (5 dotazů), **webfusion.cz** (5), **webmorava.cz** (4), **firmy.cz** (4, jen Seznam), pixelmate.cz, pajskr.cz, memos.cz, studioustal.cz (3).
 
 ### Co mají citované stránky v HTML
 
@@ -211,19 +292,19 @@ Celá tabulka 18 dotazů je v podkladu [G1]. Nejčastěji citované domény: **l
 
 **Schema samo citaci nezajistí**: pixelmate a Semibold ho nemají, a AI je cituje. llms.txt má 7 ze 14 testovaných studií (le-artist, webfusion, semibold, grow-up, dvojkastudio, studioustal, memos). Vliv na citace se z dat prokázat nedá. [G1]
 
-Mimo test: podle studie Orbit Media cituje Claude ze zahraničních katalogů nejčastěji Clutch, Perplexity nejvíc LinkedIn [C3]. ChatGPT hledá přes index Bingu [C4].
+Mimo test: podle studie Orbit Media je Clutch u Claude nejčastěji citovaná doména třetí strany, u Perplexity je to LinkedIn [C3]. ChatGPT hledá přes index Bingu [C4].
 
-### Proč AI cituje právě je
+### Proč vybírají právě je
 
 1. **Rok v titulku a tabulka rozpětí.** „Kolik stojí X v roce 2026: od A do B Kč“ vyhrává cenové dotazy.
 2. **Krátká věta s číslem.** „Firemní web 3–4 týdny“, „redesign ≈ 65 % ceny“. Jde do odpovědi celá.
-3. **Čerstvé datum úpravy.** Citované články jsou upravené v posledních týdnech.
+3. **Čerstvé datum úpravy.** Část citovaných článků (pajskr, designee, le-artist, studioustal) je upravená v posledních týdnech. Jiné (webfusion, anfilov) jsou starší [G6, G9], datum tedy pomáhá, ale nerozhoduje.
 4. **Dotaz doslova v titulku.** „Webové studio Praha“, „Kdo mi udělá web“.
 5. **Fakta o firmě.** „9 let“, „60+ projektů“, „první Webflow partner v ČR“.
-6. **Třetí strany u otázky „kdo“.** Clutch, Firmy.cz, Webflow partneři, článek v médiích.
+6. **Třetí strany u otázky „kdo“.** Clutch, Webflow partneři, článek v médiích. Firmy.cz jen v Seznamu.
 7. **Kde česká odpověď chybí, AI cituje zahraničí.** White label Webflow, Webflow freelancer, Čelákovice.
 
-### GEO opatření
+### Co udělat pro GEO
 
 Seřazená podle poměru dopadu a pracnosti. Sloupec „Kdo“ říká, která session to převezme.
 
@@ -244,16 +325,16 @@ Seřazená podle poměru dopadu a pracnosti. Sloupec „Kdo“ říká, která s
 
 ---
 
-## 4. Plán obsahu pro dlouhý chvost
+## 4. O čem psát pro dlouhý chvost
 
-Blog je mimo rozsah stavby. Jde o plán, na který navážou M01 a O0x. Témata jsou vybraná podle Google Suggest, GEO testu a mezer v SERP. Pořadí = doporučené pořadí psaní.
+Blog je mimo rozsah stavby. Jde o plán, na který navážou M01 a O0x. Témata jsme vybrali podle Google Suggest (vlastní sondy 29. 9. 2026), GEO testu a mezer v SERP. Pořadí = doporučené pořadí psaní.
 
 | # | Téma | Cílový dotaz | Signál z dat | Prolinkuje na |
 |---|---|---|---|---|
-| 1 | Kolik stojí webové stránky v roce 2026 | kolik stojí webové stránky, cena webových stránek | Suggest: 10 variant „cena webu“. 8 z 18 GEO dotazů je cenových. | `/tvorba-webovych-stranek`, ceník |
+| 1 | Kolik stojí webové stránky v roce 2026 | kolik stojí webové stránky, cena webových stránek | Suggest na „cena webu“ nabízí 10 variant. 8 z 18 GEO dotazů je cenových. | `/tvorba-webovych-stranek`, ceník |
 | 2 | Webflow, nebo WordPress pro firmu? | webflow vs wordpress | Suggest nabízí po „webflow vs“. SERP drží blogy malých studií. | `/webflow` |
 | 3 | Redesign webu: cena, postup a jak nepřijít o pozice | redesign webu cena | Suggest nabízí jen „redesign webu cena“, SERP slabý | `/redesign-webu`, `/ux-audit` |
-| 4 | Zákon o přístupnosti: týká se vašeho webu? | zákon o přístupnosti webových stránek | Suggest: 8 variant. Zákon 424/2023 Sb. platí od 28. 6. 2025 pro B2C e-shopy. Mikropodniky ve službách mají výjimku. [P1, P2] | `/redesign-webu`, `/ux-audit` |
+| 4 | Zákon o přístupnosti: týká se vašeho webu? | zákon o přístupnosti webových stránek | Suggest na „zákon o přístupnosti“ nabízí 8 variant. Zákon 424/2023 Sb. platí od 28. 6. 2025 pro B2C e-shopy. Mikropodniky ve službách mají výjimku. [P1, P2] | `/redesign-webu`, `/ux-audit` |
 | 5 | Kolik stojí landing page a co musí obsahovat | landing page cena | Suggest nabízí „landing page cena“, SERP slabý | `/landing-page` |
 | 6 | UX audit webu: co obsahuje a kdy se vyplatí | ux audit webu, audit webu | nízký objem, jasně obchodní záměr | `/ux-audit` |
 | 7 | Co je MVP a kolik stojí | co je mvp aplikace, kolik stojí vytvořit aplikaci | Suggest nabízí obě. Seznam na „vývoj mvp“ vrací právě tyto články. | `/vyvoj-webovych-aplikaci#mvp` |
@@ -262,14 +343,14 @@ Blog je mimo rozsah stavby. Jde o plán, na který navážou M01 a O0x. Témata 
 | 10 | Co musí obsahovat web firmy (kontrolní seznam) | co musí obsahovat webové stránky | Suggest nabízí. GEO dotaz vyhrály checklisty. | `/tvorba-webovych-stranek` |
 | 11 | Jak dlouho trvá tvorba webu | jak dlouho trvá tvorba webu | GEO: vyhrávají FAQ s časy podle typu webu | `/tvorba-webovych-stranek`, ceník |
 | 12 | Jak vybrat dodavatele webu: otázky, které položit | jak vybrat agenturu na tvorbu webu | GEO: vyhrávají číslované návody | `/kontakt`, `/nase-prace` |
-| 13 | Webflow, nebo Framer? | webflow vs framer | Suggest: první varianta po „webflow vs“ | `/webflow` |
-| 14 | Kolik stojí správa webu | kolik stojí správa webu, správa webu cena | Suggest nabízí obě. Cross-sell z B01. | `/webflow`, ceník |
+| 13 | Webflow, nebo Framer? | webflow vs framer | Suggest nabízí po „webflow vs“ hned na 2. místě | `/webflow` |
+| 14 | Kolik stojí správa webu | kolik stojí správa webu, správa webu cena | Suggest nabízí „kolik stojí správa webu“ i „správa webu cena“. Navazující služba z B01. | `/webflow`, ceník |
 
-Pravidla pro všechny články: rok v titulku u cenových témat, tabulka hned pod úvodem, FAQ na konci, viditelné datum aktualizace, revize cen jednou za čtvrtletí.
+Pro všechny články platí: rok v titulku u cenových témat, tabulka hned pod úvodem, FAQ na konci, viditelné datum aktualizace, revize cen jednou za čtvrtletí.
 
 ---
 
-## 5. Které služby spustit hned a které později
+## 5. Které služby spustit hned a které později?
 
 Kritéria: hledanost (kapitola 2), síla konkurence v SERP, prázdné místo na trhu (kapitola 1) a důkazy, které máme (B01, kapitola 3).
 
@@ -280,7 +361,7 @@ Kritéria: hledanost (kapitola 2), síla konkurence v SERP, prázdné místo na 
 | Webflow | minimální česky | střední | výsledky s čísly | odznak `[OVĚŘIT]` | **Hned**, pro konverzi, ne pro objem |
 | Landing page | vysoká (info), nízká (obchod) | slabá | balíček s termínem | chybí | **Hned**, ukázku doplnit |
 | UX audit | nízká, obchodní | střední | placený audit s odečtem | chybí, stačí anonymizovaný výstup | **Hned**, vstupní produkt |
-| Logo a vizuální identita | střední (tvorba loga) | střední | žádné výrazné | Arbosis | **Hned** |
+| Logo a vizuální identita | vysoká (tvorba loga), část informační | střední | žádné výrazné | Arbosis | **Hned** |
 | Pro agentury | minimální česky | žádná česky | největší | `[DOPLNIT: agenturní projekty]` | **Hned**, pro přímé oslovení |
 | Webové aplikace | nízká | silná (softwarové firmy) | málo | Anse, CRR | **Hned**, ale cílit na dlouhé varianty |
 | MVP | minimální | informační články | balíček s cenou | `[DOPLNIT: dodáváme sami?]` | **Později jako stránka**, hned jako sekce |
@@ -290,9 +371,9 @@ Kritéria: hledanost (kapitola 2), síla konkurence v SERP, prázdné místo na 
 
 ---
 
-## 6. Katalogy a profily
+## 6. Kde mít profil (katalogy)
 
-### Priority
+### Co založit hned a co později
 
 | Priorita | Katalog | Cena | SEO | GEO | Proč |
 |---|---|---|---|---|---|
@@ -308,7 +389,7 @@ Kritéria: hledanost (kapitola 2), síla konkurence v SERP, prázdné místo na 
 | Později | Awwwards, CSSDA [C11] | 65 USD a 50 USD za přihlášku | odkaz | nízký | kandidát je nový web v2 |
 | Později | CzechCrunch profily [C12] | zdarma | slabý | pro startupy | až bude MVP reference |
 | Později | Wikidata [C13] | zdarma | – | teoreticky silný | až budou nezávislé zdroje, jinak hrozí smazání |
-| Později | Najisto, Webtrh.cz | zdarma až nízká | odkaz | – | jen kvůli jednotným údajům |
+| Později | Najisto, Webtrh.cz | Najisto zdarma, Webtrh `[OVĚŘIT]` | odkaz | – | jen kvůli jednotným údajům |
 | Nedělat | Poptávkové portály (Poptávej, ePoptávka) [C14] | 5 990 Kč/rok a víc | – | – | malé zakázky a souboj cenou, proti cíli „lepší poptávky“ |
 | Nedělat | DesignRush [C15] | profil zdarma, pořadí placené | slabý | slabý | top 10 se kupuje |
 | Nedělat | Apple Business Connect, Zlaté stránky, Dribbble, StartupJobs | – | – | – | bez veřejné provozovny, nízký přínos |
@@ -324,7 +405,7 @@ Kritéria: hledanost (kapitola 2), síla konkurence v SERP, prázdné místo na 
 | LinkedIn | název, web, obor, velikost, typ Self-employed, lokace, popis, služby, logo |
 | Bing Places | stejné údaje jako Google, ručně |
 
-### Jednotné údaje (NAP) a schema
+### Jak držet údaje všude stejně (NAP) a schema
 
 - **Název všude stejně:** Webkit.Studio.
 - **Adresa:** veřejně jen město a kraj. Ulici skrýt, kde to jde. Nepoužívat virtuální sídlo, Google ho zakazuje [C5].
@@ -335,14 +416,14 @@ Kritéria: hledanost (kapitola 2), síla konkurence v SERP, prázdné místo na 
 
 ### Jak sbírat recenze
 
-1. Po předání projektu poslat **všem** klientům odkaz na Google recenzi. Google zakazuje žádat jen spokojené a nabízet odměnu [C5].
+1. Po předání projektu poslat **všem** klientům odkaz na Google recenzi. Google zakazuje žádat jen spokojené a nabízet odměnu [C16].
 2. Za 2–4 týdny požádat o recenzi na Clutch přes online formulář [C2].
 3. Na recenze odpovídat, na Firmy.cz i Google.
 4. Na webu ukazovat jen skutečné recenze s odkazem na zdroj.
 
 ---
 
-## 7. Co z toho plyne pro další session
+## 7. Co převezmou další session
 
 | Session | Co převzít |
 |---|---|
@@ -354,7 +435,7 @@ Kritéria: hledanost (kapitola 2), síla konkurence v SERP, prázdné místo na 
 | S05 | Schema (`ProfessionalService`, `Service`, `Offer`, `FAQPage`, `BreadcrumbList`), 301 ze sloučených URL, llms.txt, Bing Webmaster Tools. |
 | M01 | Doplnit přesné objemy (Keyword Planner, Sklik, Search Console) a opakovat GEO test 18 dotazů. Plán obsahu z kapitoly 4. |
 
-## 8. Omezení rešerše
+## 8. Co rešerše neumí
 
 - **Objemy jsou relativní.** Keyword Planner, Sklik ani Search Console nebyly k dispozici.
 - **Google CZ se nedal načíst přímo.** Pořadí je ze Seznamu a z WebSearch, který hledá z USA.
@@ -392,7 +473,7 @@ Přístup 29. 9. 2026.
 
 | # | Zdroj |
 |---|---|
-| G1 | Test 18 dotazů přes WebSearch a Seznam, 29. 9. 2026 (souhrn v kapitole 3) |
+| G1 | Vlastní test 18 dotazů přes WebSearch a `search.seznam.cz`, 29. 9. 2026. Výsledky jsou v tabulce kapitoly 3. |
 | G2 | [le-artist.cz/blog/kolik-stoji-web](https://www.le-artist.cz/blog/kolik-stoji-web) |
 | G3 | [designee.cz/blog/kolik-stoji-webove-stranky](https://designee.cz/blog/kolik-stoji-webove-stranky/) |
 | G4 | [pajskr.cz/cena-webovych-stranek](https://pajskr.cz/cena-webovych-stranek/) |
@@ -400,7 +481,7 @@ Přístup 29. 9. 2026.
 | G6 | [anfilov.cz/clanky/kolik-stoji-vizualni-identita](https://anfilov.cz/clanky/kolik-stoji-vizualni-identita) |
 | G7 | [pixelmate.cz/vyvoj-aplikace-cena](https://pixelmate.cz/vyvoj-aplikace-cena) |
 | G8 | [semibold.cz/en/webflow](https://www.semibold.cz/en/webflow) |
-| G9 | [webfusion.cz: Kolik stojí webové stránky 2026](https://webfusion.cz/kolik-stoji-webove-stranky-v-roce-2026/), [webmorava.cz: Kolik stojí webové stránky 2026](https://webmorava.cz/kolik-stoji-webove-stranky-v-roce-2026/) |
+| G9 | [webfusion.cz: Kolik stojí webové stránky 2026](https://webfusion.cz/kolik-stoji-webove-stranky-v-roce-2026/) (upr. 28. 1. 2026), [webmorava.cz: Kolik stojí webové stránky 2026](https://webmorava.cz/kolik-stoji-webove-stranky-v-roce-2026/) (upr. 3. 6. 2026) |
 
 **Katalogy**
 
@@ -421,6 +502,7 @@ Přístup 29. 9. 2026.
 | C13 | [Wikidata: Notability](https://www.wikidata.org/wiki/Wikidata:Notability) |
 | C14 | [Poptávej: ceník](https://www.poptavej.cz/cenik), [Webtrh: nejlepší poptávkový web](https://webtrh.cz/diskuse/nejlepsi-poptavkovy-web/) |
 | C15 | [DesignRush: methodology](https://www.designrush.com/methodology) |
+| C16 | [Google Business Profile: zakázaný obsah (recenze)](https://support.google.com/business/answer/7400114?hl=en) |
 
 **Legislativa (plán obsahu)**
 
