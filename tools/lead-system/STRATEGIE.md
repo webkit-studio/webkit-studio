@@ -133,6 +133,17 @@ Postup, který se osvědčil při ruční práci 24. 9. 2026. Výtěžnost je ko
   6. podpis.
 
   E-mail posílá vždy Lukáš, rutina nikdy.
+- **Jak Lukáš e-maily píše** (z jeho oprav konceptů 29. 9. 2026). Platí pro každý koncept, který pro něj připravuješ:
+  - **Předmět obecně:** „Webové stránky – návrh termínu na videohovor“, „Webové stránky – problém s rychlostí na mobilu“. Bez názvu firmy a bez poznámek v závorce.
+  - **Spolu, ne pro vás:** „kdy spolu můžeme projít váš web“, ne „kdy vám web projdu“.
+  - **Kdo jsem, s odkazem:** „vedu webové projekty pro firmy, od auditu po zadání a hotový web. Moji práci najdete na webkit.studio“.
+  - **Nástroj vždy vysvětlit:** „Google PageSpeed (nástroj, který měří rychlost a dává webu skóre)“.
+  - **Body z hovoru do seznamu.** Co firmu na webu štve, patří do e-mailu jako samostatný bod. Poslední bod smí být obecný: „Další úpravy, které by pomohly…“.
+  - **Dodavatel je rovnocenná možnost, ne soupeř.** Uznat ho („Chápu, že máte asi vlastního IT dodavatele…“) a na konci nabídnout volbu: „Podklady můžete předat svému dodavateli, nebo můžeme společně prozkoumat, jak by fungovala naše spolupráce.“ Nikdy trojici „sám / dodavatel / já“, cílem je dostat firmu na svou stranu.
+  - **Žádné obranné věty** typu „Nejsem další automatická nabídka“.
+  - **Recepci nepopisovat:** „Paní mi doporučila napsat e-mail, tak posílám.“
+  - **Termíny:** víc možností (3–5), klidně i týden až dva dopředu. Tvar „čtvrtek 1. 10. od 10:00“ nebo „pondělí 12. 10. odpoledne“.
+  - **Závěr vřele:** „Děkuji za váš čas a mějte hezký den!“ Jméno v podpisu tučně.
 - **Follow-up** (pole Follow-up):
   - Po e-mailu, který si firma řekla nebo který šel přes recepci: telefon **za 3–5 pracovních dní** s odkazem na e-mail („posílal jsem vám rozbor, stihl jste se podívat?“). Déle si e-mail nikdo nepamatuje.
   - Když se nedovolám: druhý pokus jiný den v jinou denní dobu, pak poslední krátká zpráva e-mailem.
@@ -231,3 +242,4 @@ Podle nich sobotní vyhodnocení navrhuje změny. Týdně se mění **nejvýš 3
 | 2026-09-29 | Follow-up po e-mailu 3–5 pracovních dní, vlastní termín firmy nebo Lukáše má přednost | zkušební vyhodnocení: follow-upy po e-mailu byly rozházené (3 dny až 2 měsíce) |
 | 2026-09-29 | Rutiny čtou Notion jen přes pohled a při chybě čtení pokračují. Obchodní řetězce vynechává už pipeline. | Odpolední běh oken skončil bez hledání kvůli limitu SQL dotazů v Notionu. Kaufland a Tesco zbytečně zabíraly měření. |
 | 2026-09-29 | Nabídka v „Jak oslovujeme“ v přímé řeči | Rutina podle ní psala „dostanou, můžou“ místo „dostanete, můžete“. |
+| 2026-09-29 | Nová část „Jak Lukáš e-maily píše“ | Pravidla z Lukášových oprav prvních konceptů, ať další koncepty nepotřebují stejné opravy. |
