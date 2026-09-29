@@ -132,7 +132,10 @@ Postup, který se osvědčil při ruční práci 24. 9. 2026. Výtěžnost je ko
   6. podpis.
 
   E-mail posílá vždy Lukáš, rutina nikdy.
-- **Follow-up:** telefonem za 3 dny s odkazem na e-mail, poslední zpráva za 7 dní, pak podle dohody (pole Follow-up).
+- **Follow-up** (pole Follow-up):
+  - Po e-mailu, který si firma řekla nebo který šel přes recepci: telefon **za 3–5 pracovních dní** s odkazem na e-mail („posílal jsem vám rozbor, stihl jste se podívat?“). Déle si e-mail nikdo nepamatuje.
+  - Když se nedovolám: druhý pokus jiný den v jinou denní dobu, pak poslední krátká zpráva e-mailem.
+  - Když firma řekne termín sama („ozvěte se po sezóně“, „za dva měsíce“) nebo ho určí Lukáš, platí ten. Důvod patří do Odpovědi firmy.
 
 ## Zápis výsledku hovoru
 
@@ -148,7 +151,7 @@ Bez kódu se nedá vyhodnotit, co funguje. Když kód chybí, vyhodnocení ho od
 |---|---|---|
 | `[nedovoláno]` | nikdo to nevzal | zůstává Oslovit |
 | `[recepce]` | nedostal jsem se k rozhodovateli | Osloveno + Follow-up |
-| `[e-mail]` | chtějí e-mail, poslal jsem | Osloveno + Follow-up za 3 dny |
+| `[e-mail]` | chtějí e-mail, poslal jsem | Osloveno + Follow-up za 3–5 pracovních dní |
 | `[později]` | zavolat jindy | Osloveno + Follow-up |
 | `[zájem]` | chce víc info, čeká na mě | Odpověď |
 | `[videohovor]` | domluvený termín | Call |
@@ -214,3 +217,4 @@ Podle nich sobotní vyhodnocení navrhuje změny. Týdně se mění **nejvýš 3
 | Datum | Změna | Proč |
 |---|---|---|
 | 2026-09-29 | První verze podle ručního postupu z 24. 9., rutiny čtou strategii z repa | aby šla strategie měnit bez sahání na rutiny |
+| 2026-09-29 | Follow-up po e-mailu 3–5 pracovních dní, vlastní termín firmy nebo Lukáše má přednost | zkušební vyhodnocení: follow-upy po e-mailu byly rozházené (3 dny až 2 měsíce) |
