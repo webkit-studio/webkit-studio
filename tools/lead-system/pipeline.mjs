@@ -4,6 +4,8 @@ const [,, runDir, perQ, obor, ...queries] = process.argv; fs.mkdirSync(runDir, {
 const log = (...a) => { const l = a.join(' '); console.log(l); fs.appendFileSync(path.join(runDir, 'log.txt'), l + '\n'); };
 const known = new Set((fs.existsSync('known_domains.txt') ? fs.readFileSync('known_domains.txt', 'utf8') : '').split(/\s+/).filter(Boolean));
 const dom = u => { try { return new URL(u).hostname.replace(/^www\./, ''); } catch { return null; } };
+// obchodní řetězce a velkoprodejny: na Firmy.cz vyskakují u pergol, oken a zahrad, nikdy to není lead
+const CHAIN = /(^|\.)(kaufland|i?tesco|globus|obi|hornbach|bauhaus|mountfield|baumax|uni-hobby|ikea|lidl|albert|billa|penny|dek|sconto|xxxlutz|mobelix|jysk|decathlon)\.(cz|com|de|eu)$/;
 // 1) search lists (Chromium, JS-rendered)
 const b = await chromium.launch({ executablePath: chromePath(), args: ['--no-sandbox', '--disable-dev-shm-usage', '--ignore-certificate-errors'] });
 const p = await (await b.newContext({ locale: 'cs-CZ', ignoreHTTPSErrors: true })).newPage();
@@ -30,6 +32,7 @@ for (const d of details) {
   const dm = dom(row.web);
   if (!row.web) { log('  - bez webu:', row.name); continue; }
   if (dm && known.has(dm)) { log('  - už v DB:', row.name, dm); continue; }
+  if (dm && CHAIN.test(dm)) { log('  - řetězec:', row.name, dm); continue; }
   if (cands.find(c => dom(c.web) === dm)) continue;
   if (process.env.PREFILTER === '1') {
     let h = ''; for (let i = 0; i < 2 && h.length < 1500; i++) h = await curl(row.web);

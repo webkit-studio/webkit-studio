@@ -18,10 +18,26 @@ Všechno je pod stránkou Marketing.
 
 ## Čtení
 
-- **Zásoba po oborech a známé domény:** SQL dotaz nad data source „Lead engine“, sloupce `Obor`, `Stav`, `Web`.
-- **Pro vyhodnocení:** všechny sloupce z `rutiny/tydenni-vyhodnoceni.md` → Data.
-  - Datumy jsou ve sloupcích `date:Osloveno:start` a `date:Follow-up:start`.
-  - Názvy sloupců s diakritikou a pomlčkou dávej do uvozovek, např. `"E-mail"`.
+**Čti vždy přes pohled databáze, nikdy přes SQL.** SQL dotazy (`query-data-sources` s `mode: "sql"`) mají na tomhle tarifu Notionu společný limit pro celý workspace. 29. 9. odpoledne se vyčerpal a jeden běh kvůli tomu skončil bez hledání. Čtení přes pohled limit nemá.
+
+1. `search` podle názvu databáze → `fetch` databáze. Ve výsledku je seznam **Views**, vezmi první pohled (`view://<ID pohledu>`).
+2. Slož adresu `https://www.notion.so/<ID databáze bez pomlček>?v=<ID pohledu bez pomlček>`.
+3. `query-data-sources` s `mode: "view"`, `view_url` z bodu 2 a `page_size: 100`. Dokud je v odpovědi `has_more: true`, volej znovu se `start_cursor` = `next_cursor`.
+4. Pohled vrací všechny vlastnosti, i ty, které v tabulce nejsou vidět. Nevrací čas založení. Místo něj ber datum `Ověřeno`, u leadů z rutiny je to den založení.
+
+Co z toho kdo potřebuje:
+
+- **Zásoba po oborech a známé domény:** Lead engine, vlastnosti `Obor`, `Stav`, `Web`.
+- **Deník běhů:** databáze „Lead engine – běhy“, stejným postupem.
+- **Pro vyhodnocení:** všechny vlastnosti z `rutiny/tydenni-vyhodnoceni.md` → Data. Datumy jsou pod klíči `date:Osloveno:start`, `date:Follow-up:start` a `date:Ověřeno:start`.
+
+## Když čtení selže
+
+**Neskonči.** Hledání má cenu i bez přesné zásoby.
+
+1. **Obor** vyber podle deníku: ten, který nejdéle neběžel. Když nejde přečíst ani deník, vezmi obor s prioritou 1 podle dne v týdnu: pondělí první v tabulce Obory, úterý druhý a tak dál.
+2. **Známé domény:** `known_domains.txt` nech prázdný. Před každým zápisem hledej doménu v Lead engine nástrojem `search` s `data_source_url` Lead engine. Když se najde, lead nezapisuj.
+3. Do Poznámky v deníku napiš, co selhalo a jak jsi to obešel.
 
 ## Zápis nového leadu
 
