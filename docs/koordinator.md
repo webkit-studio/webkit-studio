@@ -28,6 +28,17 @@ Pak přidej do issue komentář `spuštěno · session <id> · datum · model`.
 
 Session za bránou ✋ se spustí až po komentáři `schváleno` v issue brány.
 
+## Když create_session nejde
+Když je chat koordinátora na serveru v režimu `plan`, `create_session` s `auto` neprojde a zděděný `plan` by session zasekl.
+Náhradní cesta: `create_trigger` s `create_new_session_on_fire` a `run_once_at` za 2–3 minuty.
+Nevýhoda: takto spuštěná session nemá konektory (GitHub). Proto v promptu vždy uveď:
+- naklonovat veřejné repo
+- zadání číst přes `curl https://api.github.com/repos/webkit-studio/webkit-studio/issues/N`
+- výstupy publikovat jako Artifact, když nemůže pushnout
+Koordinátor pak výstupy vyzvedne a commitne.
+
+Sběrné issue zpětné vazby je #15.
+
 ## Kontroly
 Plánuj přes `send_later` každé ~2 h s úplným promptem kontroly.
 
