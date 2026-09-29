@@ -64,7 +64,7 @@ Jen podpůrné: žádné měření návštěvnosti, stará verze WordPressu nebo
 
 ## Texty do Notionu
 
-**Proč volám** (tak, jak to řekneš do telefonu, 2–3 věty):
+**Proč volám** (tak, jak to řekneš do telefonu, 2–3 věty). Mluví přímo k firmě: „děláte“, „váš web“, nikdy „jejich web“.
 1. Konkrétní pochvala z faktů: rok založení, pozice na Firmy.cz, počet hodnocení, fotky realizací.
 2. „Ale když otevřu váš web na telefonu, …“ + důvod úrovně 1.
 3. „Tak jsem si říkal, že vám zavolám.“

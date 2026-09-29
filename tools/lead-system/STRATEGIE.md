@@ -36,7 +36,8 @@ Výchozí odhad. Po dvou týdnech dat je přepočítá sobotní vyhodnocení.
 | `výstup` | **notion** | Kam noční rutina zapisuje leady: `notion` nebo `dashboard`. Postup je v `rutiny/vystup-<hodnota>.md`. |
 | `stav_novych` | **Ověřit** | Stav nových leadů v Notionu. `Ověřit` = projdeš je sám, `Oslovit` = rovnou k volání. Dashboard zakládá vždy návrh. |
 | `max_leadu_za_noc` | **8** | Víc nezapisovat, i když je víc kandidátů. Přednost mají lepší známky. |
-| `dotazu_za_noc` | **12** | Kolik dotazů „obor + město“ jeden běh projde. |
+| `dotazu_za_noc` | **30** | Kolik dotazů „obor + město“ jeden běh projde. Z 10 dotazů vychází zhruba 1 lead. |
+| `na_dotaz` | **7** | Kolik firem z výsledků Firmy.cz se u každého dotazu prověří (po `skip`, tedy místa 6.–12.). |
 | `skip` | **5** | Kolik prvních výsledků Firmy.cz přeskočit. Špičku obvolávají všichni. |
 | `zdroj` | **Lead systém v2** | Hodnota pole Zdroj u nových leadů. |
 
@@ -56,7 +57,7 @@ Priorita určuje, kam jdou noční běhy. Názvy odpovídají poli Obor v Notion
 |---|---|---|---|---|
 | Rekonstrukce bytů a domů | 1 | 0,3–1,5 mil. | lidi porovnávají online, rozhoduje první dojem | rekonstrukce bytů; rekonstrukce domů |
 | Dřevostavby a RD na klíč | 1 | 3–15 mil. | výběr trvá měsíce, web a reference jsou důkaz důvěry | dřevostavby; rodinné domy na klíč |
-| Bazény – zimní zahrady – pergoly | 1 | 0,3–2 mil. | podzim a zima = plánování na jaro | pergoly; zimní zahrady; zastřešení bazénů |
+| Bazény – zimní zahrady – pergoly | 1 | 0,3–2 mil. | podzim a zima = plánování na jaro | pergoly na míru; zimní zahrady; zastřešení bazénů |
 | Stavební firmy | 1 | 1–30 mil. | investor si firmu prověří na webu | stavební firma |
 | Střechy a klempířství | 1 | 0,2–0,8 mil. | zákazník volá prvním třem, weby jsou nejslabší | pokrývač; klempířství; rekonstrukce střechy |
 | Okna – dveře – stínění | 1 | 80–400 tis. | poptávky jdou na víc firem, vyhrává rychlá a důvěryhodná | plastová okna; okna a dveře; stínicí technika |
@@ -217,4 +218,5 @@ Podle nich sobotní vyhodnocení navrhuje změny. Týdně se mění **nejvýš 3
 | Datum | Změna | Proč |
 |---|---|---|
 | 2026-09-29 | První verze podle ručního postupu z 24. 9., rutiny čtou strategii z repa | aby šla strategie měnit bez sahání na rutiny |
+| 2026-09-29 | `dotazu_za_noc` 12 → 30, nový klíč `na_dotaz` 7, „pergoly“ → „pergoly na míru“ | první tři běhy: 8–10 dotazů po 5 firmách daly dohromady 2 leady, „pergoly“ vrací Kaufland a Tesco |
 | 2026-09-29 | Follow-up po e-mailu 3–5 pracovních dní, vlastní termín firmy nebo Lukáše má přednost | zkušební vyhodnocení: follow-upy po e-mailu byly rozházené (3 dny až 2 měsíce) |
