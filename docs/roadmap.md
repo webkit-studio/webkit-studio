@@ -12,11 +12,11 @@ Plán celého projektu je v `docs/pipeline.md`, tabulka session a zadání v `do
 | G · Ladění | M01 (rutina), O0x | data před a po |
 
 ## Stav
-_Aktualizováno: 29. 9. 2026 · B01_
+_Aktualizováno: 29. 9. 2026 · B02_
 
-**Hotovo:** K00 – založená štafeta, zadání, reference Halo Lab, issues. B01 (#10) – služby, zákazníci, nabídka (`docs/web-v2/B01-sluzby-zakaznici.md`).
-**Rozpracováno:** D01 (#13), B02 (#11).
-**Další krok:** 30. 9. ráno Lukáš schvaluje náhled z D01 (web, 3 služby, komponenty). Pak ✋A (positioning a nabídka).
+**Hotovo:** K00 – založená štafeta, zadání, reference Halo Lab, issues. B01 (#10) – služby, zákazníci, nabídka (`docs/web-v2/B01-sluzby-zakaznici.md`). B02 (#11) – trh, klíčová slova, GEO, katalogy (`docs/web-v2/B02-trh-vyhledavani.md`).
+**Rozpracováno:** D01 (#13).
+**Další krok:** 30. 9. ráno Lukáš schvaluje náhled z D01 (web, 3 služby, komponenty). Pak ✋A (positioning a nabídka): B01 a B02 jsou hotové, čeká se na schválení Lukášem.
 **Blokery:** žádné.
 
 ### Na Lukášovi
@@ -24,3 +24,4 @@ _Aktualizováno: 29. 9. 2026 · B01_
 |---|---|---|
 | Vyplnit dotazník faktů z B01 (15 otázek v #10, stačí krátké odpovědi) a rozhodnout 5 otázek ano/ne v B01 | Bez faktů zůstanou v textech `[DOPLNIT]`, rozhodnutí potřebuje T01 | 29. 9. 2026 |
 | Přístup k GA4 a Search Console pro session (servisní účet / token v prostředí) | Rutina M01 a ověření v L01 | před L01 |
+| Rozhodnout 5 otázek ano/ne v B02 a ověřit stav Webflow partnerství (URL profilu), osobní schůzky s klienty (Google Business Profile) a adresu pro Firmy.cz | Mapa URL pro T01, profily v katalozích pro SEO a GEO | 29. 9. 2026 |
