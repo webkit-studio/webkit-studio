@@ -1,6 +1,6 @@
 # Týdenní vyhodnocení – postup rutiny
 
-Běží v sobotu ráno. **Cíl: zjistit z výsledků hovorů, co vede k poptávkám, a navrhnout konkrétní změny `STRATEGIE.md`.**
+Běží v sobotu ve 2:00 ve stejné rutině jako noční hledání. Výsledek je v Notionu, když se Lukáš ráno probudí. **Cíl: zjistit z výsledků hovorů, co vede k poptávkám, a navrhnout konkrétní změny `STRATEGIE.md`.**
 
 Rutina nic nemění sama: ani leady, ani strategii. Jen čte, počítá a navrhuje. Návrhy schvaluje Lukáš.
 
