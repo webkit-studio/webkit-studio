@@ -37,7 +37,7 @@ Výchozí odhad. Po dvou týdnech dat je přepočítá sobotní vyhodnocení.
 | `stav_novych` | **Ověřit** | Stav nových leadů v Notionu. `Ověřit` = projdeš je sám, `Oslovit` = rovnou k volání. Dashboard zakládá vždy návrh. |
 | `max_leadu_za_noc` | **8** | Víc nezapisovat, i když je víc kandidátů. Přednost mají lepší známky. |
 | `dotazu_za_noc` | **30** | Kolik dotazů „obor + město“ jeden běh projde. Z 10 dotazů vychází zhruba 1 lead. |
-| `jen_platici` | **ano** | `ano` = měří se jen firmy s placeným profilem na Firmy.cz (proměnná `JEN_PLACENE=1`). `ne` = všechny. |
+| `jen_platici` | **ano** | `ano` = měří se jen firmy, které platí za marketing: placený profil na Firmy.cz, nebo reklamní kód Googlu, Mety či Skliku na webu (proměnná `JEN_PLACENE=1`). `ne` = všechny. |
 | `na_dotaz` | **10** | Kolik firem z výsledků Firmy.cz se u každého dotazu prověří (od místa `skip`). Placené profily bývají na prvních místech. |
 | `skip` | **0** | Kolik prvních výsledků Firmy.cz přeskočit. Nahoře stojí placené profily, a ty teď chceme. |
 | `zdroj` | **Lead systém v2** | Hodnota pole Zdroj u nových leadů. |
@@ -88,7 +88,7 @@ Priorita určuje, kam jdou noční běhy. Názvy odpovídají poli Obor v Notion
 
 - **Výchozí trh jsou okresní a menší města** (10–80 tisíc obyvatel) po celé ČR. Majitel tam bere telefon sám a agentury tam tolik nevolají.
 - **Krajská města** jen se `skip` aspoň 5. **Praha, Brno a Ostrava** jen jako test, se `skip` aspoň 10.
-- **Za noc** se projde `dotazu_za_noc` dotazů ve tvaru klíčové slovo + město, například „rekonstrukce bytů Kolín“. Město se u stejného oboru neopakuje dřív než po 30 dnech (podle deníku). Kraje se střídají.
+- **Za noc** se projde `dotazu_za_noc` dotazů ve tvaru klíčové slovo + město, například „rekonstrukce bytů Kolín“. Město se u stejného oboru neopakuje dřív než po 30 dnech (podle deníku). **Výjimka:** běhy před 30. 9. 2026 se nepočítají, protože přeskakovaly placené profily nahoře (`skip` 5). Kraje se střídají.
 - **Penziony:** místo měst turistické oblasti, tedy Krkonoše, Šumava, Jeseníky, Beskydy, Lipno, Jizerské hory, Český ráj, jižní Morava a Vysočina.
 
 **Okresní města podle krajů** (zásobník pro rutinu):
@@ -114,7 +114,7 @@ Priorita určuje, kam jdou noční běhy. Názvy odpovídají poli Obor v Notion
 
 Postup, který se osvědčil při ruční práci 24. 9. 2026. Výtěžnost je kolem 5 %: z 60 firem v oboru vyjdou 2–5 leadů.
 
-1. **Firmy.cz:** dotaz obor + město, bere se prvních `na_dotaz` výsledků od místa `skip`. S `jen_platici = ano` projdou dál jen firmy s placeným profilem (v detailu firmy `isPaid`). Placené profily stojí na Firmy.cz nahoře.
+1. **Firmy.cz:** dotaz obor + město, bere se prvních `na_dotaz` výsledků od místa `skip`. S `jen_platici = ano` projdou dál jen firmy s placeným profilem (v detailu firmy `isPaid`) nebo s reklamním kódem Googlu, Mety či Skliku na webu. Placené profily stojí na Firmy.cz nahoře.
 2. **Předsítko:** e-shopy a obchodní řetězce vypadnou hned. U neplatících firem i zjevně moderní weby. U platících se měří všechno, protože i moderní web může ztrácet poptávky.
 3. **Reklamní kódy:** Google Ads, Meta a Sklik se hledají v HTML webu, v kontejneru Google Tag Manageru a v požadavcích, které zachytil Google PSI.
 4. **Google PageSpeed Insights:** skóre a screenshoty mobilu i počítače. Rychlost, HTTPS a vzhled se berou jen odtud, ne z vlastního prohlížeče (proxy v cloudu zkresluje).

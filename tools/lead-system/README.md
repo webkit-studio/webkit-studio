@@ -112,7 +112,8 @@ Menší města vychází líp. Na firmy.cz se nahoru dostávají firmy, které s
 | `beh.sh` | Celý běh pro jeden obor jedním příkazem: hledání, měření, přeměření, shortlist, přehled screenshotů |
 | `pipeline.mjs` | firmy.cz → detail firmy (JSON-LD) → předsítko → `verify2.mjs` → ARES |
 | `chrome.mjs` | Najde Chromium (`CHROMIUM_PATH`, jinak `/opt/pw-browsers`) |
-| `verify2.mjs` | Měření z Google PSI (mobil + desktop, screenshoty) a statická fakta ze stránky |
+| `verify2.mjs` | Měření z Google PSI (mobil + desktop, screenshoty), statická fakta ze stránky a reklamní kódy |
+| `reklama.mjs` | Najde reklamní kódy Google Ads, Mety a Skliku v HTML webu a v kontejneru Google Tag Manageru |
 | `httpscheck.mjs` | Pustí PSI na `https://` verzi – potvrdí nebo vyvrátí „Nezabezpečeno“ |
 | `shortlist.py` | Projde všechny běhy a vypíše weby s nálezem. Přeskočí domény z `done_hosts.txt` |
 | `sheet.mjs` | Složí mobilní screenshoty ze shortlistu do přehledových obrázků (10 na list) |
