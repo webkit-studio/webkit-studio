@@ -17,3 +17,13 @@
 | 30. 9. 2026 | D01: stránky služeb sdílí 21 sekčních komponent, liší se pořadím, vynechanými sekcemi a jednou podpisovou sekcí (Srovnání, Před a po, Pro koho to je). | Princip Halo Lab ze zadání. Pořadí podle obavy zákazníka dané služby. |
 | 30. 9. 2026 | D01: jediná sytě modrá plocha na stránce je velké CTA s formulářem. Stíny jen u plovoucích prvků, gradient jen jako maska marquee. | Premium flat, pozornost na poptávku. |
 | 30. 9. 2026 | D01: interakce jen transform a opacity, vanilla JS, rozpočet vlastní CSS ≤ 12 kB a JS ≤ 6 kB gzip. | Lighthouse mobil ≥ 95 vedle povinného jQuery a webflow.js. |
+| 30. 9. 2026 | ✋A od Lukáše: 8 stránek služeb (design webu pod tvorbu webu, grafika pod vizuální identitu) + stránka pro agentury. | Lukáš: „ok“. |
+| 30. 9. 2026 | ✋A: URL `/tvorba-webovych-stranek` místo `/vyvoj-…`. | Lukáš: „ok, jestli říkáš“ (data z B02). |
+| 30. 9. 2026 | **Ceny nikde a nikdy.** Žádné částky, rozpětí ani „od“. Termíny ano (web 4–8 týdnů podle velikosti). | Lukáš: cenový model je neveřejný a pohyblivý podle hodnoty pro zákazníka. Návrhy B01/B02 o cenách jsou zamítnuté. |
+| 30. 9. 2026 | **Žádný audit s pevnou cenou ani odečtem.** Audit je služba, web může následovat, rozhodnutí je na zákazníkovi. | Lukáš: „prostě ne, tečka“. Opakovaný návrh, už nenavrhovat. |
+| 30. 9. 2026 | Formulář bez polí rozpočet a termín. Pole Firma je povinné. Po odeslání se otevře rezervační kalendář, rezervace je na zákazníkovi. | Lukáš: ✋A bod 5 „ne“. Konverze = odeslaný formulář. |
+| 30. 9. 2026 | Fakta: 30+ digitálních projektů. Google recenze nemáme, sekce s hodnocením Google se skryje. Webflow Partner: Lukáš pošle odkaz. | Lukáš. |
+| 30. 9. 2026 | **Zakázaný argument „jeden člověk / projekt vede jeden člověk“.** Nanejvýš „jeden dodavatel“. | Lukáš: tahle zkostnatělost z předchozích chatů sem nepatří. |
+| 30. 9. 2026 | Homepage je obecná a buduje důvěru, není o webech. Služby definují až stránky služeb. FAQ na homepage obecné. | Lukáš opakovaně. |
+| 30. 9. 2026 | Kontakt na webu: všude jen `inbox@webkit.studio`. Jediná osoba: v závěrečném CTA slabě „Lukáš Svoboda, Studio Lead“ + LinkedIn + fotka (`docs/web-v2/assets/lukas-*.webp`). Slib „Ozveme se do 24 hodin“, nic dalšího. | Lukáš. |
+| 30. 9. 2026 | Princip „Simple“ (Apple: ~~simplicity~~ ~~simply~~ simple). Začít minimem, přidávat jen to, co uživatel udrží. Texty skoro 1:1 styl Halo Lab, tah na branku (inspirace i pixelmate.cz). Obrázky jen jako grafické doplňky (organické, 3D, ilustrace, interaktivní prvek), žádné fotky obsahu. Bez štítků (eyebrow) nad sekcemi. | Zpětná vazba Lukáše k D01. |
