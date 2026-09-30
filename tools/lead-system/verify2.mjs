@@ -50,8 +50,12 @@ async function dom() {
         const txt = document.body.innerText;
         const forms = [...document.querySelectorAll('form')].filter(f => f.querySelectorAll('input:not([type=hidden]):not([type=submit]):not([type=search]):not([type=checkbox]):not([type=radio]),textarea').length >= 2 && !/search|hled/i.test(f.outerHTML.slice(0, 300)));
         const vh = window.innerHeight;
-        const telTop = [...document.querySelectorAll('a[href^="tel:"]')].some(a => { const r = a.getBoundingClientRect(); return r.width > 0 && r.top < vh; });
-        const ctaTop = [...document.querySelectorAll('a,button')].some(e => { const r = e.getBoundingClientRect(); return r.width > 0 && r.top < vh && /popt|nezávazn|kalkul|objedn|kontaktujte|zavolejte|cenov/i.test(e.textContent || ''); });
+        /* Vidět = v první obrazovce, ne skryté a nic ho nepřekrývá (zavřené menu, cookie lišta). */
+        const videt = e => { const r = e.getBoundingClientRect(); if (r.width <= 0 || r.height <= 0 || r.top >= vh || r.bottom <= 0 || r.left >= innerWidth || r.right <= 0) return false;
+          const s = getComputedStyle(e); if (s.visibility === 'hidden' || s.display === 'none' || +s.opacity === 0) return false;
+          const t = document.elementFromPoint(Math.min(Math.max(r.left + r.width / 2, 1), innerWidth - 1), Math.min(Math.max(r.top + r.height / 2, 1), vh - 1)); return !!t && (t === e || e.contains(t) || t.contains(e)); };
+        const telTop = [...document.querySelectorAll('a[href^="tel:"]')].some(videt);
+        const ctaTop = [...document.querySelectorAll('a,button')].some(e => /popt|nezávazn|kalkul|objedn|kontaktujte|zavolejte|cenov|mám zájem/i.test(e.textContent || '') && videt(e));
         const years = [...txt.matchAll(/\b(20[0-2]\d)\b/g)].map(m => +m[1]);
         /* Na čem web běží: rozhoduje, jestli jde opravit, nebo spíš postavit znovu (RULES.md → Nový web, nebo opravy). */
         const html = document.documentElement.outerHTML.slice(0, 600000);
