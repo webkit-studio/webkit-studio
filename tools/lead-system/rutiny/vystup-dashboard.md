@@ -69,7 +69,7 @@ curl -s -X POST https://webkit.studio/dashboard/api/leads \
 | `web` | adresa, na které web opravdu běží | 300 |
 | `phone`, `email` | jen ověřené | 60, 200 |
 | `field` | Obor, přesně název ze `STRATEGIE.md` → Obory | 100 |
-| `size` | `1-10` / `10-50` / `50-250` / `250+` z ARES | |
+| `size` | z ARES (`…/ekonomicke-subjekty-res/<IČO>` → `kategoriePoctuPracovniku`): kódy 110, 120, 130 = `1-10`; 210, 220, 230 = `10-50`; 240, 310, 320 = `50-250`; 330 a víc = `250+`; 000 = neuvedeno, pole vynech | |
 | `decisionMaker` | jméno a role z ARES | 200 |
 | `grade` | `A` / `B` / `C` | |
 | `score` | A: 8–10, B: 5–7, C: 3–4 | 0–10 |
