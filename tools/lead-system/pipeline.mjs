@@ -28,13 +28,19 @@ for (const d of details) {
   const lds = [...t.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/gs)].map(m => { try { return JSON.parse(m[1]); } catch { return null; } }).filter(Boolean).flat();
   const biz = lds.find(x => x && /LocalBusiness|Organization|Store|HomeAndConstructionBusiness|ProfessionalService|GeneralContractor/.test(String(x['@type']))) || {};
   const web = (typeof biz.url === 'string' && !/firmy\.cz/.test(biz.url)) ? biz.url : ([...t.matchAll(/"url"\s*:\s*"(https?:\/\/[^"]+)"/g)].map(m => m[1]).find(u => !/firmy\.cz|sdn\.cz|seznam|mapy/.test(u)) || null);
-  const row = { detail: d, firmyRank: rankMap[d] || null, name: biz.name || (t.match(/<h1[^>]*>(.*?)<\/h1>/s) || [])[1]?.replace(/<[^>]+>/g, '').trim() || null, web, phone: biz.telephone || (t.match(/"telephone"\s*:\s*"([^"]+)"/) || [])[1] || null, address: [biz.address?.streetAddress, biz.address?.addressLocality].filter(Boolean).join(', ') || null, rating: biz.aggregateRating?.ratingValue || null, reviews: biz.aggregateRating?.reviewCount || biz.aggregateRating?.ratingCount || null };
+  /* Placený profil na Firmy.cz (tarify Seznam Naplno): v detailu je u firmy "isPaid". */
+  const pid = (d.match(/\/detail\/(\d+)-/) || [])[1];
+  const pm = pid ? t.match(new RegExp(`"id":${pid},"isPaid":(true|false)`)) : null;
+  const row = { detail: d, firmyRank: rankMap[d] || null, paid: pm ? pm[1] === 'true' : null, name: biz.name || (t.match(/<h1[^>]*>(.*?)<\/h1>/s) || [])[1]?.replace(/<[^>]+>/g, '').trim() || null, web, phone: biz.telephone || (t.match(/"telephone"\s*:\s*"([^"]+)"/) || [])[1] || null, address: [biz.address?.streetAddress, biz.address?.addressLocality].filter(Boolean).join(', ') || null, rating: biz.aggregateRating?.ratingValue || null, reviews: biz.aggregateRating?.reviewCount || biz.aggregateRating?.ratingCount || null };
   const dm = dom(row.web);
   if (!row.web) { log('  - bez webu:', row.name); continue; }
   if (dm && known.has(dm)) { log('  - už v DB:', row.name, dm); continue; }
   if (dm && CHAIN.test(dm)) { log('  - řetězec:', row.name, dm); continue; }
   if (cands.find(c => dom(c.web) === dm)) continue;
-  if (process.env.PREFILTER === '1') {
+  /* JEN_PLACENE=1: jen firmy, které platí za profil na Firmy.cz. Ty chtějí zákazníky
+     z internetu, takže se měří i moderní weby - hledá se, kde ztrácejí poptávky. */
+  if (process.env.JEN_PLACENE === '1' && row.paid !== true) { log('  - neplatí za Firmy.cz:', row.name); continue; }
+  if (process.env.PREFILTER === '1' && row.paid !== true) {
     let h = ''; for (let i = 0; i < 2 && h.length < 1500; i++) h = await curl(row.web);
     if (h.length >= 1500 && !/upstream request failed/i.test(h)) {
       const vp = /<meta[^>]+name=["']?viewport/i.test(h);
@@ -49,7 +55,7 @@ for (const d of details) {
       if (!suspicious) { log('  - předsítko OK (moderní):', row.name, row.web); fs.appendFileSync(path.join(runDir, 'skipped_ok.jsonl'), JSON.stringify(row) + '\n'); continue; }
     }
   }
-  cands.push(row); log('  + kandidát:', row.name, '|', row.web, '|', row.phone, row.pre ? JSON.stringify(row.pre) : '');
+  cands.push(row); log('  + kandidát:', row.name, '|', row.web, '|', row.phone, row.paid ? '| PLATÍ Firmy.cz' : '', row.pre ? JSON.stringify(row.pre) : '');
 }
 fs.writeFileSync(path.join(runDir, 'candidates.json'), JSON.stringify(cands, null, 1));
 // 3) verify each (PSI + DOM), concurrency 4

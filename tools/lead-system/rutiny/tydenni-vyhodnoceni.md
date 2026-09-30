@@ -48,7 +48,8 @@ Cesty jsou vůči `tools/lead-system/` v repu.
    - po známce,
    - po kanálu,
    - po pořadí na Firmy.cz (1–5 / 6+),
-   - po variantě testu T2.
+   - po variantě testu T2,
+   - po testu T3: platí za marketing (signál „Reklamy“ u leadu), nebo neplatí.
 3. **Důvody „ne“** s počty.
 4. **Noční hledání:**
    - leadů za noc a výtěžnost po oborech (z deníku),

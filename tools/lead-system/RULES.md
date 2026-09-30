@@ -13,6 +13,30 @@ Cíl: zavolat majiteli a domluvit 20min videohovor s rozborem webu zdarma. Proč
 
 > Proč tak přísně: cloudový kontejner jde přes proxy, která vrací timeouty a chyby, které u zákazníka nejsou. Jednou z toho vznikl „web se načítá 7 s“ u webu s PSI 100. Proto se síťová měření berou jen z Googlu.
 
+## Platí za marketing (hlavní cíl od 30. 9. 2026)
+
+Firma, která už za zákazníky z internetu platí, chce marketing. Neprodáváš jí myšlenku, ale lepší výsledek z peněz, které utrácí. **Takové firmy mají přednost před všemi ostatními.**
+
+| Signál | Jak ověřit | Co smíš říct |
+|---|---|---|
+| Placený profil na Firmy.cz | `candidates.json → paid = true` (v detailu firmy na Firmy.cz `isPaid`) | „Vidím, že platíte za zvýrazněný profil na Firmy.cz.“ |
+| Reklamní kód Googlu | `result.json → reklama.google` | „Na webu máte kód pro reklamu Googlu.“ |
+| Reklamní kód Mety | `result.json → reklama.meta` | „Na webu máte kód pro reklamu na Facebooku.“ |
+| Reklamní kód Skliku | `result.json → reklama.sklik` | „Na webu máte kód pro reklamu na Seznamu.“ |
+
+- **Kód neznamená, že reklama běží právě teď.** Může zůstat po staré kampani. Proto se ptej: „Inzerujete teď?“ Neříkej „platíte za reklamu na Googlu“, dokud to nepotvrdí.
+- Když chceš jistotu před hovorem: [Google Ads Transparency](https://adstransparency.google.com) a [Meta Ad Library](https://www.facebook.com/ads/library) podle názvu firmy nebo domény.
+
+**U platící firmy jsou úroveň 1 i tyto nálezy** (web ztrácí lidi, za které firma platí):
+
+| Kód | Co | Jak ověřit |
+|---|---|---|
+| NOCTA | Na první obrazovce mobilu není tlačítko ani telefon | `mobile.jpg` (horní část) + `dom.ctaInFirstScreen = false` a `dom.telInFirstScreen = false` |
+| NOFORM | Na úvodní stránce chybí poptávkový formulář | `dom.inquiryForms = 0`. Říkej „na úvodní stránce“. Na Kontakty se podívej, než řekneš „nikde“. |
+| SLOW | Hlavní obsah se na mobilu načítá přes 4 s | `psi.mobile.lcp`. Říkej „podle Googlu“, Google měří na pomalejším mobilním připojení. |
+
+Platí i R1–R5. U platící firmy **neplatí N1**: moderní web, který ztrácí poptávky, je dobrý lead.
+
 ## Důvody volat
 
 ### Úroveň 1 – otvírák (zákazník to uvidí sám)
@@ -57,7 +81,7 @@ Jen podpůrné: žádné měření návštěvnosti, stará verze WordPressu nebo
 
 | Známka | Kdy | Skóre |
 |---|---|---|
-| A – volat první | Úroveň 1 + signál peněz (pobočky, showroom, 10+ lidí v ARES, ≥ 30 hodnocení na Firmy.cz) | 8–10 |
+| A – volat první | Platí za marketing + úroveň 1 (včetně NOCTA, NOFORM, SLOW). Nebo úroveň 1 + signál peněz (pobočky, showroom, 10+ lidí v ARES, ≥ 30 hodnocení na Firmy.cz) | 8–10 |
 | B – volat | Úroveň 1, nebo 2× úroveň 2 | 5–7 |
 | C – až když není co | Jen 1 důvod úrovně 2 | 3–4 |
 | Nevolat | N1–N5 | 0–2 |
@@ -69,7 +93,14 @@ Jen podpůrné: žádné měření návštěvnosti, stará verze WordPressu nebo
 2. „Ale když otevřu váš web na telefonu, …“ + důvod úrovně 1.
 3. „Tak jsem si říkal, že vám zavolám.“
 
-**Co nabízím** (2–3 věty): 20 minut na videu, projdeme web z telefonu očima zákazníka. Rozbor dostanou sepsaný a můžou ho dát svému dodavateli. Když budou chtít, pomůžeš se [Služba]. U varianty B testu T2 platí text ze `STRATEGIE.md` → Běžící testy.
+**U platící firmy** je stavba jiná. Pořád 2–3 věty a přímo k firmě:
+1. Co platí: „Vidím, že platíte za zvýrazněný profil na Firmy.cz“ nebo „Na webu máte kód pro reklamu Googlu, takže do reklamy investujete.“
+2. „Ale když z reklamy přijde člověk na váš web z telefonu, …“ + konkrétní nález (na první obrazovce nevidí, jak se ozvat; nenajde formulář; čeká X s).
+3. „A za každého takového člověka platíte. Tak jsem si říkal, že vám zavolám.“
+
+**Co nabízím** u platící firmy: „20 minut na videu. Ukážu vám, kde lidé, za které platíte, z webu odcházejí, a co s tím udělat, aby z nich byly poptávky.“ Služba = Audit poptávek.
+
+**Co nabízím** (2–3 věty): 20 minut na videu, projdeme web z telefonu očima zákazníka. „Rozbor dostanete sepsaný a můžete ho předat svému dodavateli, nebo můžeme společně naplánovat, jak dál.“ Služba podle nálezu. U varianty B testu T2 platí text ze `STRATEGIE.md` → Běžící testy.
 
 **Důkaz**: co přesně je ověřené (PSI, screenshot, `tel:` odkazy, pořadí na Firmy.cz, ARES). A velkými písmeny, co **neříkat** (např. „Rychlost OK – NEŘÍKAT“).
 

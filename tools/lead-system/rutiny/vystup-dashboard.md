@@ -83,7 +83,8 @@ curl -s -X POST https://webkit.studio/dashboard/api/leads \
 | `channel` | `Telefon` | |
 | `source` | `zdroj` z Nastavení | 100 |
 | `engineRun` | Běh enginu `RRRR-MM-DD · <dotaz> · p<n>` | **60 znaků** |
-| `note` | adresa a IČO | 5000 |
+| `signals` | `{"vzhled": ["Reklamy"]}` u firmy, která platí za marketing (test T3) | |
+| `note` | adresa, IČO a u platící firmy co platí („Platí: Firmy.cz profil, Google Ads“) | 5000 |
 
 **Běh enginu se musí vejít do 60 znaků**, jinak API odmítne celý lead. Když je dotaz dlouhý, zkrať ho (např. „n. L.“ místo „nad Labem“). Varianta testu patří do `variant`, ne do `engineRun`.
 
