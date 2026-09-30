@@ -73,7 +73,7 @@ Priorita určuje, kam jdou noční běhy. Názvy odpovídají poli Obor (`field`
 | Studny – vrty – ČOV | 2 | 100–300 tis. | hledá se jen online, weby patří k nejslabším | studny vrty; domácí čistírny odpadních vod |
 | Haly a ocelové konstrukce | 3 | 1–20 mil. | B2B poptávky přes web | ocelové konstrukce; montované haly |
 | Zateplení a fasády | 3 | 0,3–1 mil. | dotace drží poptávku | zateplení fasády |
-| Tepelná čerpadla – FVE – klimatizace | 3 | 150–500 tis. | obor je přeplněný agenturami, weby bývají dobré | tepelná čerpadla; klimatizace |
+| Tepelná čerpadla – FVE – klimatizace | 3 | 150–500 tis. | obor je přeplněný agenturami, weby bývají dobré | tepelná čerpadla; fotovoltaika |
 
 **Mimo:** autoservisy, doprava, úklid, e-commerce.
 
@@ -236,6 +236,17 @@ Podle nich sobotní vyhodnocení navrhuje změny. Týdně se mění **nejvýš 3
   - **Kontrola novějšího webu je povinná** (je v `RULES.md`).
   - **Špička Firmy.cz je přelidněná.** Proto `skip` 5 a test T1.
 
+**30. 9. 2026 odpoledne: 12 oborů jen s platícími firmami, 64 leadů.**
+
+- **Platících firem je hodně.** Z 943 firem na Firmy.cz jich platí 415 (placený profil nebo reklamní kód). Ve výsledcích mají přednost, protože stojí nahoře.
+- **Weby platících firem jsou skoro vždy přizpůsobené mobilu** (3 z 242 ne). Otvírák „web je na mobilu rozbitý“ u nich nefunguje. Funguje „ztrácíte lidi, za které platíte“: na první obrazovce mobilu chybí tlačítko a telefon, zakrývá ji cookie lišta, web je pomalý.
+- **Nový web** u 174 posouzených platících firem: spíš ano 33 (19 %), možná 64 (37 %), spíš ne 77 (44 %). Většina tedy povede na audit a úpravy, ne na nový web.
+- **Na čem weby běží:** vlastní systém 44 %, WordPress 38 %, Webnode 11 %, Wix 2 %.
+- **Falešné signály placení**, opravené v `reklama.mjs`:
+  - Webnode vkládá do všech webů svůj kód Google Ads,
+  - měření návštěvnosti GA4 v Google Tag Manageru obsahuje adresy reklamních serverů Googlu.
+- **Dotazy vracejí i jiné obory** (lešení, betonárny, autoservisy u „klimatizace“). Posouzení je přeřadí, nebo vyřadí.
+
 **30. 9. 2026: firmy se špatným webem často marketing vůbec nechtějí.**
 
 - Z 10 dnešních hovorů mluvil Lukáš s rozhodovatelem jednou a ten řekl: „Web pro nás nemá žádnou hodnotu.“ Jiní: „Máme stálou klientelu“, „teď úplně nepotřebujem“.
@@ -266,3 +277,4 @@ Podle nich sobotní vyhodnocení navrhuje změny. Týdně se mění **nejvýš 3
 | 2026-09-30 | `výstup` notion → dashboard, Běh enginu bez varianty (`… · p<n>`, max 60 znaků) | Leady jsou převedené do dashboardu a Lukáš volá jen odtud. Dashboard bere Běh enginu do 60 znaků, varianta má vlastní pole. |
 | 2026-09-30 | Hledáme firmy, které platí za marketing: `jen_platici` ano, `skip` 5 → 0, `na_dotaz` 7 → 10, T1 končí, nový T3 | Firmy se špatným webem bez reklamy marketing nechtějí. Placené profily stojí na Firmy.cz nahoře a `skip` je přeskakoval. |
 | 2026-09-30 | Na videu placený Audit poptávek, u leadu odhad „nový web, nebo úpravy“, pipeline zjišťuje systém webu (`dom.cms`) | Platící firmy mají často moderní web a nový web nechtějí. Lukáš realizuje jen ve Webflow, do cizích systémů nesahá. |
+| 2026-09-30 | Klíčová slova TČ: „klimatizace“ → „fotovoltaika“. Nové poznatky z 12 oborů s platícími firmami. | Dotaz „klimatizace“ vracel autoservisy. |

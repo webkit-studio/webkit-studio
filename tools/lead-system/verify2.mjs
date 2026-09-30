@@ -66,7 +66,9 @@ async function dom() {
         return {
           cms, h1: (document.querySelector('h1')?.innerText || '').replace(/\s+/g, ' ').trim().slice(0, 120) || null,
           formFields: forms.length ? Math.max(...forms.map(fieldCount)) : null,
-          title: document.title.slice(0, 120), viewportMeta: !!document.querySelector('meta[name=viewport]'), telLinks: document.querySelectorAll('a[href^="tel:"]').length, phoneInText: (txt.match(/(?:\+420\s?)?\d{3}\s?\d{3}\s?\d{3}/g) || []).length, ico: (txt.match(/I[ČC]O?\s*:?\s*(\d{8})/) || [])[1] || null, copyright: (txt.match(/(©|copyright)[^\n]{0,70}/i) || [null])[0],
+          title: document.title.slice(0, 120),
+          /* Značka viewport s pevnou šířkou (width=980) web na mobilu stejně zmenší, počítá se jen device-width nebo initial-scale. */
+          viewportMeta: /device-width|initial-scale/i.test(document.querySelector('meta[name=viewport]')?.content || ''), viewportContent: document.querySelector('meta[name=viewport]')?.content?.slice(0, 120) || null, telLinks: document.querySelectorAll('a[href^="tel:"]').length, phoneInText: (txt.match(/(?:\+420\s?)?\d{3}\s?\d{3}\s?\d{3}/g) || []).length, ico: (txt.match(/I[ČC]O?\s*:?\s*(\d{8})/) || [])[1] || null, copyright: (txt.match(/(©|copyright)[^\n]{0,70}/i) || [null])[0],
           inquiryForms: forms.length, mailtoOnly: !forms.length && !!document.querySelector('a[href^="mailto:"]'),
           telInFirstScreen: telTop, ctaInFirstScreen: ctaTop, lorem: /lorem ipsum/i.test(txt), placeholder: /yourdomain|1\.555\.555|email@domena|your company/i.test(txt),
           maxYearInText: years.length ? Math.max(...years) : null, generator: document.querySelector('meta[name=generator]')?.content || null,
