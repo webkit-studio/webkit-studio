@@ -14,18 +14,24 @@ export const REKLAMA = {
 const PLATFORMA_GTM = new Set(['GTM-542MMSL']);
 const PLATFORMA_KODY = /AW-465935583/g;
 
+// V kontejneru GTM je i knihovna Googlu, která adresy googleadservices.com
+// a googleads.g.doubleclick.net obsahuje vždy, i když web jen měří návštěvnost (GA4).
+// Reklamu Googlu tam proto dokazuje jen značka Google Ads: konverze (__awct),
+// remarketing (__sp) nebo ID ve tvaru AW-….
+const GOOGLE_V_GTM = /AW-\d{6,}|"function":"__awct"|"function":"__sp"/;
+
 export async function reklamniKody(url, extra = []) {
-  let text = extra.join('\n'); const gtm = [];
+  let text = extra.join('\n'); let gtmText = ''; const gtm = [];
   try {
     const h = await (await fetch(url, { signal: AbortSignal.timeout(20000), headers: { 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/128.0 Safari/537.36' } })).text();
     text += '\n' + h;
     for (const id of [...new Set([...h.matchAll(/GTM-[A-Z0-9]{4,9}/g)].map(m => m[0]))].filter(id => !PLATFORMA_GTM.has(id)).slice(0, 3)) {
-      try { text += '\n' + await (await fetch(`https://www.googletagmanager.com/gtm.js?id=${id}`, { signal: AbortSignal.timeout(20000) })).text(); gtm.push(id); } catch {}
+      try { gtmText += '\n' + await (await fetch(`https://www.googletagmanager.com/gtm.js?id=${id}`, { signal: AbortSignal.timeout(20000) })).text(); gtm.push(id); } catch {}
     }
   } catch {}
-  text = text.replace(PLATFORMA_KODY, '');
+  text = text.replace(PLATFORMA_KODY, ''); gtmText = gtmText.replace(PLATFORMA_KODY, '');
   const out = { gtm };
-  for (const [k, re] of Object.entries(REKLAMA)) out[k] = re.test(text);
+  for (const [k, re] of Object.entries(REKLAMA)) out[k] = re.test(text) || (k === 'google' ? GOOGLE_V_GTM : re).test(gtmText);
   out.nejaka = out.google || out.meta || out.sklik;
   return out;
 }
