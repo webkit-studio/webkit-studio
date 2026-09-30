@@ -49,12 +49,14 @@ Vytáhni z výstupu weby **všech** leadů (všechny stavy) a ulož domény do `
 
 ```bash
 cd tools/lead-system
-SKIP=<skip> NA_DOTAZ=<na_dotaz> ./beh.sh <slozka> "<Obor>" "<dotaz 1>;<dotaz 2>;..."
+JEN_PLACENE=<1 když jen_platici = ano, jinak 0> SKIP=<skip> NA_DOTAZ=<na_dotaz> ./beh.sh <slozka> "<Obor>" "<dotaz 1>;<dotaz 2>;..."
 ```
+
+- S `JEN_PLACENE=1` projdou jen firmy s placeným profilem na Firmy.cz. V logu jsou ostatní jako `- neplatí za Firmy.cz`, u kandidátů je `PLATÍ Firmy.cz`.
 
 - `<slozka>` je krátký název bez mezer a diakritiky, např. `rekonstrukce-0930`.
 - Běh trvá 30–60 minut. Pusť ho na pozadí a čekej na konec.
-- Výsledkem je `shortlist.json` a přehledy screenshotů `runs/<slozka>/prehled-*.png`.
+- Výsledkem je `shortlist.json` a přehledy screenshotů `runs/<slozka>/prehled-*.png`. Platící firmy jsou v shortlistu nahoře se `$`, pole `paid` (Firmy.cz) a `ads` (reklamní kódy).
 - Log je v `runs/<slozka>/log.txt`. Počet řádků `+ kandidát` = kandidátů, počet řádků se `search` = dotazy.
 
 **Druhé kolo:** když po posouzení (krok 6) vychází méně než 3 leady a od začátku uplynulo méně než 90 minut, pusť druhé kolo. Stejný obor, dalších `dotazu_za_noc` měst (jiná než v prvním kole), nová složka. Do deníku jde jeden řádek za oba běhy.
@@ -66,7 +68,9 @@ SKIP=<skip> NA_DOTAZ=<na_dotaz> ./beh.sh <slozka> "<Obor>" "<dotaz 1>;<dotaz 2>;
 Pro každý web ze `shortlist.json` (v poli `dir` je složka s `result.json`, `mobile.jpg` a `desktop.jpg`):
 
 1. **Podívej se na `mobile.jpg` a `desktop.jpg`.** Nebo nejdřív na přehled `prehled-*.png`, a jednotlivé screenshoty otevři jen u slibných.
-2. **Najdi důvod úrovně 1** podle `RULES.md` (R1–R5) a ověř ho přesně tak, jak tam stojí.
+2. **Najdi důvod úrovně 1** podle `RULES.md` (R1–R5, u platících firem i NOCTA, NOFORM, SLOW) a ověř ho přesně tak, jak tam stojí.
+   - U platící firmy se podívej na horní část `mobile.jpg`: je na první obrazovce tlačítko nebo telefon? Co nevidíš na screenshotu, neříkej.
+   - Signál placení ověř podle `RULES.md` → Platí za marketing. Do leadu napiš, co přesně platí (Firmy.cz, Google, Meta, Sklik).
    - Příznak `HTTP?` → `node httpscheck.mjs <host>`.
    - Příznak `SPAM` → ověř ve zdrojovém kódu.
    - Příznak `ERR?` → zkus i adresu s `www.` a bez něj.
@@ -79,7 +83,7 @@ Pro každý web ze `shortlist.json` (v poli `dir` je složka s `result.json`, `m
    - `.../ekonomicke-subjekty-vr/<IČO>` → jednatel.
    - Počet lidí ber jen z ARES, nikdy z webu.
 6. **Známka** A / B / C podle `RULES.md`. C zapisuj, jen když má obor zásobu pod 5.
-7. **Texty** Proč volám, Co nabízím a Důkaz podle `RULES.md` → „Texty do Notionu“.
+7. **Texty** Proč volám, Co nabízím a Důkaz podle `RULES.md` → „Texty do Notionu“. U platící firmy podle stavby pro platící firmy (co platí → kde web ztrácí lidi → „za každého takového člověka platíte“).
    - Varianta nabídky podle `STRATEGIE.md` → „Běžící testy“ (T2).
    - Střídej A a B tak, aby jich za noc bylo zhruba stejně. Začni tou, které je v zásobě oboru méně.
 8. **Pořadí na Firmy.cz** je v `shortlist.json` → `rank` (`query` a `rank`). Použij ho do pole Běh enginu.
@@ -90,6 +94,7 @@ Podle `rutiny/vystup-<výstup>.md`:
 
 - Nejvýš `max_leadu_za_noc` leadů. Přednost mají lepší známky, při shodě vyšší hodnota zakázky.
 - Před každým zápisem ještě jednou zkontroluj, že doména ve výstupu není.
+- **Platí za marketing** (test T3): u platící firmy přidej signál „Reklamy“ (dashboard `signals: {"vzhled": ["Reklamy"]}`, Notion pole Signály vzhled) a do Poznámky napiš, co platí, např. „Platí: Firmy.cz profil, Google Ads, Sklik“.
 - **Běh enginu** = `RRRR-MM-DD · <dotaz> · p<n>`, např. `2026-09-30 · rekonstrukce bytů Kolín · p7`. Nejvýš 60 znaků, dlouhý dotaz zkrať. Varianta testu patří do vlastního pole (Varianta zprávy, v dashboardu `variant`).
 
 ## 8. Deník a shrnutí

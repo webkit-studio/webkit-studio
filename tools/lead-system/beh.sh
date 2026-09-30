@@ -1,6 +1,7 @@
 #!/bin/bash
 # Jeden běh pro jeden obor: hledání → měření → přeměření → shortlist → přehled screenshotů.
-# Použití: SKIP=5 NA_DOTAZ=7 ./beh.sh <slozka> "<Obor>" "dotaz 1;dotaz 2;..."
+# Použití: JEN_PLACENE=1 SKIP=0 NA_DOTAZ=10 ./beh.sh <slozka> "<Obor>" "dotaz 1;dotaz 2;..."
+# JEN_PLACENE=1 = jen firmy s placeným profilem na Firmy.cz (STRATEGIE.md → jen_platici)
 # Používá noční rutina (rutiny/nocni-hledani.md), jde pustit i ručně.
 set -u
 cd "$(dirname "$0")"

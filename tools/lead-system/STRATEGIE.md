@@ -37,17 +37,23 @@ Výchozí odhad. Po dvou týdnech dat je přepočítá sobotní vyhodnocení.
 | `stav_novych` | **Ověřit** | Stav nových leadů v Notionu. `Ověřit` = projdeš je sám, `Oslovit` = rovnou k volání. Dashboard zakládá vždy návrh. |
 | `max_leadu_za_noc` | **8** | Víc nezapisovat, i když je víc kandidátů. Přednost mají lepší známky. |
 | `dotazu_za_noc` | **30** | Kolik dotazů „obor + město“ jeden běh projde. Z 10 dotazů vychází zhruba 1 lead. |
-| `na_dotaz` | **7** | Kolik firem z výsledků Firmy.cz se u každého dotazu prověří (po `skip`, tedy místa 6.–12.). |
-| `skip` | **5** | Kolik prvních výsledků Firmy.cz přeskočit. Špičku obvolávají všichni. |
+| `jen_platici` | **ano** | `ano` = měří se jen firmy s placeným profilem na Firmy.cz (proměnná `JEN_PLACENE=1`). `ne` = všechny. |
+| `na_dotaz` | **10** | Kolik firem z výsledků Firmy.cz se u každého dotazu prověří (od místa `skip`). Placené profily bývají na prvních místech. |
+| `skip` | **0** | Kolik prvních výsledků Firmy.cz přeskočit. Nahoře stojí placené profily, a ty teď chceme. |
 | `zdroj` | **Lead systém v2** | Hodnota pole Zdroj u nových leadů. |
 
 ## Koho hledáme
 
-- **Česká firma nebo živnostník**, u kterého si zákazník vybírá podle webu a zakázka má hodnotu desítek tisíc a víc.
-- **Má peníze:** pobočky, showroom, 10+ lidí v ARES, 30+ hodnocení na Firmy.cz, vlastní výroba. Živnostník je v pořádku, když je vidět, že vydělává.
-- **Web má ověřitelný důvod k hovoru** úrovně 1 podle `RULES.md`. Zákazník ho uvidí sám za 10 sekund.
+**Od 30. 9. 2026: firmy, které za marketing už platí a web jim přitom ztrácí poptávky.** Takové firmě neprodáváš myšlenku marketingu, jen lepší výsledek z peněz, které už utrácí. Firma se špatným webem a bez reklamy většinou marketing nechce („stálá klientela“, „web pro nás nemá hodnotu“).
 
-**Nechceme:** e-shopy, franšízy, šablony výrobců, katalogy, agentury, firmy postavené na designu (architekti, studia), veřejnou správu, firmy s novějším webem na jiné doméně a firmy, které končí.
+- **Platí za marketing** (stačí jedno, ověřené podle `RULES.md` → Platí za marketing):
+  - placený profil na Firmy.cz (tarify Seznam Naplno, od 12 Kč denně),
+  - reklamní kód Googlu (Google Ads), Mety (Facebook, Instagram) nebo Skliku na webu.
+- **Web ztrácí poptávky** a zákazník to uvidí sám za 10 sekund: na první obrazovce mobilu není tlačítko ani telefon, chybí formulář, web se na mobilu zmenšuje, je pomalý nebo rozbitý (`RULES.md`).
+- **Česká firma nebo živnostník**, u kterého si zákazník vybírá podle webu a zakázka má hodnotu desítek tisíc a víc.
+- **Má peníze:** pobočky, showroom, 10+ lidí v ARES, 30+ hodnocení na Firmy.cz, vlastní výroba.
+
+**Nechceme:** e-shopy, franšízy, prodejní místa výrobců (partnerské sítě značek), velké firmy s vlastním marketingovým oddělením, šablony výrobců, katalogy, agentury, firmy postavené na designu (architekti, studia), veřejnou správu, firmy s novějším webem na jiné doméně a firmy, které končí.
 
 ## Obory
 
@@ -108,15 +114,16 @@ Priorita určuje, kam jdou noční běhy. Názvy odpovídají poli Obor v Notion
 
 Postup, který se osvědčil při ruční práci 24. 9. 2026. Výtěžnost je kolem 5 %: z 60 firem v oboru vyjdou 2–5 leadů.
 
-1. **Firmy.cz:** dotaz obor + město, bere se 6.–12. místo (`skip`).
-2. **Předsítko:** zjevně moderní weby a e-shopy vypadnou hned.
-3. **Google PageSpeed Insights:** skóre a screenshoty mobilu i počítače. Rychlost, HTTPS a vzhled se berou jen odtud, ne z vlastního prohlížeče (proxy v cloudu zkresluje).
-4. **Shortlist:** jen weby s nálezem (zmenšený web na mobilu, http, extrémně pomalý web, chybová stránka, skrytý spam).
-5. **Screenshot vlastníma očima:** důvod musí být vidět na obrázku.
-6. **HTTPS kontrola:** web na `http://` ještě neznamená „Nezabezpečeno“ (`httpscheck.mjs`).
-7. **ARES:** velikost firmy (počet lidí jen odtud), jednatel, jestli firma žije.
-8. **Novější web jinde:** vyhledat název firmy a porovnat IČO a telefon. Podobný název ≠ stejná firma.
-9. **Známka A/B/C** a **texty** podle `RULES.md`.
+1. **Firmy.cz:** dotaz obor + město, bere se prvních `na_dotaz` výsledků od místa `skip`. S `jen_platici = ano` projdou dál jen firmy s placeným profilem (v detailu firmy `isPaid`). Placené profily stojí na Firmy.cz nahoře.
+2. **Předsítko:** e-shopy a obchodní řetězce vypadnou hned. U neplatících firem i zjevně moderní weby. U platících se měří všechno, protože i moderní web může ztrácet poptávky.
+3. **Reklamní kódy:** Google Ads, Meta a Sklik se hledají v HTML webu, v kontejneru Google Tag Manageru a v požadavcích, které zachytil Google PSI.
+4. **Google PageSpeed Insights:** skóre a screenshoty mobilu i počítače. Rychlost, HTTPS a vzhled se berou jen odtud, ne z vlastního prohlížeče (proxy v cloudu zkresluje).
+5. **Shortlist:** jen weby s nálezem. Platící firmy jsou nahoře (`$`) a patří k nim i nálezy „bez tlačítka a telefonu na první obrazovce“ (`NOCTA`) a „bez formuláře“ (`NOFORM`).
+6. **Screenshot vlastníma očima:** důvod musí být vidět na obrázku.
+7. **HTTPS kontrola:** web na `http://` ještě neznamená „Nezabezpečeno“ (`httpscheck.mjs`).
+8. **ARES:** velikost firmy (počet lidí jen odtud), jednatel, jestli firma žije.
+9. **Novější web jinde:** vyhledat název firmy a porovnat IČO a telefon. Podobný název ≠ stejná firma.
+10. **Známka A/B/C** a **texty** podle `RULES.md`.
 
 ## Jak oslovujeme
 
@@ -180,8 +187,10 @@ Najednou běží nejvýš dva testy. Test se vyhodnocuje až při minimu dat, do
 
 | # | Test | A | B | Jak se pozná | Měřítko | Minimum | Od |
 |---|---|---|---|---|---|---|---|
-| T1 | Přeskočit špičku Firmy.cz | pořadí 1–5 | pořadí 6+ | pořadí v poli Běh enginu | podíl `[ne: volali jiní]`, dovolatelnost, zájem | 15 hovorů v každé | 24. 9. 2026 |
 | T2 | Co nabízet | **rozbor webu** (nový web, opravy) | **měření poptávek:** kolik lidí web otevře a kolik se ozve. Hodí se i firmám, které dělají nový web s dodavatelem. | pole Varianta zprávy, v dashboardu `variant` (A/B), noční rutina střídá | podíl videohovorů z rozhovorů s rozhodovatelem | 12 rozhovorů v každé | 30. 9. 2026 |
+| T3 | Platí za marketing | neplatí (starší zásoba) | platí: placený profil na Firmy.cz nebo reklamní kód na webu | u leadu signál „Reklamy“ (dashboard `signals.vzhled`) | podíl zájmů z rozhovorů s rozhodovatelem | 12 rozhovorů v každé | 30. 9. 2026 |
+
+**T1 (přeskočit špičku Firmy.cz) skončil 30. 9. 2026 bez dat.** Na prvních místech Firmy.cz stojí placené profily, a přesně ty teď hledáme (T3).
 
 **Jak rutina píše variantu B:** stejné „Proč volám“. „Co nabízím“ ale zní: „20 minut na videu. Ukážu vám, kolik lidí váš web otevře a kolik z nich se opravdu ozve, a co je cestou ztrácí. Hodí se to i jako zadání pro vašeho dodavatele.“ Služba = Audit poptávek.
 
@@ -204,6 +213,8 @@ Podle nich sobotní vyhodnocení navrhuje změny. Týdně se mění **nejvýš 3
 | `[ne: nový web dělají]` + `[ne: má dodavatele]` přes 25 % | víc varianty B (měření poptávek) |
 | Zásoba Oslovit pod 20 | zvýšit `max_leadu_za_noc` nebo přidat obor |
 | Lukáš vyřadí přes 30 % leadů z nočních běhů | zpřísnit ověření v tom, co vyřazuje |
+| T3: platící firmy mají vyšší podíl zájmů (min. 12 rozhovorů v každé skupině) | `jen_platici` natrvalo, starou zásobu volat jen jako doplněk |
+| Noční běh najde méně než 3 platící firmy s nálezem | zvýšit `na_dotaz` nebo přidat obory a města |
 
 ## Co jsme se zatím naučili
 
@@ -223,6 +234,14 @@ Podle nich sobotní vyhodnocení navrhuje změny. Týdně se mění **nejvýš 3
   - **Firma, která právě mění web, není ztracená.** Jeden jednatel řekl, že neví, jestli mu z webu chodí zákazníci. Proto test T2.
   - **Kontrola novějšího webu je povinná** (je v `RULES.md`).
   - **Špička Firmy.cz je přelidněná.** Proto `skip` 5 a test T1.
+
+**30. 9. 2026: firmy se špatným webem často marketing vůbec nechtějí.**
+
+- Z 10 dnešních hovorů mluvil Lukáš s rozhodovatelem jednou a ten řekl: „Web pro nás nemá žádnou hodnotu.“ Jiní: „Máme stálou klientelu“, „teď úplně nepotřebujem“.
+- **Špatný web často znamená, že firma zákazníky z internetu nepotřebuje.** Přesvědčovat ji o marketingu je nejdražší prodej.
+- **Na prvních místech Firmy.cz jsou placené profily.** U dotazu „okna a dveře Přerov“ platilo prvních 6 firem, další ne. `skip` 5 přeskakoval právě firmy, které za zákazníky platí.
+- Proto od 30. 9. hledáme firmy, které za marketing platí a web jim ztrácí poptávky (`Koho hledáme`, test T3).
+- **Recepce zastaví hovor, když slyší „ohledně webových stránek“.** Ptát se na jednatele jménem (scénář v Notionu).
 
 **29. 9. 2026 odpoledne, první domluvený videohovor.**
 
@@ -244,3 +263,4 @@ Podle nich sobotní vyhodnocení navrhuje změny. Týdně se mění **nejvýš 3
 | 2026-09-29 | Nabídka v „Jak oslovujeme“ v přímé řeči | Rutina podle ní psala „dostanou, můžou“ místo „dostanete, můžete“. |
 | 2026-09-29 | Nová část „Jak Lukáš e-maily píše“ | Pravidla z Lukášových oprav prvních konceptů, ať další koncepty nepotřebují stejné opravy. |
 | 2026-09-30 | `výstup` notion → dashboard, Běh enginu bez varianty (`… · p<n>`, max 60 znaků) | Leady jsou převedené do dashboardu a Lukáš volá jen odtud. Dashboard bere Běh enginu do 60 znaků, varianta má vlastní pole. |
+| 2026-09-30 | Hledáme firmy, které platí za marketing: `jen_platici` ano, `skip` 5 → 0, `na_dotaz` 7 → 10, T1 končí, nový T3 | Firmy se špatným webem bez reklamy marketing nechtějí. Placené profily stojí na Firmy.cz nahoře a `skip` je přeskakoval. |
