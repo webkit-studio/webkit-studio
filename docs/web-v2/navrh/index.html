@@ -209,9 +209,10 @@ h1 .fill,h2 .fill,h3 .fill,blockquote .fill,.stat .fill,.work__n .fill{font-size
 .hero__proof svg{width:20px;height:20px;flex:none;color:var(--c-blue);margin-top:3px}
 .hero__art{justify-self:end;width:100%;display:grid;justify-items:end}
 .svc-strip{margin-top:clamp(3rem,2rem + 4cqi,6rem);padding-top:24px;border-top:1px solid var(--c-line);display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center}
-.svc-strip a{display:inline-flex;align-items:center;min-height:44px;padding:0 18px;border-radius:var(--r-pill);background:var(--c-surface);text-decoration:none;font:500 .9375rem/1 var(--f-body);color:var(--c-ink);white-space:nowrap;transition:background-color var(--dur-2),color var(--dur-2)}
-.svc-strip a:hover{background:var(--c-blue);color:#fff}
-@container site (max-width:860px){.hero__grid{grid-template-columns:1fr}.hero__art{justify-self:start;justify-items:start}.hero__art .tiles{max-width:240px}}
+.svc-strip{gap:4px 28px!important}
+.svc-strip a{display:inline-flex;align-items:center;min-height:44px;text-decoration:none;font:500 1rem/1 var(--f-body);color:var(--c-ink-2);white-space:nowrap;background:linear-gradient(currentColor,currentColor) no-repeat right calc(50% + .75em)/0 1px;transition:color var(--dur-2),background-size var(--dur-3) var(--ease-draw)}
+.svc-strip a:hover{color:var(--c-blue);background-size:100% 1px;background-position-x:left}
+@container site (max-width:860px){.hero__grid{grid-template-columns:1fr}.hero__art{justify-self:start;justify-items:start}.hero__art .tiles{max-width:132px}}
 
 /* ---------- Statement ---------- */
 .statement{font:500 clamp(1.75rem,1rem + 2.6cqi,3.5rem)/1.14 var(--f-display);letter-spacing:-.03em;max-width:22ch;text-wrap:balance}
@@ -243,7 +244,7 @@ h1 .fill,h2 .fill,h3 .fill,blockquote .fill,.stat .fill,.work__n .fill{font-size
 .work:nth-child(2) .work__media img{animation-duration:26s;transform-origin:30% 60%}
 .work:nth-child(3) .work__media img{animation-duration:24s}
 @keyframes pan{from{transform:scale(1.02) translateX(0)}to{transform:scale(1.12) translateX(-2.5%)}}
-.work::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,9,20,.86) 0%,rgba(8,9,20,.55) 38%,rgba(8,9,20,0) 70%);z-index:-1}
+.work::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,9,20,.92) 0%,rgba(8,9,20,.8) 36%,rgba(8,9,20,.35) 62%,rgba(8,9,20,0) 82%);z-index:-1}
 .work__body{position:absolute;inset:0;padding:clamp(1.5rem,1rem + 2.5cqi,3.5rem);display:flex;flex-direction:column;justify-content:space-between;gap:24px;max-width:640px}
 .work__client{font-size:.9375rem;color:rgba(255,255,255,.78)}
 .work__title{font:600 clamp(1.5rem,1rem + 1.8cqi,2.75rem)/1.08 var(--f-display);letter-spacing:-.03em;color:#fff;text-wrap:balance}
@@ -255,10 +256,12 @@ h1 .fill,h2 .fill,h3 .fill,blockquote .fill,.stat .fill,.work__n .fill{font-size
 .work:hover .work__go{transform:rotate(-45deg);background:var(--c-blue);color:#fff}
 .works-foot{margin-top:32px}
 @container site (max-width:767px){
-  .work{aspect-ratio:auto;min-height:520px}
-  .work::before{background:linear-gradient(180deg,rgba(8,9,20,.9) 0%,rgba(8,9,20,.6) 55%,rgba(8,9,20,.25) 100%)}
-  .work__media img{object-position:70% 50%}
-  .work__go{width:48px;height:48px}
+  .work{aspect-ratio:auto;display:flex;flex-direction:column;background:var(--c-ink)}
+  .work::before{display:none}
+  .work__body{position:static;padding:24px 24px 20px;gap:18px}
+  .work__media{position:relative;inset:auto;z-index:0;aspect-ratio:16/10;overflow:hidden}
+  .work__go{top:20px;right:20px;bottom:auto;width:48px;height:48px}
+  .work__title{padding-right:56px}
 }
 
 /* ---------- Proč s námi ---------- */
@@ -345,23 +348,35 @@ h1 .fill,h2 .fill,h3 .fill,blockquote .fill,.stat .fill,.work__n .fill{font-size
 .ba__range:focus-visible~.ba__handle{box-shadow:0 0 0 3px #fff,0 0 0 6px var(--c-blue)}
 .ba__tag{position:absolute;top:16px;z-index:2;font:600 .8125rem/1 var(--f-body);padding:8px 12px;border-radius:var(--r-pill);background:#fff;color:var(--c-ink)}
 .ba__tag--l{left:16px;background:var(--c-ink);color:#fff}.ba__tag--r{right:16px}
-.mk{position:absolute;inset:0;padding:7% 8%;display:flex;flex-direction:column;gap:5%}
-.mk__h{font:700 clamp(14px,2.6cqi,34px)/1.1 var(--f-display)}
-.mk__p{font-size:clamp(9px,1.1cqi,14px);line-height:1.5;max-width:60%}
+.mk{position:absolute;inset:0;padding:5% 6%;display:flex;flex-direction:column;gap:7%}
+.mk__nav{display:flex;gap:3%;align-items:center;font-size:clamp(8px,1.05cqi,13px)}
+.mk__nav b{margin-right:auto;font-size:1.15em}
+.mk__grid{display:grid;grid-template-columns:1.3fr 1fr;gap:6%;align-items:start}
+.mk__col{display:flex;flex-direction:column;gap:clamp(8px,1.5cqi,20px);align-items:flex-start}
+.mk__card{border-radius:12px;padding:7%;display:grid;gap:clamp(6px,.9cqi,12px);font-size:clamp(9px,1.05cqi,14px);font-weight:600}
+.mk__card i{display:block;height:clamp(10px,2.2cqi,28px);border-radius:6px;border:1px solid var(--c-line-strong);background:#fff}
+.mk--before .mk__card{background:#DCDCDC;color:#4A4A4A;border-radius:2px;grid-template-columns:1fr 1fr}
+.mk--before .mk__card b,.mk--before .mk__card .mk__b{grid-column:1/-1;justify-self:start}
+.mk--before .mk__card i{border-radius:2px;border-color:#C8C8C8}
+.mk--after .mk__card{background:var(--c-surface);color:var(--c-ink)}
+.mk--after .mk__card .mk__b{text-align:center}
+.mk__card small{font-weight:400;color:var(--c-ink-3);font-size:.85em}
+.mk__h{font:700 clamp(13px,2.2cqi,30px)/1.1 var(--f-display)}
+.mk__p{font-size:clamp(9px,1.05cqi,14px);line-height:1.5}
 .mk__btns{display:flex;gap:2%;flex-wrap:wrap}
-.mk__b{font-size:clamp(8px,1cqi,13px);padding:1.2% 2.4%;border-radius:4px;color:#fff;white-space:nowrap}
+.mk__b{font-size:clamp(8px,1cqi,13px);padding:.55em 1em;border-radius:4px;color:#fff;white-space:nowrap}
 .mk--before{background:#EFEFEF;color:#6A6A6A}
-.mk--before .mk__h{color:#6A6A6A;text-transform:uppercase}
-.mk--before .mk__b{background:#7A7A7A}
+.mk--before .mk__h{color:#6A6A6A;text-transform:uppercase;font-size:clamp(11px,1.7cqi,24px);overflow-wrap:anywhere}
+.mk--before .mk__b{background:#6B6B6B}
 .mk--before .mk__b:nth-child(2){background:#A35A00}.mk--before .mk__b:nth-child(3){background:#3B7428}
 .mk--after{background:#fff;color:var(--c-ink-2)}
 .mk--after .mk__h{color:var(--c-ink);font-weight:600;letter-spacing:-.03em;max-width:70%}
 .mk--after .mk__h span{color:var(--c-blue)}
-.mk--after .mk__b{background:var(--c-blue);border-radius:999px;padding:1.4% 3%}
+.mk--after .mk__b{background:var(--c-blue);border-radius:999px;padding:.6em 1.2em}
 .ba-legend{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1.5rem,4cqi,4rem);margin-top:28px}
 .ba-legend li{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--c-line);color:var(--c-ink-2);font-size:.9375rem}
 .ba-legend li b{font:500 .8125rem/1.7 var(--f-mono);color:var(--c-ink)}
-@container site (max-width:767px){.ba{aspect-ratio:3/4}.ba-legend{grid-template-columns:1fr}.mk__p{max-width:100%}.mk--after .mk__h{max-width:100%}}
+@container site (max-width:767px){.mk__grid{grid-template-columns:1fr;gap:6%}.mk__nav span{display:none}.ba{aspect-ratio:3/4}.ba-legend{grid-template-columns:1fr}.mk__p{max-width:100%}.mk--after .mk__h{max-width:100%}}
 
 /* ---------- Podpis: pro koho to je ---------- */
 .fit{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(2rem,1.5rem + 2cqi,3.5rem) clamp(1.5rem,4cqi,4rem)}
@@ -406,7 +421,7 @@ h1 .fill,h2 .fill,h3 .fill,blockquote .fill,.stat .fill,.work__n .fill{font-size
 .who{display:flex;gap:14px;align-items:center;margin-top:auto;padding-top:24px}
 .who img{width:56px;height:56px;border-radius:50%;object-fit:cover;background:rgba(255,255,255,.2)}
 .who__t{font-size:.875rem;line-height:1.45;color:var(--c-on-blue-2)}
-.who__t a{color:#fff}
+.who__t a{color:#fff;display:inline-block;min-height:24px;line-height:24px}
 .form{background:#fff;color:var(--c-ink);border-radius:var(--r-lg);padding:clamp(1.5rem,1rem + 2cqi,2.5rem);display:grid;gap:20px}
 .form__fields{display:grid;gap:18px}
 .form__row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
@@ -418,6 +433,7 @@ h1 .fill,h2 .fill,h3 .fill,blockquote .fill,.stat .fill,.work__n .fill{font-size
 textarea.input{min-height:128px;resize:vertical;position:relative;z-index:1;background:transparent}
 .ta{position:relative;background:#fff;border-radius:var(--r-sm)}
 .ta__ghost{position:absolute;inset:0;padding:15px 17px;color:#6F7488;font:400 1rem/1.4 var(--f-body);pointer-events:none;white-space:pre-wrap;overflow:hidden}
+.ta__pre{color:#8A8FA0}
 .ta__ghost::after{content:"";display:inline-block;width:1px;height:1.1em;background:currentColor;vertical-align:-.15em;margin-left:1px;animation:blink 1s steps(1) infinite}
 @keyframes blink{50%{opacity:0}}
 .ta.is-typing .ta__ghost{display:none}
@@ -579,7 +595,7 @@ const ART = {
 const SERVICES = [
   {h:'Tvorba webových stránek', p:'Nový web, který vede návštěvníky k poptávce.'},
   {h:'Webflow vývoj', go:'webflow', p:'Web, který si upravíte sami, bez programátora.'},
-  {h:'Redesign webu', p:'Nový vzhled bez ztráty pozic ve vyhledávání.'},
+  {h:'Redesign webu', p:'Nový vzhled. Staré adresy přesměrujeme, aby vás lidé dál našli.'},
   {h:'Landing page', p:'Jedna stránka pro kampaň nebo nový produkt.'},
   {h:'UX audit', go:'audit', p:'Zjistíme, kde zákazníci odcházejí a proč.'},
   {h:'Vývoj MVP', go:'mvp', p:'První verze produktu, na které ověříte nápad.'},
@@ -684,7 +700,7 @@ C.refs = p => sec('Reference','Citace a Webflow Partner',`<div class="container"
   ${sh({h:p.h})}
   <div class="refs">
     <div data-reveal><blockquote>${t(p.quote)}</blockquote><p class="refs__who"><strong>${t(p.who)}</strong></p></div>
-    <div class="partner" data-reveal><span class="partner__mark" aria-hidden="true">W</span><h3>Webflow Partner</h3><p>${t('Webflow nás vede v seznamu ověřených partnerů.')}</p><a class="link link--arrow" href="#" data-soon>${t('Profil partnera [DOPLNIT: odkaz na profil]')} ${I.arrowUR}</a></div>
+    ${p.partner===false?'':`<div class="partner" data-reveal><span class="partner__mark" aria-hidden="true">W</span><h3>Webflow Partner</h3><p>${t('Webflow nás vede v seznamu ověřených partnerů.')}</p><a class="link link--arrow" href="#" data-soon>${t('Profil partnera [DOPLNIT: odkaz na profil]')} ${I.arrowUR}</a></div>`}
   </div>
 </div>`,{cls:'sec--surface',id:'reference'});
 
@@ -712,7 +728,7 @@ C.faq = p => sec('FAQ','',`<div class="container faq-wrap">
 
 C.form = (p={}) => `<form class="form" name="Poptávka z homepage" data-name="Poptávka z homepage" novalidate data-form>
   <div class="form__fields">
-    <div class="field"><label for="co-resite">Co řešíte?</label><div class="ta" data-ta><div class="ta__ghost" aria-hidden="true"></div><textarea class="input" id="co-resite" name="co-resite" aria-describedby="co-resite-msg" required></textarea></div><span class="field__msg" id="co-resite-msg"></span></div>
+    <div class="field"><label for="co-resite">Co řešíte?</label><div class="ta" data-ta><div class="ta__ghost" aria-hidden="true"><span class="ta__pre">Například: </span><span class="ta__txt"></span></div><textarea class="input" id="co-resite" name="co-resite" aria-describedby="co-resite-msg" required></textarea></div><span class="field__msg" id="co-resite-msg"></span></div>
     <div class="form__row">
       <div class="field"><label for="name">Jméno</label><input class="input" id="name" name="name" autocomplete="name" aria-describedby="name-msg" required><span class="field__msg" id="name-msg"></span></div>
       <div class="field"><label for="firma">Firma</label><input class="input" id="firma" name="firma" autocomplete="organization" aria-describedby="firma-msg" required><span class="field__msg" id="firma-msg"></span></div>
@@ -733,7 +749,7 @@ C.cta = p => sec('CTA s formulářem','',`<div class="container cta-big__grid">
     <h2 data-lines>${t(p.h)}</h2>
     <p class="lead">${t(p.lead)}</p>
     <p class="who__t">Radši e-mail? <a class="link link--static" href="mailto:inbox@webkit.studio" style="color:#fff">inbox@webkit.studio</a></p>
-    <div class="who"><img src="img/lukas.webp" alt="Lukáš Svoboda" width="56" height="56"><p class="who__t">Lukáš Svoboda, Studio Lead<br><a class="link link--static" href="#" data-soon style="color:#fff">${t('LinkedIn [DOPLNIT: URL]')}</a></p></div>
+    <div class="who"><img src="img/lukas.webp" alt="" width="56" height="56"><p class="who__t">Lukáš Svoboda, Studio Lead<br><a class="link link--static" href="#" data-soon style="color:#fff">${t('LinkedIn [DOPLNIT: URL]')}</a></p></div>
   </div>
   ${C.form()}
 </div>`,{cls:'cta-big',id:'kontakt'});
@@ -763,15 +779,19 @@ C.compare = p => sec('Podpis: Srovnání','Webflow vývoj',`<div class="containe
 C.beforeAfter = p => sec('Podpis: Před a po','UX audit, ilustrace',`<div class="container">
   ${sh({h:p.h, lead:p.lead})}
   <div class="ba" data-ba data-reveal>
-    <div class="ba__layer"><div class="mk mk--after" role="img" aria-label="Ilustrace stránky po úpravách: jasný nadpis a jedno tlačítko">
-      <div class="mk__h">Opravíme vaši střechu <span>do 14 dnů</span></div>
+    <div class="ba__layer"><div class="mk mk--after" role="img" aria-label="Ilustrace stránky po úpravách: jasný nadpis, jedno tlačítko a krátký formulář">
+      <div class="mk__nav"><b>Firma</b><span>Služby</span><span>Reference</span><span class="mk__b">Poptat</span></div>
+      <div class="mk__grid"><div class="mk__col"><div class="mk__h">Opravíme vaši střechu <span>do 14 dnů</span></div>
       <div class="mk__p">Jedna nabídka a jedno tlačítko. Návštěvník hned ví, co dostane a co má udělat.</div>
-      <div class="mk__btns"><span class="mk__b">Chci nabídku</span></div>
+      <div class="mk__btns"><span class="mk__b">Chci nabídku</span></div></div>
+      <div class="mk__card"><span>Nezávazná poptávka</span><i></i><i></i><span class="mk__b">Odeslat</span><small>Ozveme se do 24 hodin</small></div></div>
     </div></div>
-    <div class="ba__layer ba__before"><div class="mk mk--before" role="img" aria-label="Ilustrace stránky před auditem: obecný nadpis a čtyři tlačítka">
-      <div class="mk__h">Vítejte na našich stránkách</div>
+    <div class="ba__layer ba__before"><div class="mk mk--before" role="img" aria-label="Ilustrace stránky před auditem: obecný nadpis, čtyři tlačítka a formulář s osmi poli">
+      <div class="mk__nav"><b>FIRMA s.r.o.</b><span>Úvod</span><span>O nás</span><span>Historie</span><span>Galerie</span><span>Kontakt</span></div>
+      <div class="mk__grid"><div class="mk__col"><div class="mk__h">Vítejte na našich stránkách</div>
       <div class="mk__p">Jsme tradiční firma s dlouholetou historií. Nabízíme široké spektrum služeb pro soukromé i firemní zákazníky v celém regionu.</div>
-      <div class="mk__btns"><span class="mk__b">Více o nás</span><span class="mk__b">Naše služby</span><span class="mk__b">Galerie</span><span class="mk__b">Kontakt</span></div>
+      <div class="mk__btns"><span class="mk__b">Více o nás</span><span class="mk__b">Naše služby</span><span class="mk__b">Galerie</span><span class="mk__b">Kontakt</span></div></div>
+      <div class="mk__card"><b>KONTAKTNÍ FORMULÁŘ</b><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><span class="mk__b">Odeslat</span></div></div>
     </div></div>
     <span class="ba__tag ba__tag--l">Před</span><span class="ba__tag ba__tag--r">Po</span>
     <div class="ba__line"></div>
@@ -793,40 +813,40 @@ C.fit = p => sec('Podpis: Pro koho to je','Vývoj MVP',`<div class="container">
 /* ============ Obsah stránek ============ */
 const REASONS = [
   {h:'Jeden dodavatel na všechno', p:'Strategie, design i vývoj u nás. Nemusíte koordinovat tři firmy.'},
-  {h:'Víte, co se děje', p:'Průběžně ukazujeme, co je hotové a co přijde dál.'},
+  {h:'Víte, co se děje', p:'Průběžně ukazujeme hotové části. Nemusíte se ptát, jak to vypadá.'},
   {h:'Termín předem', p:'Rozsah a termín dostanete písemně ještě před začátkem.'},
-  {h:'Odpověď do 24 hodin', p:'Na poptávku se ozveme do 24 hodin. Žádné čekání týden.'},
-  {h:'Měříme výsledek', p:'Po spuštění sledujeme, jestli projekt dělá, co má. A ladíme ho.'},
-  {h:'Přes 30 projektů', p:'Za sebou máme přes 30 dokončených digitálních projektů.'}
+  {h:'Rychlá odpověď', p:'Na poptávku se ozveme do 24 hodin.'},
+  {h:'Pro firmy i startupy', p:'Pracujeme s malými a středními firmami, startupy i agenturami.'},
+  {h:'Přes 30 projektů', p:'Víme, kde projekty obvykle drhnou, a hlídáme to předem.'}
 ];
 const STEP1 = {h:'Úvodní hovor', free:'Nezávazně', p:'Krátce probereme, co řešíte. Řekneme na rovinu, jestli vám umíme pomoct.'};
 
 const PAGES = {
   home:{title:'Homepage', sections:()=>[
-    C.heroHome({h:'Designové a vývojové studio, se kterým firmy *rostou*', lead:'Pomáháme firmám, startupům a agenturám s designem, vývojem a značkou. Od nápadu po spuštění i potom.', cta:'Probrat projekt', cta2:'Naše práce'}),
-    C.statement({html:'Přes 30 projektů nás naučilo jednu věc. <span class="dim">Dobrý výsledek nezačíná designem ani kódem.</span> Začíná otázkou, co má projekt vaší firmě přinést.',
+    C.heroHome({h:'Designové a vývojové studio, se kterým firmy *rostou*', lead:'Pomáháme firmám, startupům a agenturám s designem, vývojem a značkou. Od prvního nápadu po spuštění.', cta:'Probrat projekt', cta2:'Naše práce'}),
+    C.statement({html:'Dobrý výsledek nezačíná designem ani kódem. <span class="dim">Začíná otázkou, co má projekt vaší firmě přinést.</span> Na ni odpovídáme jako první.',
       values:[
         {h:'Nejdřív cíl, pak řešení', p:'Než cokoli navrhneme, víme, co má projekt přinést a jak to poznáme.'},
-        {h:'Jednoduše a srozumitelně', p:'Mluvíme lidsky, bez žargonu. Rozhodujete vy, my vysvětlíme důsledky.'},
-        {h:'Dotáhneme to do konce', p:'Neodcházíme po předání. Hlídáme, jestli výsledek funguje v praxi.'}
+        {h:'Mluvíme lidsky', p:'Bez žargonu. Vysvětlíme možnosti a rozhodujete vy.'},
+        {h:'Dotáhneme to do konce', p:'Hlídáme rozsah i termín, dokud projekt neběží.'}
       ], cta:'Probrat projekt'}),
-    C.services({h:'Dotáhneme nápad až do spuštění', lead:'Vyberte, co potřebujete. Nebo nám napište, co řešíte, a doporučíme postup.'}),
-    C.work({h:'Podívejte se, co jsme postavili', ids:['eldr','anse','arb']}),
+    C.services({h:'Vyberte, s čím vám pomůžeme', lead:'Nevíte, co vybrat? Napište, co řešíte, a doporučíme postup.'}),
+    C.work({h:'Podívejte se, co jsme postavili', ids:['eldr','crr','arb']}),
     C.reasons({h:'6 důvodů, proč s námi firmy pracují', items:REASONS}),
     C.refs({h:'Co o nás říkají klienti', quote:'[DOPLNIT: citace klienta, jedna až dvě věty]', who:'[DOPLNIT: jméno, role a firma]'}),
-    C.process({h:'6 kroků od prvního hovoru po spuštění', lead:'Stejný postup u každé služby. Na stránkách služeb ho upravujeme.', steps:[
+    C.process({h:'6 kroků od prvního hovoru po spuštění', steps:[
       STEP1,
-      {h:'Návrh spolupráce', p:'Pošleme rozsah, postup a termín. Písemně, abyste věděli, do čeho jdete.'},
+      {h:'Plán a termín', p:'Pošleme rozsah, postup a termín. Písemně, abyste věděli, do čeho jdete.'},
       {h:'Workshop', p:'Společně ujasníme cíle a zákazníky. Podklady nemusíte mít hotové.'},
-      {h:'Návrh', p:'Ukážeme řešení dřív, než začneme stavět. Vaše připomínky zapracujeme.'},
+      {h:'Návrh řešení', p:'Ukážeme řešení dřív, než začneme stavět. Vaše připomínky zapracujeme.'},
       {h:'Vývoj a spuštění', p:'Postavíme, otestujeme a spustíme. To, co už máte, běží, dokud není nové hotové.'},
-      {h:'Péče po spuštění', p:'Sledujeme, jak výsledek funguje, a ladíme ho. Po předání nezmizíme.'}
+      {h:'Po spuštění', p:'Domluvíme, jak projekt dál sledovat a ladit. [DOPLNIT: rozsah péče po spuštění]'}
     ], cta:'Domluvit úvodní hovor'}),
-    C.faq({h:'Rychlé odpovědi na časté otázky', lead:'Nenašli jste, co hledáte? Napište nám.', items:[
-      {q:'Jak rychle se ozvete?', a:'Ozveme se do 24 hodin. Napíšeme, co jsme z poptávky pochopili, a navrhneme termín hovoru.'},
+    C.faq({h:'Na co se nás ptáte nejčastěji', lead:'Nenašli jste, co hledáte? Napište nám.', items:[
+      {q:'Jak rychle se ozvete?', a:'Ozveme se do 24 hodin. Po odeslání formuláře si můžete rovnou vybrat termín hovoru.'},
       {q:'Co potřebujete, abychom mohli začít?', a:'Stačí pár vět o tom, co řešíte. Zbytek zjistíme na hovoru. Podklady nemusíte mít připravené.'},
       {q:'Jak dlouho projekt trvá?', a:'Záleží na rozsahu. Termín dostanete písemně ještě před začátkem, spolu s rozsahem a postupem.'},
-      {q:'Pracujete i s menšími firmami?', a:'Ano. Pracujeme s malými a středními firmami, startupy i agenturami.'},
+      {q:'Pracujete i pro agentury?', a:'Ano. Pro agentury děláme design a vývoj i pod jejich značkou.'},
       {q:'Co když se mi návrh nebude líbit?', a:'Proto ho ukazujeme dřív, než začneme stavět. Připomínky spolu probereme a zapracujeme.'}
     ]}),
     C.cta({h:'Pojďme váš projekt rozjet', lead:'Napište pár vět o tom, co řešíte. Zbytek probereme na hovoru.'})
@@ -844,7 +864,7 @@ const PAGES = {
       {h:'Vlastní design', p:'Navrhneme web podle vaší značky a zákazníků. Žádná hotová šablona.'},
       {h:'Vývoj ve Webflow', p:'Postavíme web, který se rychle načte a dobře vypadá na mobilu.'},
       {h:'Správa bez programátora', p:'Nastavíme redakční systém a ukážeme vám, jak měnit texty i články.'},
-      {h:'Základ SEO', p:'Nastavíme popisy, přesměrování a měření, aby vás lidé našli.'}
+      {h:'Aby vás lidé našli', p:'Nastavíme popisy stránek, přesměrování a měření návštěvnosti.'}
     ]}),
     C.work({h:'Podívejte se, co jsme postavili', ids:['eldr']}),
     C.process({h:'Od hovoru ke spuštění za 4 až 8 týdnů', lead:'Délka záleží na velikosti webu. Přesný termín dostanete předem.', steps:[
@@ -853,55 +873,59 @@ const PAGES = {
       {h:'Design', p:'Navrhneme vzhled a ukážeme ho dřív, než začneme stavět.'},
       {h:'Vývoj ve Webflow', p:'Postavíme web a otestujeme ho na počítači i mobilu.'},
       {h:'Spuštění', p:'Přesměrujeme doménu. Starý web běží, dokud nový není hotový.'},
-      {h:'Zaškolení', p:'Ukážeme vám, jak web spravovat. Pak jsme po ruce, když něco potřebujete.'}
+      {h:'Zaškolení', p:'Ukážeme vám, jak web spravovat. Texty a obrázky pak měníte sami.'}
     ], cta:'Probrat Webflow web'}),
-    C.refs({h:'Co o nás říkají klienti', quote:'[DOPLNIT: citace klienta k webu]', who:'[DOPLNIT: jméno, role a firma]'}),
-    C.faq({h:'Rychlé odpovědi na časté otázky', items:[
+    C.refs({h:'Co o nás říkají klienti', partner:false, quote:'[DOPLNIT: citace klienta k webu]', who:'[DOPLNIT: jméno, role a firma]'}),
+    C.faq({h:'Na co se nás ptáte nejčastěji', items:[
       {q:'Co je Webflow?', a:'Nástroj na stavbu webů. Web v něm vypadá přesně podle návrhu a obsah upravíte sami v prohlížeči.'},
-      {q:'Zvládnu web upravovat sám?', a:'Ano. Po spuštění vám ukážeme, jak měnit texty, obrázky a články. Programátora k tomu nepotřebujete.'},
+      {q:'Zvládneme web upravovat sami?', a:'Ano. Po spuštění vám ukážeme, jak měnit texty, obrázky a články. Programátora k tomu nepotřebujete.'},
       {q:'Jak dlouho to trvá?', a:'Obvykle 4 až 8 týdnů podle velikosti webu. Přesný termín dostanete písemně předem.'},
-      {q:'Převedete i náš současný web?', a:'Ano. Přeneseme obsah a nastavíme přesměrování, abyste nepřišli o pozice ve vyhledávání.'},
+      {q:'Převedete i náš současný web?', a:'Ano. Přeneseme obsah a staré adresy přesměrujeme na nové.'},
       {q:'Co když budu po spuštění potřebovat změnu?', a:'Napište nám. Ozveme se do 24 hodin a domluvíme, jak ji uděláme.'}
     ]}),
     C.cta({h:'Pojďme spustit váš nový web', lead:'Napište, co má web umět. Zbytek probereme na hovoru.'})
   ]},
 
   audit:{title:'UX audit', sections:()=>[
-    C.heroService({h:'Zjistíme, kde vám web *ztrácí zákazníky*', lead:'Projdeme web očima vašeho zákazníka a najdeme místa, kde odchází. Dostanete seznam úprav seřazený podle dopadu.', proof:['Konkrétní úpravy, ne obecné rady','Výsledek za [DOPLNIT: počet pracovních dní]'], cta:'Chci audit', art:ART.audit}),
-    C.problems({h:'3 důvody, proč web nepřináší poptávky', items:[
+    C.heroService({h:'Zjistíme, kde vám web *ztrácí zákazníky*', lead:'Projdeme web očima vašeho zákazníka a najdeme místa, kde odchází. Dostanete seznam úprav seřazený podle dopadu.', proof:['Konkrétní úpravy, ne obecné rady','Přes 30 dokončených digitálních projektů','Výsledek za [DOPLNIT: počet pracovních dní]'], cta:'Chci audit', art:ART.audit}),
+    C.problems({h:'Kdy vám audit pomůže', items:[
       {q:'Lidé přijdou a zase odejdou?', a:'Návštěvnost máte, poptávky ne. Někde na cestě zákazník narazí a odejde. Audit ukáže přesně kde.'},
-      {q:'Nevíte, co opravit dřív?', a:'Nápadů na úpravy je hodně, čas a rozpočet jen jeden. Seřadíme úpravy podle toho, co přinese nejvíc.'},
+      {q:'Nevíte, co opravit dřív?', a:'Nápadů je hodně, času a peněz málo. Seřadíme úpravy podle toho, co přinese nejvíc.'},
       {q:'Nový web, nebo stačí úpravy?', a:'Často stačí upravit pár míst. Audit řekne, jestli stačí úpravy, nebo je čas na redesign. Rozhodnutí je na vás.'}
     ]}),
+    C.beforeAfter({h:'Podívejte se, jak čteme stránku', lead:'Ilustrační ukázka, ne skutečný klient. Posuňte hranici a porovnejte stav před a po.',
+      before:['Nadpis neříká, co firma dělá.','Čtyři tlačítka soupeří o pozornost.','Formulář má osm polí.'],
+      after:['Nadpis slibuje konkrétní výsledek a termín.','Jedno tlačítko s jasným dalším krokem.','Dvě pole a slib, kdy se ozveme.']}),
     C.gets({h:'Co dostanete v auditu', need:false, items:[
       {h:'Průchod očima zákazníka', p:'Projdeme web jako váš zákazník, od první návštěvy po odeslání poptávky.'},
       {h:'Kontrola na mobilu', p:'Hodně lidí přijde z telefonu. Ověříme, že tam všechno funguje.'},
-      {h:'Kontrola přístupnosti', p:'Zkontrolujeme kontrast, čitelnost a ovládání podle pravidel přístupnosti WCAG.'},
+      {h:'Kontrola přístupnosti', p:'Ověříme, že web přečtou a ovládnou i lidé se slabším zrakem nebo bez myši.'},
       {h:'Seznam úprav', p:'Ke každému nálezu návrh řešení, seřazený podle dopadu a náročnosti.'}
     ]}),
-    C.beforeAfter({h:'Podívejte se, jak čteme stránku', lead:'Ilustrační ukázka, ne skutečný klient. Posuňte hranici a porovnejte stav před a po.',
-      before:['Nadpis neříká, co firma dělá.','Čtyři tlačítka soupeří o pozornost.','Text je o firmě, ne o zákazníkovi.'],
-      after:['Nadpis slibuje konkrétní výsledek a termín.','Jedno tlačítko s jasným dalším krokem.','Text odpovídá na otázku zákazníka.']}),
     C.process({h:'5 kroků k seznamu úprav', cols:3, steps:[
       STEP1,
-      {h:'Přístupy a cíle', p:'Pošlete přístup do analytiky a řeknete, co má web přinášet.'},
+      {h:'Přístupy a cíle', p:'Pošlete nám přístup do analytiky a řekněte, co má web přinášet.'},
       {h:'Průchod a kontrola', p:'Projdeme web na počítači i mobilu a zkontrolujeme přístupnost.'},
       {h:'Seznam úprav', p:'Sepíšeme nálezy a ke každému návrh řešení.'},
-      {h:'Předání na schůzce', p:'Report spolu projdeme. Co s ním uděláte dál, je na vás.'}
+      {h:'Předání na schůzce', p:'Seznam úprav spolu projdeme. Co s ním uděláte dál, je na vás.'}
     ], cta:'Chci audit'}),
-    C.faq({h:'Rychlé odpovědi na časté otázky', items:[
+    C.faq({h:'Na co se nás ptáte nejčastěji', items:[
       {q:'Pro koho je audit vhodný?', a:'Pro firmy, které mají web a návštěvnost, ale málo poptávek. A pro ty, kdo váhají mezi úpravami a novým webem.'},
       {q:'Co od nás budete potřebovat?', a:'Přístup do analytiky, pokud ji máte, a pár vět o tom, co má web přinášet.'},
       {q:'Jak dlouho audit trvá?', a:'[DOPLNIT: obvyklá délka auditu]'},
-      {q:'Projdete i mobilní verzi?', a:'Ano. Mobil kontrolujeme vždy, protože z něj přichází hodně návštěvníků.'},
-      {q:'Pomůžete nám úpravy udělat?', a:'Pokud chcete, ano. Ale nemusíte. Seznam úprav je napsaný tak, aby podle něj mohl pracovat kdokoli.'}
+      {q:'Pomůžete nám úpravy udělat?', a:'Ano, pokud chcete. Seznam ale píšeme tak, aby podle něj mohl pracovat kdokoli.'}
     ]}),
     C.cta({h:'Pojďme najít, co vás brzdí', lead:'Pošlete adresu webu a pár vět o tom, co vás trápí.'})
   ]},
 
   mvp:{title:'Vývoj MVP', sections:()=>[
-    C.heroService({h:'Ověřte nápad na *funkční první verzi* produktu', lead:'Postavíme jen to, co váš nápad potvrdí, nebo vyvrátí. Bez funkcí navíc.', proof:['Začínáme workshopem, ne kódem','Termín první verze znáte předem'], cta:'Probrat nápad', art:ART.mvp}),
-    C.problems({h:'Na čem první verze produktu nejčastěji ztroskotá', items:[
+    C.heroService({h:'Ověřte nápad na *funkční první verzi* produktu', lead:'MVP je první funkční verze produktu. Postavíme jen to, co váš nápad potvrdí, nebo vyvrátí.', proof:['Začínáme společnou schůzkou, ne programováním','Termín první verze znáte předem'], cta:'Probrat nápad', art:ART.mvp}),
+    C.fit({h:'Pro koho je vývoj MVP', items:[
+      {q:'Máte nápad a chcete ho ověřit?', who:'Zakladatelé a startupy', p:'Víte, jaký problém řešíte. Potřebujete důkaz, že řešení funguje, než do něj dáte víc.'},
+      {q:'Zkoušíte nový směr?', who:'Firmy s novou službou nebo produktem', p:'Chcete ověřit nový zdroj příjmů, aniž byste brzdili to, co už funguje.'},
+      {q:'Tabulky už nestačí?', who:'Firmy, které potřebují vlastní nástroj', p:'Procesy vedete v tabulkách a e-mailech. Začneme tím nejdůležitějším.'}
+    ], notH:'Kdy to pro vás není', not:['Chcete hned hotový produkt se vším všudy.','Nemáte čas se projektu průběžně věnovat.','Hledáte jen programátory na hodinovou výpomoc.']}),
+    C.problems({h:'Co vás u první verze trápí nejvíc', items:[
       {q:'Bojíte se, že to potrvá roky?', a:'Vývoj umí spolknout měsíce. Soustředíme se jen na funkce, které nápad ověří. Zbytek počká.'},
       {q:'Nevíte, jestli jdete správně?', a:'Nikdo nechce stavět něco, co lidé nechtějí. První verzi dáme skutečným uživatelům co nejdřív.'},
       {q:'Topíte se ve funkcích?', a:'Seznam přání roste a produkt nevzniká. Pomůžeme vybrat pár funkcí, bez kterých to nejde.'}
@@ -912,11 +936,6 @@ const PAGES = {
       {h:'Jedna klíčová funkce', p:'Když chcete ověřit jednu věc, postavíme jen ji.'},
       {h:'Z MVP hotový produkt', p:'Když se nápad chytí, rozšíříme první verzi o další funkce.'}
     ]}),
-    C.fit({h:'Pro koho je vývoj MVP', items:[
-      {q:'Máte nápad a chcete ho ověřit?', who:'Zakladatelé a startupy', p:'Víte, jaký problém řešíte. Potřebujete důkaz, že řešení funguje, než do něj dáte víc.'},
-      {q:'Zkoušíte nový směr?', who:'Firmy s novou službou nebo produktem', p:'Chcete ověřit nový zdroj příjmů, aniž byste brzdili to, co už funguje.'},
-      {q:'Tabulky už nestačí?', who:'Firmy, které potřebují vlastní nástroj', p:'Procesy vedete v tabulkách a e-mailech. Začneme tím nejdůležitějším.'}
-    ], notH:'Kdy to pro vás není', not:['Chcete hned hotový produkt se vším všudy.','Nemáte čas se projektu průběžně věnovat.','Hledáte jen programátory na hodinovou výpomoc.']}),
     C.process({h:'6 kroků od nápadu k první verzi', steps:[
       STEP1,
       {h:'Workshop', p:'Ujasníme problém, uživatele a funkce, které první verze potřebuje.'},
@@ -925,8 +944,7 @@ const PAGES = {
       {h:'Spuštění', p:'Dáme první verzi skutečným uživatelům a sledujeme, jak ji používají.'},
       {h:'Další krok', p:'Podle dat rozhodnete: vylepšit, změnit směr, nebo rozšířit.'}
     ], cta:'Probrat nápad'}),
-    C.work({h:'Podívejte se, co jsme postavili', ids:['anse'], all:true}),
-    C.faq({h:'Rychlé odpovědi na časté otázky', items:[
+    C.faq({h:'Na co se nás ptáte nejčastěji', items:[
       {q:'Jak dlouho vývoj MVP trvá?', a:'[DOPLNIT: obvyklá délka MVP]. Přesný termín dostanete po workshopu, ještě před začátkem vývoje.'},
       {q:'Co když budu chtít funkce změnit v průběhu?', a:'Počítáme s tím. Stavíme po částech, takže změnu zapracujeme do další části.'},
       {q:'Musím rozumět technice?', a:'Nemusíte. Technické věci vysvětlíme srozumitelně a rozhodujete vy.'},
@@ -942,9 +960,9 @@ const COMPS = [
   ['Hero','Home (seznam služeb), Služba','H1, Perex, Důkaz 1 a 2 (jen Služba), CTA, Grafika (slot)','Všechny','Home: H1, perex, CTA, dlaždice, pod tím seznam 8 služeb. Bez štítku nad nadpisem.'],
   ['Statement','Výchozí','Výrok (rich text, <code>span.dim</code>), Hodnota ×3 (nadpis, text), CTA','Homepage','Jak pracujeme. Hodnoty, ne jeden web. Hlavní CTA.'],
   ['Seznam služeb','2 sloupce po 4, Co dostanete','Nadpis, Perex, Položky (název, věta, odkaz), „Tohle potřebuju“ (Visibility)','Homepage, služby','„Tohle potřebuju“ předvyplní pole <code>co-resite</code>.'],
-  ['Naše práce','Velká grafika','Nadpis, Projekty (CMS, limit 1 až 3), Odkaz na všechny (Visibility)','Homepage, Webflow, MVP','Podle Relume portfolio-17: velká grafika bez rámečku, na ní klient, co jsme udělali, jedno číslo a štítky. Grafika je smyčka (video nebo GIF), v náhledu pomalý posun obrázku.'],
+  ['Naše práce','Velká grafika','Nadpis, Projekty (CMS, limit 1 až 3), Číslo výsledku (Visibility, bez čísla se skryje), Odkaz na všechny (Visibility)','Homepage, Webflow vývoj','Podle Relume portfolio-17: velká grafika bez rámečku, na ní klient, co jsme udělali, jedno číslo a štítky. Grafika je smyčka (video nebo GIF), v náhledu pomalý posun obrázku.'],
   ['Proč s námi','6 důvodů','Nadpis, Důvod ×6 (nadpis, věta)','Homepage','Jen linka a číslo, žádné rámečky ani ikony.'],
-  ['Reference','Citace a Webflow Partner','Nadpis, Citace, Autor, Odkaz na profil partnera','Homepage, Webflow','Hodnocení Google skryté, dokud recenze nemáme.'],
+  ['Reference','Citace a Webflow Partner, Jen citace','Nadpis, Citace, Autor, Webflow Partner (Visibility), Odkaz na profil','Homepage, Webflow vývoj','Hodnocení Google skryté, dokud recenze nemáme.'],
   ['Postup','3 až 6 kroků','Nadpis, Perex, Kroky (název, věta, štítek 1. kroku), CTA','Všechny','6 univerzálních kroků. Služby kroky upravují nebo ubírají (audit má 5).'],
   ['Časté problémy','3 otázky','Nadpis, Problém ×3 (otázka, odpověď), CTA (Visibility)','UX audit, MVP','Nadpis karty je otázka zákazníka.'],
   ['FAQ','Výchozí','Nadpis, Perex, Otázky (4 až 6)','Všechny','Homepage obecně, bez webů. FAQPage JSON-LD shodné s textem.'],
@@ -991,7 +1009,7 @@ function lib(){
   </section>
 
   <section class="lib-sec" id="sekce"><h2>Sekční komponenty</h2><p class="lead">16 komponent místo 21. Stránky služeb se liší pořadím, vynechanými sekcemi a jednou podpisovou sekcí.</p>
-    <div class="twrap"><table class="ttable"><thead><tr><th>Komponenta</th><th>Varianty</th><th>Props ve Webflow</th><th>Kde</th><th>Poznámka</th></tr></thead>
+    <div class="twrap" tabindex="0" role="region" aria-label="Tabulka komponent"><table class="ttable"><thead><tr><th>Komponenta</th><th>Varianty</th><th>Props ve Webflow</th><th>Kde</th><th>Poznámka</th></tr></thead>
     <tbody>${COMPS.map(r=>`<tr><th scope="row">${r[0]}</th><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td><td>${r[4]}</td></tr>`).join('')}</tbody></table></div>
     <h3 style="margin:36px 0 12px;font-size:1.25rem">Vyřazené z D01</h3>
     <div class="gone"><span>Logo strip</span><span>Čísla</span><span>CTA malé</span><span>Proč nám věřit</span><span>Seznam projektů: 3 karty</span><span>Seznam projektů s náhledem u kurzoru</span><span>Akordeon služeb</span><span>Rozcestník služeb</span><span>Mega menu se 3 kategoriemi</span><span>Hodnocení Google</span><span>Štítky nad sekcemi</span><span>Pole rozpočet</span></div>
@@ -1079,7 +1097,7 @@ const EXAMPLES = [
   'Hledáme partnera na design a vývoj pro naše klienty.'
 ];
 function initTypewriter(wrap){
-  const ta = wrap.querySelector('textarea'); const ghost = wrap.querySelector('.ta__ghost');
+  const ta = wrap.querySelector('textarea'); const ghost = wrap.querySelector('.ta__txt');
   const sync = () => wrap.classList.toggle('is-typing', ta.value.length>0 || document.activeElement===ta);
   ['input','focus','blur'].forEach(ev=>ta.addEventListener(ev, sync)); sync();
   ta.setAttribute('placeholder', ''); ta.setAttribute('aria-description', 'Například: ' + EXAMPLES[0]);
