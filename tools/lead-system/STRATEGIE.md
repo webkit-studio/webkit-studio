@@ -238,8 +238,8 @@ Podle nich sobotní vyhodnocení navrhuje změny. Týdně se mění **nejvýš 3
 
 **30. 9. 2026 odpoledne: 12 oborů jen s platícími firmami, 64 leadů.**
 
-- **Platících firem je hodně.** Z 943 firem na Firmy.cz jich platí 415 (placený profil nebo reklamní kód). Ve výsledcích mají přednost, protože stojí nahoře.
-- **Weby platících firem jsou skoro vždy přizpůsobené mobilu** (3 z 242 ne). Otvírák „web je na mobilu rozbitý“ u nich nefunguje. Funguje „ztrácíte lidi, za které platíte“: na první obrazovce mobilu chybí tlačítko a telefon, zakrývá ji cookie lišta, web je pomalý.
+- **Platících firem je hodně.** Z 943 firem na Firmy.cz prošlo filtrem platících 414 (placený profil nebo reklamní kód). Část z nich jen kvůli falešným signálům níž.
+- **Weby platících firem jsou skoro vždy přizpůsobené mobilu.** Značku pro mobil nemají 3 z 242, pár dalších má pevnou šířku a na mobilu se zmenšuje. Otvírák „web je na mobilu rozbitý“ u nich nefunguje. Funguje „ztrácíte lidi, za které platíte“: na první obrazovce mobilu chybí tlačítko a telefon, zakrývá ji cookie lišta, web je pomalý.
 - **Nový web** u 174 posouzených platících firem: spíš ano 33 (19 %), možná 64 (37 %), spíš ne 77 (44 %). Většina tedy povede na audit a úpravy, ne na nový web.
 - **Na čem weby běží:** vlastní systém 44 %, WordPress 38 %, Webnode 11 %, Wix 2 %.
 - **Falešné signály placení**, opravené v `reklama.mjs`:
