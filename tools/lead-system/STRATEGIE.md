@@ -129,7 +129,8 @@ Postup, který se osvědčil při ruční práci 24. 9. 2026. Výtěžnost je ko
 
 - **Telefon** podle scénáře v Notionu: stránka „📞 Cold call – scénář (2 min)“ v Marketingu.
 - **Otvírák:** konkrétní pochvala z faktů → „Ale když otevřu váš web na telefonu…“ + co zákazník zažije → „Tak jsem si říkal, že vám zavolám.“
-- **Nabídka:** „20 minut na videu, projdeme váš web očima zákazníka. Rozbor dostanete sepsaný zdarma a můžete ho dát svému dodavateli.“ Vždy přímo k firmě, nikdy „dostanou, můžou“.
+- **Nabídka do telefonu:** „20 minut na videu, projdeme váš web očima zákazníka. Rozbor dostanete sepsaný zdarma a můžete ho dát svému dodavateli.“ Vždy přímo k firmě, nikdy „dostanou, můžou“.
+- **Na videu** Lukáš nabízí placený **Audit poptávek** (data a přístupy firmy, dokument s kroky). Po něm zadání dodavateli, poptávková stránka ve Webflow, nebo nový web ve Webflow. Lukáš realizuje jen ve Webflow. Postup a ceny jsou v Notionu, stránka „Audit poptávek – produkt a postup“. Odhad cesty u leadu: `RULES.md` → Kam lead povede.
 - **Recepce:** ptát se na majitele **jménem** (jednatel z ARES).
 - **E-mail místo hovoru** (recepce, „pošlete to e-mailem“): přirozeně, vřele, věcně, nic úlisného. Stavba je vždy stejná:
   1. odkud mám kontakt,
@@ -264,3 +265,4 @@ Podle nich sobotní vyhodnocení navrhuje změny. Týdně se mění **nejvýš 3
 | 2026-09-29 | Nová část „Jak Lukáš e-maily píše“ | Pravidla z Lukášových oprav prvních konceptů, ať další koncepty nepotřebují stejné opravy. |
 | 2026-09-30 | `výstup` notion → dashboard, Běh enginu bez varianty (`… · p<n>`, max 60 znaků) | Leady jsou převedené do dashboardu a Lukáš volá jen odtud. Dashboard bere Běh enginu do 60 znaků, varianta má vlastní pole. |
 | 2026-09-30 | Hledáme firmy, které platí za marketing: `jen_platici` ano, `skip` 5 → 0, `na_dotaz` 7 → 10, T1 končí, nový T3 | Firmy se špatným webem bez reklamy marketing nechtějí. Placené profily stojí na Firmy.cz nahoře a `skip` je přeskakoval. |
+| 2026-09-30 | Na videu placený Audit poptávek, u leadu odhad „nový web, nebo úpravy“, pipeline zjišťuje systém webu (`dom.cms`) | Platící firmy mají často moderní web a nový web nechtějí. Lukáš realizuje jen ve Webflow, do cizích systémů nesahá. |

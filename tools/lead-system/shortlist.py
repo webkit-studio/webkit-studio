@@ -35,10 +35,10 @@ for f in glob.glob('runs/*/sites/*/result.json'):
     if plati:
         if not [x for x in fl if x in silne]: continue
     elif not [x for x in fl if x not in ('ESHOP','NOCTA','NOFORM','NOTEL','SLOW')]: continue
-    out.append({'host':h,'dir':d,'run':c.get('_run') or f.split('/')[1],'name':c.get('name'),'phone':c.get('phone'),'addr':c.get('address'),'reviews':c.get('reviews'),'rating':c.get('rating'),'rank':c.get('firmyRank'),'pm':pm,'pd':pd,'final':m.get('finalUrl'),'flags':fl,'forms':o.get('inquiryForms'),'tel':o.get('telLinks'),'copy':(o.get('copyright') or '')[:60],'maxY':o.get('maxYearInText'),'ares':c.get('ares'),'paid':c.get('paid'),'ads':ads,'icoZdroj':c.get('icoZdroj'),'aresHledani':c.get('aresHledani'),'lcp':m.get('lcp'),'text':(o.get('textSample') or '')[:260]})
+    out.append({'host':h,'dir':d,'run':c.get('_run') or f.split('/')[1],'name':c.get('name'),'phone':c.get('phone'),'addr':c.get('address'),'reviews':c.get('reviews'),'rating':c.get('rating'),'rank':c.get('firmyRank'),'pm':pm,'pd':pd,'final':m.get('finalUrl'),'flags':fl,'forms':o.get('inquiryForms'),'tel':o.get('telLinks'),'copy':(o.get('copyright') or '')[:60],'maxY':o.get('maxYearInText'),'ares':c.get('ares'),'paid':c.get('paid'),'ads':ads,'icoZdroj':c.get('icoZdroj'),'aresHledani':c.get('aresHledani'),'lcp':m.get('lcp'),'cms':o.get('cms'),'h1':o.get('h1'),'formFields':o.get('formFields'),'text':(o.get('textSample') or '')[:260]})
 json.dump(out,open('shortlist.json','w'),ensure_ascii=False,indent=1)
 # Nahoře ti, kdo platí za marketing.
 out.sort(key=lambda x: not (x['paid'] or x['ads']))
 json.dump(out,open('shortlist.json','w'),ensure_ascii=False,indent=1)
-for x in out: print(('$ ' if x['paid'] or x['ads'] else '  ')+str(x['flags']),'|',x['run'],'|',x['host'],'|',x['name'],'|',x['phone'],'| Firmy.cz placený:',x['paid'],'| reklama:',','.join(x['ads']) or '-','| PSI',x['pm'],'/',x['pd'],'| rev',x['reviews'])
+for x in out: print(('$ ' if x['paid'] or x['ads'] else '  ')+str(x['flags']),'|',x['run'],'|',x['host'],'|',x['name'],'|',x['phone'],'| Firmy.cz placený:',x['paid'],'| reklama:',','.join(x['ads']) or '-','| PSI',x['pm'],'/',x['pd'],'|',x.get('cms') or '?','| rev',x['reviews'])
 print(len(out))

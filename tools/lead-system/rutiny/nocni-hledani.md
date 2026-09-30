@@ -88,6 +88,7 @@ Pro každý web ze `shortlist.json` (v poli `dir` je složka s `result.json`, `m
    - Počet lidí ber jen z ARES, nikdy z webu.
 7. **Známka** A / B / C podle `RULES.md`. C zapisuj, jen když má obor zásobu pod 5.
 8. **Texty** Proč volám, Co nabízím a Důkaz podle `RULES.md` → „Texty do Notionu“. U platící firmy podle stavby pro platící firmy (co platí → kde web ztrácí lidi → „za každého takového člověka platíte“).
+   - **Kam lead povede** podle `RULES.md` → „Kam lead povede“: řádek `Web: … Nový web: … Po auditu: …` na začátek Poznámky a do Důkazu seznam věcí, které ubírají poptávky.
    - Varianta nabídky podle `STRATEGIE.md` → „Běžící testy“ (T2).
    - Střídej A a B tak, aby jich za noc bylo zhruba stejně. Začni tou, které je v zásobě oboru méně.
 9. **Pořadí na Firmy.cz** je v `shortlist.json` → `rank` (`query` a `rank`). Použij ho do pole Běh enginu.
