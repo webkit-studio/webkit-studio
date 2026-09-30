@@ -1,5 +1,5 @@
 // verify2.mjs <url> <outdir> — measurements from Google PSI (outside our proxy) + static DOM facts from Chromium (only if page really loaded)
-import { chromium } from 'playwright'; import { chromePath } from './chrome.mjs';
+import { chromium } from 'playwright'; import { chromePath } from './chrome.mjs'; import { reklamniKody } from './reklama.mjs';
 import fs from 'node:fs'; import path from 'node:path';
 const CHROME = chromePath();
 const KEY = process.env.PSI_API_KEY;
@@ -67,29 +67,6 @@ async function dom() {
     return { failed: true };
   } finally { await b.close(); }
 }
-/* Reklamní kódy na webu: firma, která platí za reklamu, chce zákazníky z internetu.
-   Hledá se v požadavcích z PSI, v HTML stránky a v kontejnerech Google Tag Manageru
-   (tam bývají kódy schované a v HTML je vidět jen GTM-XXXX). V JS kontejneru jsou
-   lomítka escapovaná, proto \\?\/. */
-const REKLAMA = {
-  google: /AW-\d{6,}|googleadservices\.com|googleads\.g\.doubleclick\.net|"function":"__awct"|"function":"__sp"/,
-  meta: /connect\.facebook\.net\\?\/[^"'\s]*fbevents|fbq\(\s*\\?['"]init|facebook\.com\\?\/tr[?\\]/,
-  sklik: /c\.seznam\.cz\\?\/js\\?\/rc\.js|rc\.retargetingHit|rc\.conversionHit|seznam_retargeting_id|sznIVA/,
-};
-async function reklama(adHits) {
-  let text = adHits.join('\n'); const gtm = [];
-  try {
-    const h = await (await fetch(url, { signal: AbortSignal.timeout(20000), headers: { 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/128.0 Safari/537.36' } })).text();
-    text += '\n' + h;
-    for (const id of [...new Set([...h.matchAll(/GTM-[A-Z0-9]{4,9}/g)].map(m => m[0]))].slice(0, 3)) {
-      try { text += '\n' + await (await fetch(`https://www.googletagmanager.com/gtm.js?id=${id}`, { signal: AbortSignal.timeout(20000) })).text(); gtm.push(id); } catch {}
-    }
-  } catch {}
-  const out = { gtm };
-  for (const [k, re] of Object.entries(REKLAMA)) out[k] = re.test(text);
-  out.nejaka = out.google || out.meta || out.sklik;
-  return out;
-}
 if (!KEY) { console.error('PSI_API_KEY missing'); process.exit(2); }
 if (process.env.PSI_ONLY === '1' && fs.existsSync(path.join(outdir, 'result.json'))) {
   const old = JSON.parse(fs.readFileSync(path.join(outdir, 'result.json'), 'utf8'));
@@ -101,7 +78,7 @@ if (process.env.PSI_ONLY === '1' && fs.existsSync(path.join(outdir, 'result.json
 } else {
   [R.psi.mobile, R.psi.desktop, R.dom] = await Promise.all([psi('mobile'), psi('desktop'), dom().catch(e => ({ failed: true, err: String(e.message).slice(0, 120) }))]);
 }
-if (!R.reklama) R.reklama = await reklama([...(R.psi.mobile?.adHits || []), ...(R.psi.desktop?.adHits || [])]).catch(() => null);
+if (!R.reklama) R.reklama = await reklamniKody(url, [...(R.psi.mobile?.adHits || []), ...(R.psi.desktop?.adHits || [])]).catch(() => null);
 fs.writeFileSync(path.join(outdir, 'result.json'), JSON.stringify(R, null, 2));
 const m = R.psi.mobile || {}, d = R.psi.desktop || {};
 console.log(JSON.stringify({ host, mobile: m.error ? m.error : { perf: m.scores?.performance, lcp: m.lcp, viewport: m.viewport, https: m.isOnHttps, final: m.finalUrl, analytics: m.analytics, e404: m.failed404?.length }, desktop: d.error ? d.error : { perf: d.scores?.performance, lcp: d.lcp }, dom: R.dom?.failed ? 'NEOVĚŘENO' : { forms: R.dom?.inquiryForms, tel1: R.dom?.telInFirstScreen, cta1: R.dom?.ctaInFirstScreen, copy: R.dom?.copyright, maxYear: R.dom?.maxYearInText, vp: R.dom?.viewportMeta, ico: R.dom?.ico, eshop: R.dom?.eshop, lorem: R.dom?.lorem }, reklama: R.reklama }));

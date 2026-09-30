@@ -1,5 +1,5 @@
 // pipeline.mjs <runDir> <perQuery> "<obor label>" "<query>"...
-import { chromium } from 'playwright'; import { chromePath } from './chrome.mjs'; import fs from 'node:fs'; import path from 'node:path'; import { execFile } from 'node:child_process';
+import { chromium } from 'playwright'; import { chromePath } from './chrome.mjs'; import { reklamniKody } from './reklama.mjs'; import fs from 'node:fs'; import path from 'node:path'; import { execFile } from 'node:child_process';
 const [,, runDir, perQ, obor, ...queries] = process.argv; fs.mkdirSync(runDir, { recursive: true });
 const log = (...a) => { const l = a.join(' '); console.log(l); fs.appendFileSync(path.join(runDir, 'log.txt'), l + '\n'); };
 const known = new Set((fs.existsSync('known_domains.txt') ? fs.readFileSync('known_domains.txt', 'utf8') : '').split(/\s+/).filter(Boolean));
@@ -37,10 +37,15 @@ for (const d of details) {
   if (dm && known.has(dm)) { log('  - už v DB:', row.name, dm); continue; }
   if (dm && CHAIN.test(dm)) { log('  - řetězec:', row.name, dm); continue; }
   if (cands.find(c => dom(c.web) === dm)) continue;
-  /* JEN_PLACENE=1: jen firmy, které platí za profil na Firmy.cz. Ty chtějí zákazníky
-     z internetu, takže se měří i moderní weby - hledá se, kde ztrácejí poptávky. */
-  if (process.env.JEN_PLACENE === '1' && row.paid !== true) { log('  - neplatí za Firmy.cz:', row.name); continue; }
-  if (process.env.PREFILTER === '1' && row.paid !== true) {
+  /* JEN_PLACENE=1: jen firmy, které platí za marketing - placený profil na Firmy.cz,
+     nebo reklamní kód Googlu, Mety či Skliku na webu. Ty chtějí zákazníky z internetu,
+     takže se měří i moderní weby - hledá se, kde ztrácejí poptávky. */
+  if (process.env.JEN_PLACENE === '1' && row.paid !== true) {
+    const rk = await reklamniKody(row.web).catch(() => null);
+    if (!rk?.nejaka) { log('  - neplatí za marketing:', row.name); continue; }
+    row.reklama = rk;
+  }
+  if (process.env.PREFILTER === '1' && row.paid !== true && !row.reklama?.nejaka) {
     let h = ''; for (let i = 0; i < 2 && h.length < 1500; i++) h = await curl(row.web);
     if (h.length >= 1500 && !/upstream request failed/i.test(h)) {
       const vp = /<meta[^>]+name=["']?viewport/i.test(h);
@@ -55,7 +60,7 @@ for (const d of details) {
       if (!suspicious) { log('  - předsítko OK (moderní):', row.name, row.web); fs.appendFileSync(path.join(runDir, 'skipped_ok.jsonl'), JSON.stringify(row) + '\n'); continue; }
     }
   }
-  cands.push(row); log('  + kandidát:', row.name, '|', row.web, '|', row.phone, row.paid ? '| PLATÍ Firmy.cz' : '', row.pre ? JSON.stringify(row.pre) : '');
+  cands.push(row); log('  + kandidát:', row.name, '|', row.web, '|', row.phone, row.paid ? '| PLATÍ Firmy.cz' : '', row.reklama?.nejaka ? `| REKLAMA ${['google', 'meta', 'sklik'].filter(k => row.reklama[k]).join(',')}` : '', row.pre ? JSON.stringify(row.pre) : '');
 }
 fs.writeFileSync(path.join(runDir, 'candidates.json'), JSON.stringify(cands, null, 1));
 // 3) verify each (PSI + DOM), concurrency 4

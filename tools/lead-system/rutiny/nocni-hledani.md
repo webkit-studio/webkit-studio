@@ -52,7 +52,7 @@ cd tools/lead-system
 JEN_PLACENE=<1 když jen_platici = ano, jinak 0> SKIP=<skip> NA_DOTAZ=<na_dotaz> ./beh.sh <slozka> "<Obor>" "<dotaz 1>;<dotaz 2>;..."
 ```
 
-- S `JEN_PLACENE=1` projdou jen firmy s placeným profilem na Firmy.cz. V logu jsou ostatní jako `- neplatí za Firmy.cz`, u kandidátů je `PLATÍ Firmy.cz`.
+- S `JEN_PLACENE=1` projdou jen firmy, které platí za marketing: placený profil na Firmy.cz (`PLATÍ Firmy.cz` v logu) nebo reklamní kód na webu (`REKLAMA google,meta,sklik`). Ostatní jsou v logu jako `- neplatí za marketing`.
 
 - `<slozka>` je krátký název bez mezer a diakritiky, např. `rekonstrukce-0930`.
 - Běh trvá 30–60 minut. Pusť ho na pozadí a čekej na konec.
