@@ -44,14 +44,14 @@ _Session D02 · 1. 10. 2026 · issue #43 · náhled: https://claude.ai/artifact/
 |---|---|
 | Hero bez segmentů, seznam služeb jako Halo Lab | 3 rozcestníky podle cílovky jsou pryč. H1 „Designové a vývojové studio, se kterým firmy rostou“, perex, CTA a pod tím řádek 8 služeb jako odkazy. |
 | Hero nesmí být o webech | H1 ani perex neobsahují „web“. Mluví o designu, vývoji a značce obecně. |
-| Jak pracujeme: hodnoty, ne o jednom webu, bez „jeden člověk“, hlavní CTA | Statement „Přes 30 projektů nás naučilo jednu věc…“ + 3 hodnoty (Nejdřív cíl, pak řešení / Jednoduše a srozumitelně / Dotáhneme to do konce) + tlačítko „Probrat projekt“. |
+| Jak pracujeme: hodnoty, ne o jednom webu, bez „jeden člověk“, hlavní CTA | Statement „Dobrý výsledek nezačíná designem ani kódem…“ + 3 hodnoty (Nejdřív cíl, pak řešení / Mluvíme lidsky / Dotáhneme to do konce) + tlačítko „Probrat projekt“. |
 | Služby: 8 ve 2 sloupcích po 4, bez kategorií, pořadí podle Lukáše | Levý sloupec: Tvorba webových stránek, Webflow vývoj, Redesign webu, Landing page. Pravý: UX audit, Vývoj MVP, Vývoj webových aplikací, Vizuální identita. Pod tím odkaz pro agentury. |
 | Stránka pro agentury v navigaci a patičce | „Pro agentury“ v hlavní navigaci, v mobilním menu a ve sloupci Studio v patičce. |
-| Naše práce ve stylu Relume portfolio-17 | Velká grafika přes celou šířku, bez rámečku. Na ní klient, co jsme udělali, jedno číslo `[DOPLNIT]` a štítky. Grafika se pomalu posouvá jako zástupce za video smyčku. Na mobilu je text pod grafikou kvůli čitelnosti. |
+| Naše práce ve stylu Relume portfolio-17 | ELDR, CRR a Arbosis. Velká grafika přes celou šířku, bez rámečku. Na ní klient, co jsme udělali, jedno číslo `[DOPLNIT]` a štítky. Grafika se pomalu posouvá jako zástupce za video smyčku. Na mobilu je text pod grafikou kvůli čitelnosti. |
 | Proč s námi bez štítku | 6 důvodů, nadpis „6 důvodů, proč s námi firmy pracují“, bez ikon a rámečků. |
 | Reference bez Google, Webflow Partner `[DOPLNIT]` | Citace `[DOPLNIT]` + Webflow Partner s odkazem `[DOPLNIT: odkaz na profil]`. |
-| Postup: 6 kroků, univerzální | Úvodní hovor (Nezávazně), Návrh spolupráce, Workshop, Návrh, Vývoj a spuštění, Péče po spuštění. Struktura podle launchkitdesign: krátký název, co se stane, věta, která bere obavu. |
-| FAQ obecné, s „Ozveme se do 24 hodin“ | 5 otázek o spolupráci, žádná o webech. První odpověď: „Ozveme se do 24 hodin.“ |
+| Postup: 6 kroků, univerzální | Úvodní hovor (Nezávazně), Plán a termín, Workshop, Návrh řešení, Vývoj a spuštění, Po spuštění (`[DOPLNIT: rozsah péče]`). Struktura podle launchkitdesign: krátký název, co se stane, věta, která bere obavu. |
+| FAQ obecné, s „Ozveme se do 24 hodin“ | 5 otázek o spolupráci, žádná o webech. První odpověď: „Ozveme se do 24 hodin. Po odeslání formuláře si můžete rovnou vybrat termín hovoru.“ |
 | Závěrečné CTA obecné, ne „co má web dokázat“ | „Pojďme váš projekt rozjet“. Fotka Lukáše, slabě „Lukáš Svoboda, Studio Lead“ a LinkedIn `[DOPLNIT: URL]`. |
 | Formulář | Co řešíte (ukázkové věty se přepisují), Jméno, Firma (povinné), E-mail. Pod tlačítkem jen „Ozveme se do 24 hodin.“ |
 | Po odeslání rezervační kalendář | Stav „Díky, máme to. Vyberte si termín hovoru.“ s výběrem dne a času. Rezervace je na zákazníkovi: „Když si nevyberete, ozveme se sami.“ |
@@ -64,21 +64,21 @@ _Session D02 · 1. 10. 2026 · issue #43 · náhled: https://claude.ai/artifact/
 | Texty skoro 1:1 přístupem Halo Lab | Stejná logika jako Halo Lab G2: problémy jako otázky → co dostanete → podpisová sekce → postup → FAQ → CTA. Délky podle Halo Lab (karty 1 věta, problémy 2 věty). |
 | Žádné obrázky obsahu | Hero má místo obrázku projektu dlaždice ze symbolu. Karta nálezů v hero auditu zmizela. |
 | Nejjednodušší komponenty, méně rámečků | Srovnání bez rámečku tabulky, problémy a persony jen s linkou nahoře, „Co dostanete“ jako seznam s čísly. |
-| UX audit nezačíná důkazy | Pořadí: Hero → Časté problémy → Co dostanete → Před a po (jasně označené jako ilustrace) → Postup → FAQ → CTA. Čísla, citace ani projekty na stránce nejsou. |
+| UX audit nezačíná důkazy | Pořadí: Hero → Kdy vám audit pomůže (problémy) → Před a po (jasně označené jako ilustrace) → Co dostanete → Postup → FAQ → CTA. Čísla, citace ani projekty na stránce nejsou. |
 | Jiné pořadí sekcí + jedna podpisová sekce | Viz tabulka níže. |
 
 ## Složení stránek
 
-| # | Homepage | Webflow vývoj (začíná volbou platformy) | UX audit (začíná problémem) | Vývoj MVP (začíná riziky) |
+| # | Homepage | Webflow vývoj (začíná volbou platformy) | UX audit (začíná problémem) | Vývoj MVP (začíná tím, pro koho je) |
 |---|---|---|---|---|
 | 1 | Hero: Home | Hero: Služba | Hero: Služba | Hero: Služba |
-| 2 | Statement | **★ Srovnání** | Časté problémy | Časté problémy |
-| 3 | Seznam služeb: 2 sloupce | Co dostanete | Co dostanete | Co dostanete |
-| 4 | Naše práce (3) | Naše práce (1) | **★ Před a po** | **★ Pro koho to je** |
+| 2 | Statement | **★ Srovnání** | Časté problémy | **★ Pro koho to je** |
+| 3 | Seznam služeb: 2 sloupce | Co dostanete | **★ Před a po** | Časté problémy |
+| 4 | Naše práce (3) | Naše práce (1) | Co dostanete | Co dostanete |
 | 5 | Proč s námi | Postup (6) | Postup (5) | Postup (6) |
-| 6 | Reference | Reference | FAQ | Naše práce (1) |
-| 7 | Postup (6) | FAQ | CTA s formulářem | FAQ |
-| 8 | FAQ | CTA s formulářem | | CTA s formulářem |
+| 6 | Reference | Reference (jen citace) | FAQ | FAQ |
+| 7 | Postup (6) | FAQ | CTA s formulářem | CTA s formulářem |
+| 8 | FAQ | CTA s formulářem | | |
 | 9 | CTA s formulářem | | | |
 
 **Proč pořadí služeb takhle:** levý sloupec jsou weby od nejčastější poptávky (tvorba webu) po nejmenší produkt (landing page). Pravý sloupec jde od diagnózy (audit) přes produkt (MVP, aplikace) ke značce. Návrh z issue sedí, jen ho dělíme na dva sloupce, aby se četl bez kategorií.
@@ -91,10 +91,14 @@ _Session D02 · 1. 10. 2026 · issue #43 · náhled: https://claude.ai/artifact/
 - Délka UX auditu a obvyklá délka MVP.
 - Rezervační nástroj pro kalendář po odeslání formuláře.
 - Běží ELDR na Webflow? Pokud ne, na stránce Webflow vývoj ho nahradí jiný projekt.
+- Grafika projektu Anse bez částek v Kč a jmen. Do té doby Anse v náhledu není a stránka MVP nemá sekci Naše práce.
+- Co přesně děláme po spuštění (krok 6 postupu).
 
 ## Kontrola
 
-- **Grep v HTML:** ceny, „jeden člověk“, Google, eyebrow, rozpočet, termín ve formuláři, zakázaná vata a oddělovače „—“ a „·“ v textech webu. Výsledky v PR.
-- **Homepage bez „web“** v hero, statementu, FAQ a CTA (kromě názvů služeb). Výsledek v PR.
-- **Přístupnost:** axe-core (WCAG 2.2 AA včetně `target-size`) na 4 stránkách a knihovně v šířce 1440 i 390. Výsledek v PR.
-- **Review:** nezávislý subagent v roli skeptického majitele firmy a Lukáše. Nálezy a opravy v PR.
+| Brána | Výsledek |
+|---|---|
+| c: texty (grep ve vykresleném textu 4 stránek) | 0 výskytů: Kč, cena, „od“ s částkou, „jeden člověk“, Google, hodnocení, rozpočet, eyebrow, odečet, zakázaná vata, „—“ a „·“. Jediný e-mail `inbox@webkit.studio`. Slovo „rozpočet“ je jen v knihovně v seznamu vyřazených komponent. |
+| Homepage bez „web“ | Hero (bez řádku služeb), statement, FAQ a CTA: 0 výskytů mimo Webkit.Studio. |
+| d: review | Nezávislý subagent (skeptický majitel firmy + Lukáš, který chce simple): 38 nálezů. Opraveno 31, mimo jiné: grafika Anse s částkami v Kč pryč, sliby péče po spuštění jako `[DOPLNIT]`, sliby pozic ve vyhledávání pryč, pořadí sekcí auditu a MVP se liší, nadpisy problémů sedí na otázky, žargon SEO a WCAG vysvětlený, řádek služeb v hero bez rámečků, menší dlaždice na mobilu, „Například:“ před ukázkovou větou, Webflow Partner jen jednou na stránce Webflow. Neopraveno záměrně: „Studio Lead“ (zadání Lukáše), H1 homepage jako identita studia (styl Halo Lab), Webflow Partner na homepage (zadání), bílá karta formuláře na modré (kontrast polí). |
+| h: přístupnost | axe-core 4 (WCAG 2.2 AA včetně `target-size`) na 4 stránkách a knihovně v šířce 1440 i 390: **0 chyb**. Konzole bez chyb. Reduced motion vypne animace, dlaždice stojí, ukázková věta je statická. |
