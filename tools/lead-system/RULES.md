@@ -40,6 +40,33 @@ Platí i R1–R5. U platící firmy **neplatí N1**: moderní web, který ztrác
 - **SLOW nebo NOFORM samy jsou nejvýš známka B.** Silný otvírák je jen to, co zákazník uvidí hned: zmenšený web (R1), chybějící tlačítko a telefon nahoře (NOCTA) nebo rozbitý web.
 - **NOFORM se nepočítá**, když je na první obrazovce tlačítko Poptávka nebo Kontakt. Formulář bývá na podstránce.
 
+## Kam lead povede: nový web, nebo úpravy
+
+Do telefonu se prodává jen 20 minut na videu zdarma. Na videu Lukáš nabízí **placený Audit poptávek**: z dat firmy zjistí, kolik ji stojí jedna poptávka a kde ji web ztrácí. Po auditu jsou tři cesty. Celý postup je v Notionu na stránce „Audit poptávek – produkt a postup“.
+
+| Cesta po auditu | Pro koho |
+|---|---|
+| Zadání pro dodavatele firmy | moderní web, stačí 1–3 úpravy |
+| Poptávková stránka ve Webflow | firma platí reklamu (Google, Sklik, Meta), starý web zůstává |
+| Nový web ve Webflow | web se na mobilu zmenšuje, běží na stavebnici, nejde upravit, nebo je o dekádu pozadu |
+
+Lukáš realizuje jen ve Webflow a do cizích systémů nesahá. Proto u každého leadu odhadni, kam povede. Systém webu je v `result.json → dom.cms`.
+
+| Odhad | Kdy |
+|---|---|
+| **Nový web: spíš ano** | R1 nebo R5, web na stavebnici (`dom.cms` Webnode, Wix, eStránky, Mioweb, WebSnadno), nebo copyright a reference nejvýš 2018 |
+| **Nový web: možná** | 3 a víc nálezů najednou (např. NOCTA + NOFORM + SLOW), nebo starší vzhled |
+| **Nový web: spíš ne** | moderní web a 1–2 nálezy. Po auditu zadání dodavateli, u firmy s reklamou poptávková stránka |
+
+**Do Poznámky** na začátek jeden řádek: `Web: <systém>, © <rok>. Nový web: <odhad>. Po auditu: <cesta>.`
+
+**Do Důkazu** seznam věcí, které ubírají poptávky, každá ověřená na screenshotu nebo v datech. Co zákazník vidí → co udělá. Například „Na první obrazovce mobilu je jen fotka a menu. Kdo přijde z reklamy, neví, kam kliknout.“ Kromě kódů výš počítá i:
+
+- formulář s víc než 5 poli (`dom.formFields`),
+- nadpis, ze kterého není poznat, co firma dělá a kde (`dom.h1`),
+- cookie lišta nebo vyskakovací okno přes většinu první obrazovky (`mobile.jpg`),
+- telefon, na který nejde kliknout (`dom.telLinks = 0`).
+
 ## Důvody volat
 
 ### Úroveň 1 – otvírák (zákazník to uvidí sám)

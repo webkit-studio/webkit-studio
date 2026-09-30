@@ -53,7 +53,15 @@ async function dom() {
         const telTop = [...document.querySelectorAll('a[href^="tel:"]')].some(a => { const r = a.getBoundingClientRect(); return r.width > 0 && r.top < vh; });
         const ctaTop = [...document.querySelectorAll('a,button')].some(e => { const r = e.getBoundingClientRect(); return r.width > 0 && r.top < vh && /popt|nezávazn|kalkul|objedn|kontaktujte|zavolejte|cenov/i.test(e.textContent || ''); });
         const years = [...txt.matchAll(/\b(20[0-2]\d)\b/g)].map(m => +m[1]);
+        /* Na čem web běží: rozhoduje, jestli jde opravit, nebo spíš postavit znovu (RULES.md → Nový web, nebo opravy). */
+        const html = document.documentElement.outerHTML.slice(0, 600000);
+        const gen = document.querySelector('meta[name=generator]')?.content || '';
+        const CMS = [['Webflow', /data-wf-site|webflow\.js|website-files\.com/i], ['WordPress', /wp-content|wp-includes/i], ['Webnode', /webnode/i], ['Wix', /wixstatic|_wixCssImports|wix\.com/i], ['eStránky', /estranky/i], ['Mioweb', /mioweb/i], ['Solidpixels', /solidpixels/i], ['Joomla', /joomla/i], ['Drupal', /drupal/i], ['Squarespace', /squarespace/i], ['Shoptet', /shoptet/i], ['Webareal', /webareal/i], ['Rajce/WebSnadno', /websnadno|webmium/i]];
+        const cms = (CMS.find(([, re]) => re.test(gen)) || CMS.find(([, re]) => re.test(html)) || ['vlastní/neznámý'])[0];
+        const fieldCount = f => f.querySelectorAll('input:not([type=hidden]):not([type=submit]):not([type=button]),textarea,select').length;
         return {
+          cms, h1: (document.querySelector('h1')?.innerText || '').replace(/\s+/g, ' ').trim().slice(0, 120) || null,
+          formFields: forms.length ? Math.max(...forms.map(fieldCount)) : null,
           title: document.title.slice(0, 120), viewportMeta: !!document.querySelector('meta[name=viewport]'), telLinks: document.querySelectorAll('a[href^="tel:"]').length, phoneInText: (txt.match(/(?:\+420\s?)?\d{3}\s?\d{3}\s?\d{3}/g) || []).length, ico: (txt.match(/I[ČC]O?\s*:?\s*(\d{8})/) || [])[1] || null, copyright: (txt.match(/(©|copyright)[^\n]{0,70}/i) || [null])[0],
           inquiryForms: forms.length, mailtoOnly: !forms.length && !!document.querySelector('a[href^="mailto:"]'),
           telInFirstScreen: telTop, ctaInFirstScreen: ctaTop, lorem: /lorem ipsum/i.test(txt), placeholder: /yourdomain|1\.555\.555|email@domena|your company/i.test(txt),
@@ -81,4 +89,4 @@ if (process.env.PSI_ONLY === '1' && fs.existsSync(path.join(outdir, 'result.json
 if (!R.reklama) R.reklama = await reklamniKody(url, [...(R.psi.mobile?.adHits || []), ...(R.psi.desktop?.adHits || [])]).catch(() => null);
 fs.writeFileSync(path.join(outdir, 'result.json'), JSON.stringify(R, null, 2));
 const m = R.psi.mobile || {}, d = R.psi.desktop || {};
-console.log(JSON.stringify({ host, mobile: m.error ? m.error : { perf: m.scores?.performance, lcp: m.lcp, viewport: m.viewport, https: m.isOnHttps, final: m.finalUrl, analytics: m.analytics, e404: m.failed404?.length }, desktop: d.error ? d.error : { perf: d.scores?.performance, lcp: d.lcp }, dom: R.dom?.failed ? 'NEOVĚŘENO' : { forms: R.dom?.inquiryForms, tel1: R.dom?.telInFirstScreen, cta1: R.dom?.ctaInFirstScreen, copy: R.dom?.copyright, maxYear: R.dom?.maxYearInText, vp: R.dom?.viewportMeta, ico: R.dom?.ico, eshop: R.dom?.eshop, lorem: R.dom?.lorem }, reklama: R.reklama }));
+console.log(JSON.stringify({ host, mobile: m.error ? m.error : { perf: m.scores?.performance, lcp: m.lcp, viewport: m.viewport, https: m.isOnHttps, final: m.finalUrl, analytics: m.analytics, e404: m.failed404?.length }, desktop: d.error ? d.error : { perf: d.scores?.performance, lcp: d.lcp }, dom: R.dom?.failed ? 'NEOVĚŘENO' : { cms: R.dom?.cms, forms: R.dom?.inquiryForms, tel1: R.dom?.telInFirstScreen, cta1: R.dom?.ctaInFirstScreen, copy: R.dom?.copyright, maxYear: R.dom?.maxYearInText, vp: R.dom?.viewportMeta, ico: R.dom?.ico, eshop: R.dom?.eshop, lorem: R.dom?.lorem }, reklama: R.reklama }));
