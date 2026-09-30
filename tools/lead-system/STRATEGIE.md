@@ -33,7 +33,7 @@ Výchozí odhad. Po dvou týdnech dat je přepočítá sobotní vyhodnocení.
 
 | Klíč | Hodnota | Co to dělá |
 |---|---|---|
-| `výstup` | **notion** | Kam noční rutina zapisuje leady: `notion` nebo `dashboard`. Postup je v `rutiny/vystup-<hodnota>.md`. |
+| `výstup` | **dashboard** | Kam noční rutina zapisuje leady a odkud vyhodnocení čte hovory: `dashboard` nebo `notion`. Postup je v `rutiny/vystup-<hodnota>.md`. Od 30. 9. 2026 Lukáš volá jen z dashboardu. |
 | `stav_novych` | **Ověřit** | Stav nových leadů v Notionu. `Ověřit` = projdeš je sám, `Oslovit` = rovnou k volání. Dashboard zakládá vždy návrh. |
 | `max_leadu_za_noc` | **8** | Víc nezapisovat, i když je víc kandidátů. Přednost mají lepší známky. |
 | `dotazu_za_noc` | **30** | Kolik dotazů „obor + město“ jeden běh projde. Z 10 dotazů vychází zhruba 1 lead. |
@@ -181,7 +181,7 @@ Najednou běží nejvýš dva testy. Test se vyhodnocuje až při minimu dat, do
 | # | Test | A | B | Jak se pozná | Měřítko | Minimum | Od |
 |---|---|---|---|---|---|---|---|
 | T1 | Přeskočit špičku Firmy.cz | pořadí 1–5 | pořadí 6+ | pořadí v poli Běh enginu | podíl `[ne: volali jiní]`, dovolatelnost, zájem | 15 hovorů v každé | 24. 9. 2026 |
-| T2 | Co nabízet | **rozbor webu** (nový web, opravy) | **měření poptávek:** kolik lidí web otevře a kolik se ozve. Hodí se i firmám, které dělají nový web s dodavatelem. | pole Varianta zprávy (A/B), noční rutina střídá | podíl videohovorů z rozhovorů s rozhodovatelem | 12 rozhovorů v každé | 30. 9. 2026 |
+| T2 | Co nabízet | **rozbor webu** (nový web, opravy) | **měření poptávek:** kolik lidí web otevře a kolik se ozve. Hodí se i firmám, které dělají nový web s dodavatelem. | pole Varianta zprávy, v dashboardu `variant` (A/B), noční rutina střídá | podíl videohovorů z rozhovorů s rozhodovatelem | 12 rozhovorů v každé | 30. 9. 2026 |
 
 **Jak rutina píše variantu B:** stejné „Proč volám“. „Co nabízím“ ale zní: „20 minut na videu. Ukážu vám, kolik lidí váš web otevře a kolik z nich se opravdu ozve, a co je cestou ztrácí. Hodí se to i jako zadání pro vašeho dodavatele.“ Služba = Audit poptávek.
 
@@ -243,3 +243,4 @@ Podle nich sobotní vyhodnocení navrhuje změny. Týdně se mění **nejvýš 3
 | 2026-09-29 | Rutiny čtou Notion jen přes pohled a při chybě čtení pokračují. Obchodní řetězce vynechává už pipeline. | Odpolední běh oken skončil bez hledání kvůli limitu SQL dotazů v Notionu. Kaufland a Tesco zbytečně zabíraly měření. |
 | 2026-09-29 | Nabídka v „Jak oslovujeme“ v přímé řeči | Rutina podle ní psala „dostanou, můžou“ místo „dostanete, můžete“. |
 | 2026-09-29 | Nová část „Jak Lukáš e-maily píše“ | Pravidla z Lukášových oprav prvních konceptů, ať další koncepty nepotřebují stejné opravy. |
+| 2026-09-30 | `výstup` notion → dashboard, Běh enginu bez varianty (`… · p<n>`, max 60 znaků) | Leady jsou převedené do dashboardu a Lukáš volá jen odtud. Dashboard bere Běh enginu do 60 znaků, varianta má vlastní pole. |

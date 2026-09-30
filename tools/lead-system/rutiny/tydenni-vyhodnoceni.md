@@ -30,11 +30,13 @@ Cesty jsou vůči `tools/lead-system/` v repu.
 
 ## 3. Výsledek každého hovoru
 
-- Kód vezmi ze začátku Odpovědi firmy (`[nedovoláno]`, `[recepce]` … `[ne: důvod]`).
+- Kód vezmi ze začátku Odpovědi firmy nebo poznámky (`[nedovoláno]`, `[recepce]` … `[ne: důvod]`).
+- Ve výstupu `dashboard` pomůže i stav leadu. Převod stavů na kódy je v `rutiny/vystup-dashboard.md` → Čtení.
 - Když kód chybí, odhadni ho z textu Odpovědi firmy a Poznámky a označ ho „odhad“.
 - **Hovor** = lead s vyplněným datem Osloveno, nebo s kódem `[nedovoláno]`.
-- Z pole Běh enginu vytáhni dotaz (město), pořadí na Firmy.cz a variantu.
+- Z pole Běh enginu vytáhni dotaz (město) a pořadí na Firmy.cz: `p<n>`, u starších leadů `pořadí <n>`.
   - Velikost města: okresní / krajské / velké (Praha, Brno, Ostrava) podle `STRATEGIE.md` → Trhy.
+- Variantu testu T2 ber z pole Varianta zprávy (v dashboardu `variant`), u starších leadů případně z `var A` v Běhu enginu.
 
 ## 4. Spočítej
 

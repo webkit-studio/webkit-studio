@@ -62,7 +62,7 @@ Stránka v data source „Lead engine“:
 | Rozhodovatel | jméno a role z ARES (jednatel) |
 | Kanál | `Telefon` |
 | Zdroj | `zdroj` z Nastavení |
-| Běh enginu | `RRRR-MM-DD · <dotaz> · pořadí <n> · var <A/B>` |
+| Běh enginu | `RRRR-MM-DD · <dotaz> · p<n>`, nejvýš 60 znaků |
 | Poznámka | adresa a IČO, např. „Havířská 338, Kladno. IČO 12345678.“ |
 
 ## Obor → řádek v databázi Obory

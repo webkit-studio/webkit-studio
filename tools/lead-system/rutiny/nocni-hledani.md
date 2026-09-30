@@ -90,7 +90,7 @@ Podle `rutiny/vystup-<výstup>.md`:
 
 - Nejvýš `max_leadu_za_noc` leadů. Přednost mají lepší známky, při shodě vyšší hodnota zakázky.
 - Před každým zápisem ještě jednou zkontroluj, že doména ve výstupu není.
-- **Běh enginu** = `RRRR-MM-DD · <dotaz> · pořadí <n> · var <A|B>`, např. `2026-09-30 · rekonstrukce bytů Kolín · pořadí 7 · var B`.
+- **Běh enginu** = `RRRR-MM-DD · <dotaz> · p<n>`, např. `2026-09-30 · rekonstrukce bytů Kolín · p7`. Nejvýš 60 znaků, dlouhý dotaz zkrať. Varianta testu patří do vlastního pole (Varianta zprávy, v dashboardu `variant`).
 
 ## 8. Deník a shrnutí
 

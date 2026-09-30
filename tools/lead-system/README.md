@@ -1,6 +1,6 @@
 # Lead systém
 
-Najde firmy v oboru, ověří jejich web přes Google a vybere ty, kterým má smysl volat. Výsledek jde do Notionu (Lead engine) jako lead s textem **Proč volám**, **Co nabízím** a **Důkaz**.
+Najde firmy v oboru, ověří jejich web přes Google a vybere ty, kterým má smysl volat. Výsledek jde do dashboardu (webkit.studio/dashboard, dřív Notion Lead engine) jako lead s textem **Proč volám**, **Co nabízím** a **Důkaz**.
 
 ```mermaid
 flowchart LR
@@ -29,7 +29,7 @@ Výsledek přijde e-mailem.
 flowchart LR
   S[STRATEGIE.md<br>co a kde hledat, cíle, testy] --> N
   S --> T
-  N[Noční hledání<br>Po–Pá 2:00] -->|nové leady| L[(Notion Lead engine<br>později dashboard)]
+  N[Noční hledání<br>Po–Pá 2:00] -->|nové leady| L[(Dashboard<br>leady a hovory)]
   N -->|řádek| D[(Deník běhů)]
   L -->|hovory a výsledky| T[Týdenní vyhodnocení<br>sobota 2:00]
   D --> T
@@ -51,10 +51,9 @@ flowchart LR
 2. V promptu rutiny přepiš `větev: main` na název nové větve.
 3. Zpátky jde stejně, vrácením na `main`.
 
-**Přepnutí na dashboard:**
-1. V dashboardu: Nastavení → Tokeny → nový token pro rutinu.
-2. V prostředí Webkit.Studio přidej proměnnou `WKD_TOKEN`.
-3. Ve `STRATEGIE.md` změň `výstup` na `dashboard`.
+**Dashboard (od 30. 9. 2026):** rutiny zapisují leady a čtou hovory z dashboardu. Token je v prostředí Webkit.Studio jako `WKD_TOKEN`. Zpátky do Notionu se přepne změnou `výstup` na `notion` ve `STRATEGIE.md`.
+
+Leady, které přibudou v Notionu ručně, převede do dashboardu skript `scripts/import-leady-notion.mjs` v repu dashboardu (nepřepíše leady, na kterých se v dashboardu pracuje).
 
 Co musí dashboard ještě umět, je v `rutiny/vystup-dashboard.md`.
 
