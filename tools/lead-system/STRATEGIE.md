@@ -88,7 +88,7 @@ Priorita určuje, kam jdou noční běhy. Názvy odpovídají poli Obor v Notion
 
 - **Výchozí trh jsou okresní a menší města** (10–80 tisíc obyvatel) po celé ČR. Majitel tam bere telefon sám a agentury tam tolik nevolají.
 - **Krajská města** jen se `skip` aspoň 5. **Praha, Brno a Ostrava** jen jako test, se `skip` aspoň 10.
-- **Za noc** se projde `dotazu_za_noc` dotazů ve tvaru klíčové slovo + město, například „rekonstrukce bytů Kolín“. Město se u stejného oboru neopakuje dřív než po 30 dnech (podle deníku). Kraje se střídají.
+- **Za noc** se projde `dotazu_za_noc` dotazů ve tvaru klíčové slovo + město, například „rekonstrukce bytů Kolín“. Město se u stejného oboru neopakuje dřív než po 30 dnech (podle deníku). **Výjimka:** běhy před 30. 9. 2026 se nepočítají, protože přeskakovaly placené profily nahoře (`skip` 5). Kraje se střídají.
 - **Penziony:** místo měst turistické oblasti, tedy Krkonoše, Šumava, Jeseníky, Beskydy, Lipno, Jizerské hory, Český ráj, jižní Morava a Vysočina.
 
 **Okresní města podle krajů** (zásobník pro rutinu):
