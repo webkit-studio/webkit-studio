@@ -1,6 +1,6 @@
 # Týdenní vyhodnocení – postup rutiny
 
-Běží v sobotu ve 2:00 ve stejné rutině jako noční hledání. Výsledek je v Notionu, když se Lukáš ráno probudí. **Cíl: zjistit z výsledků hovorů, co vede k poptávkám, a navrhnout konkrétní změny `STRATEGIE.md`.**
+Běží v sobotu ve 2:00 ve stejné rutině jako noční hledání. Výsledek je v dashboardu, když se Lukáš ráno probudí. **Cíl: zjistit z výsledků hovorů, co vede k poptávkám, a navrhnout konkrétní změny `STRATEGIE.md`.**
 
 Rutina nic nemění sama: ani leady, ani strategii. Jen čte, počítá a navrhuje. Návrhy schvaluje Lukáš.
 
@@ -15,7 +15,7 @@ Cesty jsou vůči `tools/lead-system/` v repu.
    - Rozhodovací pravidla,
    - Historie změn.
 2. `rutiny/vystup-<výstup>.md` podle klíče `výstup`. Odtud víš, kde jsou leady a výsledky hovorů.
-3. Poslední vyhodnocení: v Notionu stránka „Lead engine – týdenní vyhodnocení“ → nejnovější podstránka. Potřebuješ ho pro srovnání a pro kontrolu, co se z minulých návrhů zavedlo.
+3. Poslední vyhodnocení: kde je, říká `rutiny/vystup-<výstup>.md` → Týdenní vyhodnocení. Potřebuješ ho pro srovnání a pro kontrolu, co se z minulých návrhů zavedlo.
 
 ## 2. Data
 
@@ -26,7 +26,7 @@ Cesty jsou vůči `tools/lead-system/` v repu.
   - Odpověď firmy, Poznámka,
   - Kanál, Varianta zprávy, Zdroj, Běh enginu,
   - Ověřeno (u leadů z rutiny je to datum založení).
-- **Deník běhů** (Notion databáze „Lead engine – běhy“) za posledních 7 dní.
+- **Deník běhů** za posledních 7 dní (`rutiny/vystup-<výstup>.md` → Deník běhů).
 
 ## 3. Výsledek každého hovoru
 
@@ -64,9 +64,9 @@ Cesty jsou vůči `tools/lead-system/` v repu.
 - **Citace:** vyber 2–4 doslovné věty z Odpovědi firmy, které nejvíc vypovídají o tom, proč lidi říkají ano nebo ne.
 - **Mysli na cíl.** Cílem jsou poptávky, ne hovory ani leady. Návrh, který zvýší počet hovorů, ale ne videohovorů, není dobrý návrh.
 
-## 6. Napiš stránku
+## 6. Napiš vyhodnocení
 
-**Nová podstránka** pod „Lead engine – týdenní vyhodnocení“, název `Týden do RRRR-MM-DD`. Česky, stručně, tabulky místo odstavců, bez omáčky.
+**Nový dokument** podle `rutiny/vystup-<výstup>.md` → Týdenní vyhodnocení, název `Lead engine – týden do RRRR-MM-DD`. Česky, stručně, tabulky místo odstavců, bez omáčky.
 
 1. **TL;DR** – 3 až 5 vět: čísla proti cíli, co funguje, co změnit.
 2. **Čísla** – trychtýř v tabulce: týden / celkem / cíl.
@@ -89,4 +89,4 @@ Cesty jsou vůči `tools/lead-system/` v repu.
 
 ## 7. Shrnutí rutiny
 
-Zkopíruj TL;DR, pod něj seznam „Na pondělí“ a odkaz na stránku v Notionu.
+Zkopíruj TL;DR, pod něj seznam „Na pondělí“ a odkaz na dokument.

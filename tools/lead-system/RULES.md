@@ -116,7 +116,7 @@ Jen podpůrné: žádné měření návštěvnosti, stará verze WordPressu nebo
 | C – až když není co | Jen 1 důvod úrovně 2 | 3–4 |
 | Nevolat | N1–N5 | 0–2 |
 
-## Texty do Notionu
+## Texty leadu
 
 **Proč volám** (tak, jak to řekneš do telefonu, 2–3 věty). Mluví přímo k firmě: „děláte“, „váš web“, nikdy „jejich web“.
 1. Konkrétní pochvala z faktů: rok založení, pozice na Firmy.cz, počet hodnocení, fotky realizací.

@@ -6,16 +6,16 @@
 
 Úspěch týdne = **domluvené videohovory a z nich poslané nabídky**. Nalezené firmy jsou jen palivo.
 
-| Krok trychtýře | Poznáš podle | Stav v Notionu |
+| Krok trychtýře | Poznáš podle | Stav v dashboardu |
 |---|---|---|
-| Lead k volání | prošel ověřením | Oslovit |
-| Hovor | vytočil jsem číslo | Osloveno + datum Osloveno |
-| Dovoláno | kód není `[nedovoláno]` | Osloveno |
-| Rozhodovatel | kód není `[recepce]` ani `[nedovoláno]` | Osloveno |
-| Zájem | kód `[zájem]` nebo lepší | Odpověď |
-| Videohovor | kód `[videohovor]` | Call |
-| Nabídka | kód `[nabídka]` | Nabídka |
-| Zakázka | podepsáno | Podpis |
+| Lead k volání | prošel ověřením | k oslovení (`k_osloveni`) |
+| Hovor | vytočil jsem číslo | osloven (`osloven`) + datum oslovení |
+| Dovoláno | kód není `[nedovoláno]` | osloven |
+| Rozhodovatel | kód není `[recepce]` ani `[nedovoláno]` | osloven |
+| Zájem | kód `[zájem]` nebo lepší | `poslat_datum_callu`, `replied` |
+| Videohovor | kód `[videohovor]` | `meeting` |
+| Nabídka | kód `[nabídka]` | `poslat_nabidku`, `quoted` |
+| Zakázka | podepsáno | `won` |
 
 ### Týdenní cíle
 
@@ -34,7 +34,7 @@ Výchozí odhad. Po dvou týdnech dat je přepočítá sobotní vyhodnocení.
 | Klíč | Hodnota | Co to dělá |
 |---|---|---|
 | `výstup` | **dashboard** | Kam noční rutina zapisuje leady a odkud vyhodnocení čte hovory: `dashboard` nebo `notion`. Postup je v `rutiny/vystup-<hodnota>.md`. Od 30. 9. 2026 Lukáš volá jen z dashboardu. |
-| `stav_novych` | **Ověřit** | Stav nových leadů v Notionu. `Ověřit` = projdeš je sám, `Oslovit` = rovnou k volání. Dashboard zakládá vždy návrh. |
+| `stav_novych` | **Ověřit** | Jen pro `výstup` notion: stav nových leadů v Notionu. `Ověřit` = projdeš je sám, `Oslovit` = rovnou k volání. Dashboard zakládá vždy návrh. |
 | `max_leadu_za_noc` | **8** | Víc nezapisovat, i když je víc kandidátů. Přednost mají lepší známky. |
 | `dotazu_za_noc` | **30** | Kolik dotazů „obor + město“ jeden běh projde. Z 10 dotazů vychází zhruba 1 lead. |
 | `jen_platici` | **ano** | `ano` = měří se jen firmy, které platí za marketing: placený profil na Firmy.cz, nebo reklamní kód Googlu, Mety či Skliku na webu (proměnná `JEN_PLACENE=1`). `ne` = všechny. |
@@ -57,7 +57,7 @@ Výchozí odhad. Po dvou týdnech dat je přepočítá sobotní vyhodnocení.
 
 ## Obory
 
-Priorita určuje, kam jdou noční běhy. Názvy odpovídají poli Obor v Notionu. Delší popis oborů (proč, typické problémy, námitky) je v Notionu v databázi **Obory**.
+Priorita určuje, kam jdou noční běhy. Názvy odpovídají poli Obor (`field`) v dashboardu. Delší popis oborů (proč, typické problémy, námitky) je v Notionu v databázi **Obory**, rutina ho nepotřebuje.
 
 | Obor | Priorita | Hodnota zakázky | Hlavní háček | Klíčová slova pro Firmy.cz |
 |---|---|---|---|---|
@@ -80,7 +80,7 @@ Priorita určuje, kam jdou noční běhy. Názvy odpovídají poli Obor v Notion
 ### Jak rutina vybere obor na noc
 
 1. Vezme obory s prioritou 1 a spočítá, kolik mají leadů ve stavech Oslovit a Ověřit.
-2. Vybere obor s **nejmenší zásobou**. Při shodě ten, který nejdéle neběžel (deník „Lead engine – běhy“).
+2. Vybere obor s **nejmenší zásobou**. Při shodě ten, který nejdéle neběžel (deník běhů, `rutiny/vystup-<výstup>.md` → Deník běhů).
 3. Když mají všechny obory s prioritou 1 zásobu aspoň 8, použije stejné pravidlo na prioritu 2.
 4. **Pátek je průzkum:** vždy obor s prioritou 2 nebo 3, který nejdéle neběžel. Ať máme data i mimo hlavní obory.
 
@@ -88,7 +88,7 @@ Priorita určuje, kam jdou noční běhy. Názvy odpovídají poli Obor v Notion
 
 - **Výchozí trh jsou okresní a menší města** (10–80 tisíc obyvatel) po celé ČR. Majitel tam bere telefon sám a agentury tam tolik nevolají.
 - **Krajská města** jen se `skip` aspoň 5. **Praha, Brno a Ostrava** jen jako test, se `skip` aspoň 10.
-- **Za noc** se projde `dotazu_za_noc` dotazů ve tvaru klíčové slovo + město, například „rekonstrukce bytů Kolín“. Město se u stejného oboru neopakuje dřív než po 30 dnech (podle deníku). **Výjimka:** běhy před 30. 9. 2026 se nepočítají, protože přeskakovaly placené profily nahoře (`skip` 5). Kraje se střídají.
+- **Za noc** se projde `dotazu_za_noc` dotazů ve tvaru klíčové slovo + město, například „rekonstrukce bytů Kolín“. Město se u stejného oboru neopakuje dřív než po 30 dnech (podle deníku). **Výjimka:** běhy bez filtru platících firem se nepočítají, protože přeskakovaly placené profily nahoře (`skip` 5). V deníku v dashboardu takové nejsou. Kraje se střídají.
 - **Penziony:** místo měst turistické oblasti, tedy Krkonoše, Šumava, Jeseníky, Beskydy, Lipno, Jizerské hory, Český ráj, jižní Morava a Vysočina.
 
 **Okresní města podle krajů** (zásobník pro rutinu):
