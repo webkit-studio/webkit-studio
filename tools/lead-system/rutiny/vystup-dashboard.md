@@ -1,6 +1,6 @@
 # Výstup: dashboard
 
-Platí, když je ve `STRATEGIE.md` → Nastavení rutin `výstup` = `dashboard`. Dashboard běží na `https://webkit.studio/dashboard` a od 30. 9. 2026 je **jediné místo, kde Lukáš volá a zapisuje výsledky hovorů**. Leady z Notionu (Lead engine) jsou do něj převedené. Deník běhů a týdenní vyhodnocení zůstávají v Notionu (`rutiny/vystup-notion.md` → Kde co je).
+Platí, když je ve `STRATEGIE.md` → Nastavení rutin `výstup` = `dashboard`. Dashboard běží na `https://webkit.studio/dashboard` a od 30. 9. 2026 je **jediné místo, kde Lukáš volá a zapisuje výsledky hovorů**. Leady z Notionu (Lead engine) jsou do něj převedené. Do dashboardu jde i deník běhů a týdenní vyhodnocení. **Notion rutina nepotřebuje** a nemá do něj zapisovat.
 
 ## Přístup
 
@@ -87,6 +87,55 @@ curl -s -X POST https://webkit.studio/dashboard/api/leads \
 | `note` | adresa, IČO a u platící firmy co platí („Platí: Firmy.cz profil, Google Ads“) | 5000 |
 
 **Běh enginu se musí vejít do 60 znaků**, jinak API odmítne celý lead. Když je dotaz dlouhý, zkrať ho (např. „n. L.“ místo „nad Labem“). Varianta testu patří do `variant`, ne do `engineRun`.
+
+## Deník běhů
+
+Dokument **„Lead engine – běhy“** v knihovně dokumentů dashboardu. Nejnovější záznam je nahoře.
+
+**Čtení:**
+
+```bash
+curl -s -H "Authorization: Bearer $WKD_TOKEN" "https://webkit.studio/dashboard/api/documents?knihovna=1" -o docs.json
+```
+
+Najdi dokument s titulkem „Lead engine – běhy“ a vezmi jeho `id`. Celý text je v `GET /api/documents/<id>` → `document.bodyMd`. Pole `verze` si ulož, potřebuješ ho k zápisu.
+
+**Zápis:** nový záznam vlož hned pod úvodní odstavce, nad první záznam `## …`, a ulož celý dokument:
+
+```bash
+curl -s -X POST "https://webkit.studio/dashboard/api/documents/<id>" \
+  -H "Authorization: Bearer $WKD_TOKEN" -H "Content-Type: application/json" \
+  -d '{"akce": "ulozit", "bodyMd": "<celý nový text>", "verze": "<verze z čtení>"}'
+```
+
+- `409` = dokument se mezitím změnil. Načti ho znovu, vlož záznam a ulož ještě jednou.
+- Tělo požadavku skládej v Pythonu nebo Node (`json.dumps`), ne ručně v shellu. Text obsahuje uvozovky a nové řádky.
+
+**Tvar záznamu** (pole z `rutiny/nocni-hledani.md` → krok 8):
+
+```
+## RRRR-MM-DD <Obor>
+- Výsledek: OK
+- Zapsáno: 3
+- Firem prošlo: 112
+- Kandidátů: 24
+- Dotazy: dotaz 1;dotaz 2;…
+- Poznámka: jedna až dvě věty
+```
+
+Když dokument chybí, založ ho `POST /api/documents` s tělem `{"type": "note", "title": "Lead engine – běhy", "bodyMd": "# Lead engine – běhy\n\n<záznam>"}`.
+
+## Týdenní vyhodnocení
+
+Každé vyhodnocení je **samostatný dokument** v knihovně dashboardu s titulkem `Lead engine – týden do RRRR-MM-DD`.
+
+- **Minulé vyhodnocení:** v `GET /api/documents?knihovna=1` dokument s titulkem, který začíná „Lead engine – týden do“, s nejnovějším datem.
+- **Nové:** `POST /api/documents` s tělem `{"type": "note", "title": "Lead engine – týden do RRRR-MM-DD", "bodyMd": "<text>"}`.
+- Do shrnutí napiš titulek dokumentu a odkaz na knihovnu `https://webkit.studio/dashboard/knihovna`.
+
+## Když zápis do dashboardu selže
+
+**Neskonči a nezapisuj do Notionu.** Záznam deníku nebo celé vyhodnocení dej do shrnutí rutiny. Připiš, co selhalo (kód odpovědi), ať to Lukáš může doplnit.
 
 ## Co by dashboard ještě měl mít (předání pro chat, který dashboard vyvíjí)
 

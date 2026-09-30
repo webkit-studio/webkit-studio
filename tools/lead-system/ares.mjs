@@ -47,3 +47,22 @@ export async function aresPodleNazvu(name, address) {
   }
   return prvni;
 }
+
+// IČO z webu, když není na úvodní stránce: bývá na stránce Kontakt, O nás nebo v patičce.
+// Ranní běh 30. 9. kvůli tomu vyřadil asi 20 platících firem, protože ARES našel
+// firmu se sídlem v jiném městě a IČO nešlo potvrdit.
+const RE_ICO = /I[ČC]O?\s*[:.]?\s*(\d{2}\s?\d{3}\s?\d{3})\b/;
+async function stahni(u) {
+  try { const r = await fetch(u, { signal: AbortSignal.timeout(20000), headers: { 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/128.0 Safari/537.36' } }); return r.ok ? await r.text() : ''; } catch { return ''; }
+}
+const text = h => h.replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>/gi, ' ').replace(/<[^>]+>/g, ' ').replace(/&nbsp;|&#160;/g, ' ').replace(/\s+/g, ' ');
+export async function icoZWebu(url) {
+  const h = await stahni(url);
+  const m = text(h).match(RE_ICO); if (m) return m[1].replace(/\s/g, '');
+  const odkazy = [...new Set([...h.matchAll(/href=["']([^"'#]+)["']/gi)].map(x => x[1]).filter(x => /kontakt|contact|o-nas|o-firme|o-spolecnosti|about|fakturac/i.test(x)))].slice(0, 3);
+  for (const o of odkazy) {
+    let u; try { u = new URL(o, url).href; } catch { continue; }
+    const t = text(await stahni(u)).match(RE_ICO); if (t) return t[1].replace(/\s/g, '');
+  }
+  return null;
+}

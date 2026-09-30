@@ -8,7 +8,7 @@ Běží pondělí až pátek ve 2:00. **Cíl: přidat do zásoby 3–8 ověřen�
 - **`PSI_API_KEY` nikdy nevypisuj** – ani v příkazu (`echo`), ani v logu, ani ve shrnutí. Ověřuj jen, jestli existuje.
 - Co neprošlo ověřením podle `RULES.md`, nezapisuj. Co nevidíš na screenshotu nebo v datech, neexistuje.
 - Nejvýš 2,5 hodiny práce. Pak zapiš, co máš, a skonči.
-- **Chyba při čtení výstupu (Notion, dashboard) není důvod skončit.** Postup je v `rutiny/vystup-<výstup>.md` → Když čtení selže.
+- **Chyba při čtení výstupu nebo deníku není důvod skončit.** Postup je v `rutiny/vystup-<výstup>.md` → Když čtení selže.
 
 ## 1. Přečti
 
@@ -32,7 +32,7 @@ npm install --no-audit --no-fund --silent
 
 ## 3. Vyber obor a města
 
-1. **Deník běhů** (Notion databáze „Lead engine – běhy“): přečti běhy za posledních 30 dní.
+1. **Deník běhů:** přečti běhy za posledních 30 dní. Kde deník je, říká `rutiny/vystup-<výstup>.md` → Deník běhů.
 2. **Zásoba:** z výstupu spočítej leady po oborech ve stavu Oslovit + Ověřit (v dashboardu k_osloveni + navrh). Jak číst, je v `rutiny/vystup-<výstup>.md` → Čtení.
 3. **Obor** vyber podle `STRATEGIE.md` → „Jak rutina vybere obor na noc“. Dnešní den v týdnu ber v čase Europe/Prague.
 4. **Města:** `dotazu_za_noc` měst podle `STRATEGIE.md` → „Trhy“:
@@ -87,7 +87,7 @@ Pro každý web ze `shortlist.json` (v poli `dir` je složka s `result.json`, `m
    - `.../ekonomicke-subjekty-vr/<IČO>` → jednatel.
    - Počet lidí ber jen z ARES, nikdy z webu.
 7. **Známka** A / B / C podle `RULES.md`. C zapisuj, jen když má obor zásobu pod 5.
-8. **Texty** Proč volám, Co nabízím a Důkaz podle `RULES.md` → „Texty do Notionu“. U platící firmy podle stavby pro platící firmy (co platí → kde web ztrácí lidi → „za každého takového člověka platíte“).
+8. **Texty** Proč volám, Co nabízím a Důkaz podle `RULES.md` → „Texty leadu“. U platící firmy podle stavby pro platící firmy (co platí → kde web ztrácí lidi → „za každého takového člověka platíte“).
    - **Kam lead povede** podle `RULES.md` → „Kam lead povede“: řádek `Web: … Nový web: … Po auditu: …` na začátek Poznámky a do Důkazu seznam věcí, které ubírají poptávky.
    - Varianta nabídky podle `STRATEGIE.md` → „Běžící testy“ (T2).
    - Střídej A a B tak, aby jich za noc bylo zhruba stejně. Začni tou, které je v zásobě oboru méně.
@@ -99,17 +99,16 @@ Podle `rutiny/vystup-<výstup>.md`:
 
 - Nejvýš `max_leadu_za_noc` leadů. Přednost mají lepší známky, při shodě vyšší hodnota zakázky.
 - Před každým zápisem ještě jednou zkontroluj, že doména ve výstupu není.
-- **Platí za marketing** (test T3): u platící firmy přidej signál „Reklamy“ (dashboard `signals: {"vzhled": ["Reklamy"]}`, Notion pole Signály vzhled) a do Poznámky napiš, co platí, např. „Platí: Firmy.cz profil, Google Ads, Sklik“.
+- **Platí za marketing** (test T3): u platící firmy přidej signál „Reklamy“ (dashboard `signals: {"vzhled": ["Reklamy"]}`) a do Poznámky napiš, co platí, např. „Platí: Firmy.cz profil, Google Ads, Sklik“.
 - **Běh enginu** = `RRRR-MM-DD · <dotaz> · p<n>`, např. `2026-09-30 · rekonstrukce bytů Kolín · p7`. Nejvýš 60 znaků, dlouhý dotaz zkrať. Varianta testu patří do vlastního pole (Varianta zprávy, v dashboardu `variant`).
 
 ## 8. Deník a shrnutí
 
-**Deník:** v Notionu v databázi „Lead engine – běhy“ vždy založ jeden řádek, i když běh skončil chybou:
+**Deník:** vždy přidej jeden záznam, i když běh skončil chybou. Kam a jak, říká `rutiny/vystup-<výstup>.md` → Deník běhů. Záznam má tato pole:
 
 | Pole | Co tam patří |
 |---|---|
-| Běh | `RRRR-MM-DD <Obor>` |
-| Datum | dnešní datum |
+| Nadpis | `RRRR-MM-DD <Obor>` |
 | Obor | obor běhu |
 | Dotazy | všechny dotazy oddělené středníkem |
 | Firem prošlo | unikátní firmy z Firmy.cz |

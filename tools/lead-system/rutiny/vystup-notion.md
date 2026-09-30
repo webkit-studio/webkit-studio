@@ -39,6 +39,11 @@ Co z toho kdo potřebuje:
 2. **Známé domény:** `known_domains.txt` nech prázdný. Před každým zápisem hledej doménu v Lead engine nástrojem `search` s `data_source_url` Lead engine. Když se najde, lead nezapisuj.
 3. Do Poznámky v deníku napiš, co selhalo a jak jsi to obešel.
 
+## Deník běhů a týdenní vyhodnocení
+
+- **Deník:** databáze „Lead engine – běhy“, čtení přes pohled (viz Čtení). Nový řádek: Běh = nadpis záznamu, Datum = dnes, ostatní pole podle `rutiny/nocni-hledani.md` → krok 8.
+- **Vyhodnocení:** podstránka stránky „Lead engine – týdenní vyhodnocení“, název `Týden do RRRR-MM-DD`.
+
 ## Zápis nového leadu
 
 Stránka v data source „Lead engine“:
