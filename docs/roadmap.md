@@ -12,11 +12,11 @@ Plán celého projektu je v `docs/pipeline.md`, tabulka session a zadání v `do
 | G · Ladění | M01 (rutina), O0x | data před a po |
 
 ## Stav
-_Aktualizováno: 30. 9. 2026 · B02_
+_Aktualizováno: 1. 10. 2026 · D02_
 
-**Hotovo:** K00 – založená štafeta, zadání, reference Halo Lab, issues. B01 (#10) – služby, zákazníci, nabídka (`docs/web-v2/B01-sluzby-zakaznici.md`). D01 (#13) – design systém, knihovna komponent a náhled homepage a 3 služeb ([artifact](https://claude.ai/artifact/3rGAWQ952JovDCbNPHzFM1), `docs/web-v2/D01-design-system.md`). B02 (#11) – trh, klíčová slova, GEO, katalogy (`docs/web-v2/B02-trh-vyhledavani.md`).
+**Hotovo:** K00 – založená štafeta, zadání, reference Halo Lab, issues. B01 (#10) – služby, zákazníci, nabídka (`docs/web-v2/B01-sluzby-zakaznici.md`). D01 (#13) – design systém, knihovna komponent a náhled homepage a 3 služeb ([artifact](https://claude.ai/artifact/3rGAWQ952JovDCbNPHzFM1), `docs/web-v2/D01-design-system.md`). B02 (#11) – trh, klíčová slova, GEO, katalogy (`docs/web-v2/B02-trh-vyhledavani.md`). D02 (#43) – redesign náhledu podle zpětné vazby: simple, obecná homepage, texty ve stylu Halo Lab (stejný artifact, `docs/web-v2/D02-zmeny.md`).
 **Rozpracováno:** nic.
-**Další krok:** 30. 9. ráno Lukáš schvaluje náhled z D01 a odpoví na 5 ano/ne otázek v #13. Pak ✋A (positioning a nabídka): B01 a B02 jsou hotové, čeká se na schválení Lukášem (5 + 5 ano/ne otázek v #10 a #11).
+**Další krok:** Lukáš kontroluje ducha redesignu D02 a odpoví na 3 ano/ne otázky v #43. Pak S01 nebo D03 spouští koordinátor. Pak ✋A (positioning a nabídka): B01 a B02 jsou hotové, čeká se na schválení Lukášem (5 + 5 ano/ne otázek v #10 a #11).
 **Blokery:** žádné.
 
 ### Na Lukášovi
