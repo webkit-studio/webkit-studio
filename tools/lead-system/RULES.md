@@ -37,6 +37,9 @@ Firma, která už za zákazníky z internetu platí, chce marketing. Neprodává
 
 Platí i R1–R5. U platící firmy **neplatí N1**: moderní web, který ztrácí poptávky, je dobrý lead.
 
+- **SLOW nebo NOFORM samy jsou nejvýš známka B.** Silný otvírák je jen to, co zákazník uvidí hned: zmenšený web (R1), chybějící tlačítko a telefon nahoře (NOCTA) nebo rozbitý web.
+- **NOFORM se nepočítá**, když je na první obrazovce tlačítko Poptávka nebo Kontakt. Formulář bývá na podstránce.
+
 ## Důvody volat
 
 ### Úroveň 1 – otvírák (zákazník to uvidí sám)
@@ -81,7 +84,7 @@ Jen podpůrné: žádné měření návštěvnosti, stará verze WordPressu nebo
 
 | Známka | Kdy | Skóre |
 |---|---|---|
-| A – volat první | Platí za marketing + úroveň 1 (včetně NOCTA, NOFORM, SLOW). Nebo úroveň 1 + signál peněz (pobočky, showroom, 10+ lidí v ARES, ≥ 30 hodnocení na Firmy.cz) | 8–10 |
+| A – volat první | Platí za marketing + silný nález: R1–R5, nebo NOCTA ověřené na screenshotu. Nebo úroveň 1 + signál peněz (pobočky, showroom, 10+ lidí v ARES, ≥ 30 hodnocení na Firmy.cz) | 8–10 |
 | B – volat | Úroveň 1, nebo 2× úroveň 2 | 5–7 |
 | C – až když není co | Jen 1 důvod úrovně 2 | 3–4 |
 | Nevolat | N1–N5 | 0–2 |
