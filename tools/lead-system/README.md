@@ -113,6 +113,7 @@ Menší města vychází líp. Na firmy.cz se nahoru dostávají firmy, které s
 | `pipeline.mjs` | firmy.cz → detail firmy (JSON-LD) → předsítko → `verify2.mjs` → ARES |
 | `chrome.mjs` | Najde Chromium (`CHROMIUM_PATH`, jinak `/opt/pw-browsers`) |
 | `verify2.mjs` | Měření z Google PSI (mobil + desktop, screenshoty), statická fakta ze stránky a reklamní kódy |
+| `ares.mjs` | Dohledá IČO v ARES podle názvu firmy a obce, když ho web neuvádí |
 | `reklama.mjs` | Najde reklamní kódy Google Ads, Mety a Skliku v HTML webu a v kontejneru Google Tag Manageru |
 | `httpscheck.mjs` | Pustí PSI na `https://` verzi – potvrdí nebo vyvrátí „Nezabezpečeno“ |
 | `shortlist.py` | Projde všechny běhy a vypíše weby s nálezem. Přeskočí domény z `done_hosts.txt` |
