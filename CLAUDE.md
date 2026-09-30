@@ -34,6 +34,15 @@ Zdroje pro texty a analýzu: `docs/web-v2/*`, schválené výstupy předchozích
 - Ve webových textech bez znaků „—“ a „·“ jako oddělovačů.
 - Anglické texty kontroluj na czechismy.
 
+## Zakázaná témata a argumenty (Lukášova rozhodnutí, nevracet)
+
+- **Ceny nikde a nikdy.** Žádné částky, rozpětí, „od“, ceníky. Termíny ano.
+- **Žádný audit s pevnou cenou** ani odečet z ceny webu.
+- **Argument „jeden člověk / vede to jeden člověk“ je zakázaný.** Nanejvýš „jeden dodavatel“.
+- **Homepage není o webech.** Buduje důvěru obecně, služby vysvětlují až stránky služeb.
+- **Žádné štítky (eyebrow) nad sekcemi**, žádná zbytečná slova. Princip „simple“: začni minimem.
+- Rozhodnutí v `docs/decisions.md` mají přednost před doporučeními v B01, B02 i D01.
+
 ## Co se nesmí rozbít
 
 - Pořadí a obsah consent skriptu (`wkConsentGtm` první v head), GTM `GTM-MQW8FHWR`, klíč `wk-consent`, `window.wkGrant`, háček `[data-wk-cookies]`.
