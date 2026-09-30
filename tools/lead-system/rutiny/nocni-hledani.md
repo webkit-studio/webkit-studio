@@ -78,15 +78,19 @@ Pro každý web ze `shortlist.json` (v poli `dir` je složka s `result.json`, `m
 4. **Firma žije a nemá novější web jinde:**
    - Vyhledej název firmy na webu a porovnej IČO a telefon. Podobný název ještě neznamená stejnou firmu.
    - Když má firma novější web, lead nezapisuj.
-5. **Velikost a rozhodovatel** z ARES:
+5. **IČO:** když ho web neuvádí, pipeline ho hledá v ARES podle názvu a obce z Firmy.cz (`candidates.json` → `aresHledani`, `icoZdroj`).
+   - Při jednoznačné shodě v obci je IČO rovnou v `ares`.
+   - Jinak jsou v `aresHledani.kandidati` až 3 firmy. Porovnej název, obec a telefon s webem a vyber tu pravou. Živnostníka hledej i podle jména majitele (`…/ekonomicke-subjekty/vyhledat`, `{"obchodniJmeno": "Jan Novák"}`).
+   - **Chybějící IČO na webu není důvod lead zahodit**, dokud jsi ho nehledal v ARES.
+6. **Velikost a rozhodovatel** z ARES:
    - `https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-res/<IČO>` → kategorie počtu pracovníků,
    - `.../ekonomicke-subjekty-vr/<IČO>` → jednatel.
    - Počet lidí ber jen z ARES, nikdy z webu.
-6. **Známka** A / B / C podle `RULES.md`. C zapisuj, jen když má obor zásobu pod 5.
-7. **Texty** Proč volám, Co nabízím a Důkaz podle `RULES.md` → „Texty do Notionu“. U platící firmy podle stavby pro platící firmy (co platí → kde web ztrácí lidi → „za každého takového člověka platíte“).
+7. **Známka** A / B / C podle `RULES.md`. C zapisuj, jen když má obor zásobu pod 5.
+8. **Texty** Proč volám, Co nabízím a Důkaz podle `RULES.md` → „Texty do Notionu“. U platící firmy podle stavby pro platící firmy (co platí → kde web ztrácí lidi → „za každého takového člověka platíte“).
    - Varianta nabídky podle `STRATEGIE.md` → „Běžící testy“ (T2).
    - Střídej A a B tak, aby jich za noc bylo zhruba stejně. Začni tou, které je v zásobě oboru méně.
-8. **Pořadí na Firmy.cz** je v `shortlist.json` → `rank` (`query` a `rank`). Použij ho do pole Běh enginu.
+9. **Pořadí na Firmy.cz** je v `shortlist.json` → `rank` (`query` a `rank`). Použij ho do pole Běh enginu.
 
 ## 7. Zápis
 

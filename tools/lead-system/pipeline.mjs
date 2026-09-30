@@ -1,5 +1,5 @@
 // pipeline.mjs <runDir> <perQuery> "<obor label>" "<query>"...
-import { chromium } from 'playwright'; import { chromePath } from './chrome.mjs'; import { reklamniKody } from './reklama.mjs'; import fs from 'node:fs'; import path from 'node:path'; import { execFile } from 'node:child_process';
+import { chromium } from 'playwright'; import { chromePath } from './chrome.mjs'; import { reklamniKody } from './reklama.mjs'; import { aresPodleNazvu } from './ares.mjs'; import fs from 'node:fs'; import path from 'node:path'; import { execFile } from 'node:child_process';
 const [,, runDir, perQ, obor, ...queries] = process.argv; fs.mkdirSync(runDir, { recursive: true });
 const log = (...a) => { const l = a.join(' '); console.log(l); fs.appendFileSync(path.join(runDir, 'log.txt'), l + '\n'); };
 const known = new Set((fs.existsSync('known_domains.txt') ? fs.readFileSync('known_domains.txt', 'utf8') : '').split(/\s+/).filter(Boolean));
@@ -68,7 +68,10 @@ const runOne = c => new Promise(res => execFile('node', ['verify2.mjs', c.web, p
 const q = [...cands]; await Promise.all(Array.from({ length: 4 }, async () => { while (q.length) await runOne(q.shift()); }));
 // 4) ARES for IČO found on site
 for (const c of cands) {
-  try { const r = JSON.parse(fs.readFileSync(path.join(runDir, 'sites', dom(c.web), 'result.json'), 'utf8')); c.verify = r; const ico = r.dom?.ico;
+  try { const r = JSON.parse(fs.readFileSync(path.join(runDir, 'sites', dom(c.web), 'result.json'), 'utf8')); c.verify = r; let ico = r.dom?.ico;
+    /* Web IČO neuvádí: dohledat v ARES podle názvu a obce z Firmy.cz. Automaticky jen
+       při jednoznačné shodě v obci, jinak kandidáti v `aresHledani` k ručnímu ověření. */
+    if (!ico) { c.aresHledani = await aresPodleNazvu(c.name, c.address).catch(() => null); if (c.aresHledani?.ico) { ico = c.aresHledani.ico; c.icoZdroj = 'ARES podle názvu a obce'; } }
     if (ico) { const a = JSON.parse(await curl(`https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-res/${ico}`) || '{}').zaznamy?.[0]; const a2 = JSON.parse(await curl(`https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/${ico}`) || '{}');
       c.ares = a ? { ico, name: a.obchodniJmeno, pravniForma: a.pravniForma, kat: a.statistickeUdaje?.kategoriePoctuPracovniku, kraj: a2.sidlo?.nazevKraje, obec: a2.sidlo?.nazevObce, vznik: a2.datumVzniku, zanik: a2.datumZaniku || null } : { ico, notFound: true }; }
   } catch (e) { c.verifyError = String(e.message).slice(0, 100); }
