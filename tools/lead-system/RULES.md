@@ -23,18 +23,21 @@ Firma, která už za zákazníky z internetu platí, chce marketing. Neprodává
 | Reklamní kód Googlu | `result.json → reklama.google` | „Na webu máte kód pro reklamu Googlu.“ |
 | Reklamní kód Mety | `result.json → reklama.meta` | „Na webu máte kód pro reklamu na Facebooku.“ |
 | Reklamní kód Skliku | `result.json → reklama.sklik` | „Na webu máte kód pro reklamu na Seznamu.“ |
+| Reklama na Googlu běží | `node inzeruje.mjs <doména>` → `google30` > 0 (Google Ads Transparency, Česko, posledních 30 dní) | „Vidím, že teď inzerujete na Googlu.“ |
 
 **Kam placení lidé opravdu přicházejí (kontrola obráceně).** Lead má smysl, jen když návštěvnost, za kterou firma platí, vede na web, který hodnotíš.
 - **Placený profil na Firmy.cz:** odkaz na web v profilu musí vést na hodnocený web. Pipeline bere web právě z profilu, jinou doménu v profilu ber jako varování.
 - **Reklamní kód:** je na hodnoceném webu, takže reklama na něj nejspíš vede.
-- **U známky A navíc** vyhledej firmu (název a město) a podívej se:
-  - na odkaz na web ve firemním profilu Google,
-  - do [Google Ads Transparency](https://adstransparency.google.com) podle domény.
-  Když profil nebo reklama vede na jinou doménu s novějším webem, lead nezapisuj, nebo hodnoť ten novější web.
-- Když to nejde ověřit, napiš do Důkazu „Kam vede reklama: neověřeno“.
+- **Reklama na Googlu:** u každého leadu, který chceš zapsat, spusť `node inzeruje.mjs <doména> [<doména> …]` (jeden prohlížeč, asi 4 s na doménu).
+  - `google30` > 0: reklamy na hodnocený web běží. Do Důkazu „Google reklamy: běží (Ads Transparency, 30 dní, inzerent <název>)“.
+  - `google30` = 0 a firma má jen kód Googlu, bez profilu, Mety a Skliku: kód zůstal po staré kampani, **bránou neprojde**.
+  - `google30` = null: neověřeno, rozhoduj podle ostatních signálů.
+  - Počet reklam je jen orientační, rozhoduje běží / neběží.
+- **U známky A navíc** vyhledej firmu (název a město) a podívej se na odkaz na web ve firemním profilu Google. Když profil nebo reklama vede na jinou doménu s novějším webem, lead nezapisuj, nebo hodnoť ten novější web.
+- Do Důkazu napiš vždy jeden řádek „Kam vede reklama: …“, např. „profil Firmy.cz i Google reklamy na hodnocený web“. Když to nejde ověřit: „Kam vede reklama: neověřeno“.
 
-- **Kód neznamená, že reklama běží právě teď.** Může zůstat po staré kampani. Proto se ptej: „Inzerujete teď?“ Neříkej „platíte za reklamu na Googlu“, dokud to nepotvrdí.
-- Když chceš jistotu před hovorem: [Google Ads Transparency](https://adstransparency.google.com) a [Meta Ad Library](https://www.facebook.com/ads/library) podle názvu firmy nebo domény.
+- **Kód neznamená, že reklama běží právě teď.** Může zůstat po staré kampani. Když `inzeruje.mjs` reklamy nenašel, ptej se: „Inzerujete teď?“ Neříkej „platíte za reklamu na Googlu“, dokud to nepotvrdí.
+- Meta a Sklik takhle ověřit nejde. Meta Ad Library chce přihlášení, Sklik přehled reklam nemá. Tam platí jen „máte na webu kód“.
 
 **U platící firmy jsou úroveň 1 i tyto nálezy** (web ztrácí lidi, za které firma platí):
 
