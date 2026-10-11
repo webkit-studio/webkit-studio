@@ -124,8 +124,8 @@ Jen podpůrné: žádné měření návštěvnosti, stará verze WordPressu nebo
 | Známka | Kdy |
 |---|---|
 | A | kategorie 1 nebo 2 **a** firma má 10 a víc lidí podle ARES |
-| B | kategorie 1 nebo 2 a firma má 1–9 lidí, nebo velikost v ARES chybí a firma má aspoň 10 hodnocení na Firmy.cz |
-| C | jen kategorie 3, nebo firma bez zaměstnanců s méně než 10 hodnoceními |
+| B | kategorie 1 nebo 2 a firma má 1–9 lidí. Nebo je firma bez zaměstnanců či bez údaje v ARES, ale má aspoň 10 hodnocení na Firmy.cz. |
+| C | jen kategorie 3. Nebo kategorie 1 či 2 u firmy bez zaměstnanců či bez údaje v ARES s méně než 10 hodnoceními. |
 | nezapisovat | neplatí za marketing, žádný ověřený nález, nebo mimo cíl (Nechceme ve `STRATEGIE.md`) |
 
 **Skóre** určuje pořadí uvnitř známky:
