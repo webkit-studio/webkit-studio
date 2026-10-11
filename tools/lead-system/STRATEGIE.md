@@ -34,7 +34,7 @@ Výchozí odhad. Po dvou týdnech dat je přepočítá sobotní vyhodnocení.
 | Klíč | Hodnota | Co to dělá |
 |---|---|---|
 | `výstup` | **dashboard** | Kam noční rutina zapisuje leady a odkud vyhodnocení čte hovory: `dashboard` nebo `notion`. Postup je v `rutiny/vystup-<hodnota>.md`. Od 30. 9. 2026 Lukáš volá jen z dashboardu. |
-| `stav_novych` | **Ověřit** | Jen pro `výstup` notion: stav nových leadů v Notionu. `Ověřit` = projdeš je sám, `Oslovit` = rovnou k volání. Dashboard zakládá vždy návrh. |
+| `stav_novych` | **Ověřit** | Jen pro `výstup` notion: stav nových leadů v Notionu. `Ověřit` = projdeš je sám, `Oslovit` = rovnou k volání. Dashboard zakládá rovnou K oslovení. |
 | `max_leadu_za_noc` | **8** | Víc nezapisovat, i když je víc kandidátů. Přednost mají lepší známky. |
 | `dotazu_za_noc` | **30** | Kolik dotazů „obor + město“ jeden běh projde. Z 10 dotazů vychází zhruba 1 lead. |
 | `jen_platici` | **ano** | `ano` = měří se jen firmy, které platí za marketing: placený profil na Firmy.cz, nebo reklamní kód Googlu, Mety či Skliku na webu (proměnná `JEN_PLACENE=1`). `ne` = všechny. |
@@ -278,3 +278,4 @@ Podle nich sobotní vyhodnocení navrhuje změny. Týdně se mění **nejvýš 3
 | 2026-09-30 | Hledáme firmy, které platí za marketing: `jen_platici` ano, `skip` 5 → 0, `na_dotaz` 7 → 10, T1 končí, nový T3 | Firmy se špatným webem bez reklamy marketing nechtějí. Placené profily stojí na Firmy.cz nahoře a `skip` je přeskakoval. |
 | 2026-09-30 | Na videu placený Audit poptávek, u leadu odhad „nový web, nebo úpravy“, pipeline zjišťuje systém webu (`dom.cms`) | Platící firmy mají často moderní web a nový web nechtějí. Lukáš realizuje jen ve Webflow, do cizích systémů nesahá. |
 | 2026-09-30 | Klíčová slova TČ: „klimatizace“ → „fotovoltaika“. Nové poznatky z 12 oborů s platícími firmami. | Dotaz „klimatizace“ vracel autoservisy. |
+| 2026-10-11 | Nová známka: brána „platí za marketing“, kategorie webu (1 nový web, 2 konverze a UX, 3 technické), A jen pro firmy s 10+ lidmi, skóre podle pevného vzorce | Lukáš: 59 ze 64 leadů mělo A, i živnostníci a weby jen s pomalým načítáním. Dashboard už nemá stav návrh, zapsaný lead jde rovnou k volání. |

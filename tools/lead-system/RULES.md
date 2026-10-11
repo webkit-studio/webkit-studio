@@ -107,14 +107,35 @@ Jen podpůrné: žádné měření návštěvnosti, stará verze WordPressu nebo
 - **Napadené weby.** `SPAM` v shortlistu = skrytý text o sázkách nebo lécích. Ověř ve zdrojovém kódu (Ctrl+U). Do telefonu říkej „nejspíš napadený“, ne „hacknutý“.
 - **Špička Firmy.cz je přelidněná.** 1.–2. místo ve velkém městě obvolávají všichni. Známku A nedávej jen za velikost, když je firma zároveň nahoře ve velkém městě.
 
-## Známka
+## Známka (od 11. 10. 2026)
 
-| Známka | Kdy | Skóre |
+**Brána:** lead se zapisuje, jen když firma **ověřeně platí za marketing**: placený profil na Firmy.cz, nebo reklamní kód Google Ads, Mety či Skliku (`RULES.md` → Platí za marketing). Bez toho se nezapisuje, ať je web jakkoli špatný.
+
+**Kategorie webu.** Vyber nejsilnější, která platí. Počítá se jen ověřený nález.
+
+| Kat. | Co web potřebuje | Ověřené nálezy |
 |---|---|---|
-| A – volat první | Platí za marketing + silný nález: R1–R5, nebo NOCTA ověřené na screenshotu. Nebo úroveň 1 + signál peněz (pobočky, showroom, 10+ lidí v ARES, ≥ 30 hodnocení na Firmy.cz) | 8–10 |
-| B – volat | Úroveň 1, nebo 2× úroveň 2 | 5–7 |
-| C – až když není co | Jen 1 důvod úrovně 2 | 3–4 |
-| Nevolat | N1–N5 | 0–2 |
+| 1 | **Nový web** | na mobilu zmenšená verze pro počítač (R1), vzhled 2008–2015 (R5), stavebnice s reklamou zdarma, web nefunguje (R3) |
+| 2 | **Lepší konverze a UX** | na první obrazovce mobilu chybí tlačítko i telefon, nebo je zakrývá cookie lišta (NOCTA), chybí cesta k poptávce, matoucí odkazy, z nadpisu není poznat, co firma dělá |
+| 3 | **Technické opravy** | jen pomalé načítání (SLOW, R4), http, rozbité odkazy, napadený web |
+
+**Známka:**
+
+| Známka | Kdy |
+|---|---|
+| A | kategorie 1 nebo 2 **a** firma má 10 a víc lidí podle ARES |
+| B | kategorie 1 nebo 2 a firma má 1–9 lidí, nebo velikost v ARES chybí a firma má aspoň 10 hodnocení na Firmy.cz |
+| C | jen kategorie 3, nebo firma bez zaměstnanců s méně než 10 hodnoceními |
+| nezapisovat | neplatí za marketing, žádný ověřený nález, nebo mimo cíl (Nechceme ve `STRATEGIE.md`) |
+
+**Skóre** určuje pořadí uvnitř známky:
+- kategorie 1 = 6 bodů, kategorie 2 = 5, kategorie 3 = 3,
+- firma s 10–49 lidmi +2, s 50 a víc +3,
+- aspoň 10 hodnocení na Firmy.cz +1,
+- placený profil a zároveň reklamní kód +1,
+- nejvýš 10.
+
+Do Poznámky na začátek: `Kat. <1|2|3>: <nález>. <velikost>, <počet> hodnocení. Platí: <co>.`
 
 ## Texty leadu
 

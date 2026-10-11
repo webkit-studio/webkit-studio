@@ -33,7 +33,7 @@ npm install --no-audit --no-fund --silent
 ## 3. Vyber obor a města
 
 1. **Deník běhů:** přečti běhy za posledních 30 dní. Kde deník je, říká `rutiny/vystup-<výstup>.md` → Deník běhů.
-2. **Zásoba:** z výstupu spočítej leady po oborech ve stavu Oslovit + Ověřit (v dashboardu k_osloveni + navrh). Jak číst, je v `rutiny/vystup-<výstup>.md` → Čtení.
+2. **Zásoba:** z výstupu spočítej leady po oborech ve stavu Oslovit (v dashboardu `k_osloveni` se známkou A nebo B). Jak číst, je v `rutiny/vystup-<výstup>.md` → Čtení.
 3. **Obor** vyber podle `STRATEGIE.md` → „Jak rutina vybere obor na noc“. Dnešní den v týdnu ber v čase Europe/Prague.
 4. **Města:** `dotazu_za_noc` měst podle `STRATEGIE.md` → „Trhy“:
    - okresní města ze zásobníku,
@@ -86,7 +86,7 @@ Pro každý web ze `shortlist.json` (v poli `dir` je složka s `result.json`, `m
    - `https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-res/<IČO>` → kategorie počtu pracovníků,
    - `.../ekonomicke-subjekty-vr/<IČO>` → jednatel.
    - Počet lidí ber jen z ARES, nikdy z webu.
-7. **Známka** A / B / C podle `RULES.md`. C zapisuj, jen když má obor zásobu pod 5.
+7. **Známka** A / B / C podle `RULES.md` → Známka: brána (platí za marketing), kategorie webu 1–3, velikost z ARES a hodnocení na Firmy.cz. C zapisuj, jen když má obor zásobu A a B pod 5.
 8. **Texty** Proč volám, Co nabízím a Důkaz podle `RULES.md` → „Texty leadu“. U platící firmy podle stavby pro platící firmy (co platí → kde web ztrácí lidi → „za každého takového člověka platíte“).
    - **Kam lead povede** podle `RULES.md` → „Kam lead povede“: řádek `Web: … Nový web: … Po auditu: …` na začátek Poznámky a do Důkazu seznam věcí, které ubírají poptávky.
    - Varianta nabídky podle `STRATEGIE.md` → „Běžící testy“ (T2).

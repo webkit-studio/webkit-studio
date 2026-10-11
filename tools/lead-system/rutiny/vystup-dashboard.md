@@ -29,13 +29,12 @@ Vrací `{"leads": [...]}`: **všechny** leady včetně archivu. U každého jsou
 | `createdAt`, `verifiedAt` | založení a ověření |
 
 - **Známé domény:** `web` všech leadů, včetně archivu.
-- **Zásoba po oborech:** leady ve stavu `k_osloveni` a `navrh`, podle `field`.
+- **Zásoba po oborech:** leady ve stavu `k_osloveni` se známkou A nebo B, podle `field`.
 
 **Stavy a jak je číst** (pro týdenní vyhodnocení):
 
 | `status` | Význam | Kód ze `STRATEGIE.md` |
 |---|---|---|
-| `navrh` | čeká na Lukášovo schválení | – (zásoba) |
 | `k_osloveni` | schválený, k volání | – (zásoba) |
 | `osloven` | oslovený, bez jasného výsledku | kód z `responseMd` nebo `note`, jinak odhad |
 | `ozvat_pozdeji` | ozvat se později | `[později]` |
@@ -58,7 +57,7 @@ curl -s -X POST https://webkit.studio/dashboard/api/leads \
   -d @lead.json
 ```
 
-- Lead vzniká vždy jako **návrh** (`navrh`). Lukáš ho schválí v Obchod → Leady.
+- Lead vzniká rovnou jako **K oslovení** (`k_osloveni`) a hned je v seznamu, ze kterého Lukáš volá. Stav „návrh“ dashboard od října 2026 nemá. Proto zapisuj jen leady, které projdou bránou a známkou podle `RULES.md` → Známka.
 - Duplicita se pozná podle domény webu. Odpověď `200 {"duplicate":true}` znamená, že se nic nezaložilo. To je v pořádku, pokračuj dalším.
 - `201` = založeno. `400` = špatná nebo příliš dlouhá hodnota: oprav ji a zkus znovu.
 - Limit je 120 zápisů za minutu. `429` = počkej minutu.
