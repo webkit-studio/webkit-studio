@@ -24,6 +24,15 @@ Firma, která už za zákazníky z internetu platí, chce marketing. Neprodává
 | Reklamní kód Mety | `result.json → reklama.meta` | „Na webu máte kód pro reklamu na Facebooku.“ |
 | Reklamní kód Skliku | `result.json → reklama.sklik` | „Na webu máte kód pro reklamu na Seznamu.“ |
 
+**Kam placení lidé opravdu přicházejí (kontrola obráceně).** Lead má smysl, jen když návštěvnost, za kterou firma platí, vede na web, který hodnotíš.
+- **Placený profil na Firmy.cz:** odkaz na web v profilu musí vést na hodnocený web. Pipeline bere web právě z profilu, jinou doménu v profilu ber jako varování.
+- **Reklamní kód:** je na hodnoceném webu, takže reklama na něj nejspíš vede.
+- **U známky A navíc** vyhledej firmu (název a město) a podívej se:
+  - na odkaz na web ve firemním profilu Google,
+  - do [Google Ads Transparency](https://adstransparency.google.com) podle domény.
+  Když profil nebo reklama vede na jinou doménu s novějším webem, lead nezapisuj, nebo hodnoť ten novější web.
+- Když to nejde ověřit, napiš do Důkazu „Kam vede reklama: neověřeno“.
+
 - **Kód neznamená, že reklama běží právě teď.** Může zůstat po staré kampani. Proto se ptej: „Inzerujete teď?“ Neříkej „platíte za reklamu na Googlu“, dokud to nepotvrdí.
 - Když chceš jistotu před hovorem: [Google Ads Transparency](https://adstransparency.google.com) a [Meta Ad Library](https://www.facebook.com/ads/library) podle názvu firmy nebo domény.
 
