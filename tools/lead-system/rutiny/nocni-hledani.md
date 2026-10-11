@@ -75,7 +75,7 @@ Pro každý web ze `shortlist.json` (v poli `dir` je složka s `result.json`, `m
    - Příznak `SPAM` → ověř ve zdrojovém kódu.
    - Příznak `ERR?` → zkus i adresu s `www.` a bez něj.
 3. **Vyřaď** vše, co spadá pod N1–N5 nebo pod „Nechceme“ ve `STRATEGIE.md`. Obchodní řetězce a velkoprodejny (Kaufland, Tesco, OBI, Hornbach, Mountfield a podobně) pipeline vynechá sama, seznam je v `pipeline.mjs` → `CHAIN`. Když nějaký proklouzne, vyřaď ho a napiš jeho doménu do Poznámky v deníku.
-4. **Firma žije a nemá novější web jinde:**
+4. **Firma žije, nemá novější web jinde a placená návštěvnost vede na hodnocený web** (`RULES.md` → Platí za marketing → kontrola obráceně):
    - Vyhledej název firmy na webu a porovnej IČO a telefon. Podobný název ještě neznamená stejnou firmu.
    - Když má firma novější web, lead nezapisuj.
 5. **IČO:** když ho web neuvádí, pipeline ho hledá v ARES podle názvu a obce z Firmy.cz (`candidates.json` → `aresHledani`, `icoZdroj`).
