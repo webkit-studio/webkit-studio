@@ -115,6 +115,7 @@ Menší města vychází líp. Na firmy.cz se nahoru dostávají firmy, které s
 | `verify2.mjs` | Měření z Google PSI (mobil + desktop, screenshoty), statická fakta ze stránky a reklamní kódy |
 | `ares.mjs` | Dohledá IČO v ARES podle názvu firmy a obce, když ho web neuvádí |
 | `reklama.mjs` | Najde reklamní kódy Google Ads, Mety a Skliku v HTML webu a v kontejneru Google Tag Manageru |
+| `inzeruje.mjs` | Zjistí v Google Ads Transparency, jestli na doménu běží reklamy na Googlu (Česko, posledních 30 dní) |
 | `httpscheck.mjs` | Pustí PSI na `https://` verzi – potvrdí nebo vyvrátí „Nezabezpečeno“ |
 | `shortlist.py` | Projde všechny běhy a vypíše weby s nálezem. Přeskočí domény z `done_hosts.txt` |
 | `sheet.mjs` | Složí mobilní screenshoty ze shortlistu do přehledových obrázků (10 na list) |

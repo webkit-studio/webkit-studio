@@ -77,7 +77,7 @@ curl -s -X POST https://webkit.studio/dashboard/api/leads \
 | `reason` | Proč volám | 2000 |
 | `offer` | Co nabízím | 2000 |
 | `proof` | Důkaz | 5000 |
-| `psiMobile`, `psiDesktop` | skóre výkonu z `result.json` | 0–100 |
+| `psiMobile`, `psiDesktop` | skóre výkonu z `result.json → psi.mobile.scores.performance` a `psi.desktop…`. **Vyplň vždy**, když je PSI změřené | 0–100 |
 | `verifiedAt` | dnešní datum `RRRR-MM-DD` | |
 | `channel` | `Telefon` | |
 | `source` | `zdroj` z Nastavení | 100 |

@@ -78,6 +78,7 @@ Pro každý web ze `shortlist.json` (v poli `dir` je složka s `result.json`, `m
 4. **Firma žije, nemá novější web jinde a placená návštěvnost vede na hodnocený web** (`RULES.md` → Platí za marketing → kontrola obráceně):
    - Vyhledej název firmy na webu a porovnej IČO a telefon. Podobný název ještě neznamená stejnou firmu.
    - Když má firma novější web, lead nezapisuj.
+   - **Běží reklama na Googlu?** Domény všech leadů, které chceš zapsat, dej najednou do `node inzeruje.mjs <doména> …`. Co s výsledkem, říká `RULES.md` → kontrola obráceně. Firma jen se starým kódem Googlu (0 reklam, bez profilu, Mety a Skliku) bránou neprojde.
 5. **IČO:** když ho web neuvádí, pipeline ho hledá v ARES podle názvu a obce z Firmy.cz (`candidates.json` → `aresHledani`, `icoZdroj`).
    - Při jednoznačné shodě v obci je IČO rovnou v `ares`.
    - Jinak jsou v `aresHledani.kandidati` až 3 firmy. Porovnej název, obec a telefon s webem a vyber tu pravou. Živnostníka hledej i podle jména majitele (`…/ekonomicke-subjekty/vyhledat`, `{"obchodniJmeno": "Jan Novák"}`).
