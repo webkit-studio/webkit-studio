@@ -71,7 +71,7 @@ curl -s -X POST https://webkit.studio/dashboard/api/leads \
 | `size` | z ARES (`…/ekonomicke-subjekty-res/<IČO>` → `kategoriePoctuPracovniku`): kódy 110, 120, 130 = `1-10`; 210, 220, 230 = `10-50`; 240, 310, 320 = `50-250`; 330 a víc = `250+`; 000 = neuvedeno, pole vynech | |
 | `decisionMaker` | jméno a role z ARES | 200 |
 | `grade` | `A` / `B` / `C` | |
-| `score` | A: 8–10, B: 5–7, C: 3–4 | 0–10 |
+| `score` | podle `RULES.md` → Známka → Skóre (A má aspoň 7, protože kategorie 2 a 10+ lidí dá 7) | 0–10 |
 | `service` | `web` (Nový web) / `opravy` (Opravy a zrychlení) / `audit` (Audit poptávek, varianta B testu T2) | |
 | `variant` | `A` nebo `B` podle testu T2 | 100 |
 | `reason` | Proč volám | 2000 |
