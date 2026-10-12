@@ -16,46 +16,7 @@ Výtěžnost je kolem **5 %**: z 60 firem v oboru vyjdou 2–5 leady. Zbytek má
 
 ## Rutiny
 
-Systém běží sám v jedné rutině **„Webkit · lead engine (Po–Pá hledání, So vyhodnocení)“** v cloudovém prostředí **Webkit.Studio**:
-
-- **pondělí až pátek ve 2:00** noční hledání,
-- **v sobotu ve 2:00** týdenní vyhodnocení.
-
-Výsledek přijde e-mailem.
-
-**Rutina v sobě instrukce nemá.** Při každém běhu si stáhne tohle repo a podle dne otevře jeden ze souborů níž. Strategie se tak mění úpravou souboru, ne rutiny.
-
-```mermaid
-flowchart LR
-  S[STRATEGIE.md<br>co a kde hledat, cíle, testy] --> N
-  S --> T
-  N[Noční hledání<br>Po–Pá 2:00] -->|nové leady| L[(Dashboard<br>leady a hovory)]
-  N -->|řádek| D[(Deník běhů)]
-  L -->|hovory a výsledky| T[Týdenní vyhodnocení<br>sobota 2:00]
-  D --> T
-  T -->|návrhy změn| S
-```
-
-| Soubor | Kdo ho čte | Kdy ho měnit |
-|---|---|---|
-| `STRATEGIE.md` | obě rutiny | **Tady se mění strategie:** obory, města, cíle, testy, kam zapisovat. |
-| `RULES.md` | noční hledání | Když se změní, co je důvod k hovoru a jak psát texty. |
-| `rutiny/nocni-hledani.md` | noční hledání | Postup krok za krokem. Mění se zřídka. |
-| `rutiny/tydenni-vyhodnoceni.md` | sobotní vyhodnocení | Co se počítá a jak vypadá vyhodnocení. |
-| `rutiny/vystup-notion.md`, `rutiny/vystup-dashboard.md` | obě rutiny | Jak zapisovat a číst. Který platí, určuje `výstup` ve `STRATEGIE.md`. |
-
-**Jak změnit strategii:** uprav `STRATEGIE.md` na větvi `main`. Úprava platí od dalšího běhu. Můžeš ji udělat přímo na GitHubu, nebo napsat Claudovi, co chceš změnit. Každou změnu zapiš do Historie změn na konci souboru.
-
-**Jak zkusit jinou strategii (větev):**
-1. Založ větev, třeba `strategie/mala-mesta`, a uprav v ní `STRATEGIE.md`.
-2. V promptu rutiny přepiš `větev: main` na název nové větve.
-3. Zpátky jde stejně, vrácením na `main`.
-
-**Dashboard (od 30. 9. 2026):** rutiny zapisují leady a čtou hovory z dashboardu. Token je v prostředí Webkit.Studio jako `WKD_TOKEN`. Zpátky do Notionu se přepne změnou `výstup` na `notion` ve `STRATEGIE.md`.
-
-Leady, které přibudou v Notionu ručně, převede do dashboardu skript `scripts/import-leady-notion.mjs` v repu dashboardu (nepřepíše leady, na kterých se v dashboardu pracuje).
-
-Co musí dashboard ještě umět, je v `rutiny/vystup-dashboard.md`.
+Pokyny pro rutiny (strategie, pravidla, postupy a zápis do dashboardu) jsou v Mapě firmy (dashboard Webkit.Studio), uzel Rutiny → Lead engine: https://webkit.studio/dashboard/firma/mapa?uzel=rutina-lead-engine
 
 ## Klíč PSI
 
@@ -121,9 +82,7 @@ Menší města vychází líp. Na firmy.cz se nahoru dostávají firmy, které s
 | `sheet.mjs` | Složí mobilní screenshoty ze shortlistu do přehledových obrázků (10 na list) |
 | `cleanup.mjs` | Přeověří existující leady z Notionu (`cleanup.tsv`: id, web, obor) |
 | `queue.sh`, `repsi.sh` | Fronta běhů a přeměření |
-| `RULES.md` | Pravidla hodnocení, známky, texty a pasti, na které jsme narazili |
-| `STRATEGIE.md` | Co, kde a proč hledat, cíle trychtýře, testy, rozhodovací pravidla, nastavení rutin |
-| `rutiny/` | Postupy nočního hledání a týdenního vyhodnocení a jak zapisovat do Notionu a dashboardu |
+| `RULES.md`, `STRATEGIE.md`, `rutiny/` | Jen odkazy do Mapy firmy, uzel Rutiny → Lead engine |
 
 Lokální soubory, které do repa nejdou (jsou v `.gitignore`): `runs/`, `jobs.txt`, `done_hosts.txt`, `known_domains.txt`, `cleanup.tsv`. Obsahují seznamy firem a repo je veřejné.
 
@@ -135,4 +94,4 @@ Cloudový kontejner jde přes proxy. Ta vrací timeouty, chyby 502 a přepisuje 
 - screenshoty **jen z PSI**,
 - z vlastního Chromia jen statická fakta (viewport, formulář, `tel:` odkazy), a to jen když se stránka opravdu načetla.
 
-Podrobnosti a pasti jsou v `RULES.md`.
+Podrobnosti a pasti jsou v Mapě firmy: https://webkit.studio/dashboard/firma/mapa?uzel=lead-engine-pravidla
