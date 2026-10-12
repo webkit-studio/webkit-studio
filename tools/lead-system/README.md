@@ -1,6 +1,6 @@
 # Lead systém
 
-Najde firmy v oboru, ověří jejich web přes Google a vybere ty, kterým má smysl volat. Výsledek jde do dashboardu (webkit.studio/dashboard, dřív Notion Lead engine) jako lead s textem **Proč volám**, **Co nabízím** a **Důkaz**.
+Najde firmy v oboru, ověří jejich web přes Google a vybere ty, kterým má smysl volat. Výsledek jde do dashboardu (webkit.studio/dashboard) jako lead s textem **Proč volám**, **Co nabízím** a **Důkaz**.
 
 ```mermaid
 flowchart LR
@@ -9,7 +9,7 @@ flowchart LR
   C --> D[Google PageSpeed<br>skóre + screenshoty]
   D --> E[shortlist.py<br>jen weby s nálezem]
   E --> F[Ruční kontrola<br>screenshot, https, tel:, ARES]
-  F --> G[Notion<br>Lead engine]
+  F --> G[Dashboard<br>leady k oslovení]
 ```
 
 Výtěžnost je kolem **5 %**: z 60 firem v oboru vyjdou 2–5 leady. Zbytek má web v pořádku.
@@ -80,7 +80,7 @@ Menší města vychází líp. Na firmy.cz se nahoru dostávají firmy, které s
 | `httpscheck.mjs` | Pustí PSI na `https://` verzi – potvrdí nebo vyvrátí „Nezabezpečeno“ |
 | `shortlist.py` | Projde všechny běhy a vypíše weby s nálezem. Přeskočí domény z `done_hosts.txt` |
 | `sheet.mjs` | Složí mobilní screenshoty ze shortlistu do přehledových obrázků (10 na list) |
-| `cleanup.mjs` | Přeověří existující leady z Notionu (`cleanup.tsv`: id, web, obor) |
+| `cleanup.mjs` | Přeověří existující leady (`cleanup.tsv`: id, web, obor) |
 | `queue.sh`, `repsi.sh` | Fronta běhů a přeměření |
 | `RULES.md`, `STRATEGIE.md`, `rutiny/` | Jen odkazy do Mapy firmy, uzel Rutiny → Lead engine |
 
