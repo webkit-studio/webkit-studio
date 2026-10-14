@@ -20,6 +20,14 @@ const PLATFORMA_KODY = /AW-465935583/g;
 // remarketing (__sp) nebo ID ve tvaru AW-….
 const GOOGLE_V_GTM = /AW-\d{6,}|"function":"__awct"|"function":"__sp"/;
 
+// Měření návštěvnosti (karta webu → Měření). GA4 má ID G-…, starý Universal Analytics UA-…,
+// který Google od července 2023 nesbírá. Web jen s UA tedy neměří nic.
+export const MERENI = {
+  ga4: /\bG-(?=[A-Z0-9]*\d)[A-Z0-9]{8,12}\b|google-analytics\.com\\?\/g\\?\/collect|"function":"__googtag"/,
+  ua: /\bUA-\d{4,10}-\d{1,4}\b/,
+  jine: /matomo|piwik|plausible\.io|clarity\.ms|hotjar|smartlook|toplist\.cz/i,
+};
+
 export async function reklamniKody(url, extra = []) {
   let text = extra.join('\n'); let gtmText = ''; const gtm = [];
   try {
@@ -33,5 +41,6 @@ export async function reklamniKody(url, extra = []) {
   const out = { gtm };
   for (const [k, re] of Object.entries(REKLAMA)) out[k] = re.test(text) || (k === 'google' ? GOOGLE_V_GTM : re).test(gtmText);
   out.nejaka = out.google || out.meta || out.sklik;
+  out.mereni = Object.fromEntries(Object.entries(MERENI).map(([k, re]) => [k, re.test(text) || re.test(gtmText)]));
   return out;
 }

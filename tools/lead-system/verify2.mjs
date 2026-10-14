@@ -23,13 +23,14 @@ async function psi(strategy, attempt = 1) {
     const failed404 = (a['network-requests']?.details?.items || []).filter(i => [404, 410].includes(i.statusCode)).map(i => i.url.slice(0, 150));
     const httpReqs = reqs.filter(u => u.startsWith('http://')).slice(0, 5);
     const adHits = reqs.filter(u => /googleadservices\.com|googleads\.g\.doubleclick\.net|connect\.facebook\.net\/[^?]*fbevents|facebook\.com\/tr|c\.seznam\.cz\/js\/rc\.js/.test(u)).map(u => u.slice(0, 150)).slice(0, 10);
+    const measureHits = reqs.filter(u => /google-analytics\.com|googletagmanager\.com\/gtag\/js|matomo|piwik|plausible\.io|clarity\.ms|hotjar/.test(u)).map(u => u.slice(0, 150)).slice(0, 10);
     const sc = k => (a[k] ? a[k].score : null);
     return {
       finalUrl: lr.finalDisplayedUrl || lr.finalUrl, runWarnings: (lr.runWarnings || []).slice(0, 3),
       scores: Object.fromEntries(Object.entries(lr.categories).map(([k, v]) => [k, v.score == null ? null : Math.round(v.score * 100)])),
       lcp: a['largest-contentful-paint']?.displayValue, lcpMs: a['largest-contentful-paint']?.numericValue, fcp: a['first-contentful-paint']?.displayValue, tbt: a['total-blocking-time']?.displayValue, cls: a['cumulative-layout-shift']?.displayValue,
       viewport: sc('viewport'), isOnHttps: sc('is-on-https'), consoleErrors: sc('errors-in-console'), fontSize: sc('font-size'), imageAspect: sc('image-aspect-ratio'),
-      analytics: [...new Set(analytics)], failed404, httpReqs, adHits, field: d.loadingExperience?.overall_category || null,
+      analytics: [...new Set(analytics)], failed404, httpReqs, adHits, measureHits, field: d.loadingExperience?.overall_category || null,
       screenshot: shot ? path.join(outdir, `${strategy}.jpg`) : null,
     };
   } catch (e) { if (attempt < 2) return psi(strategy, attempt + 1); return { error: String(e.message).slice(0, 200) }; }
@@ -92,7 +93,7 @@ if (process.env.PSI_ONLY === '1' && fs.existsSync(path.join(outdir, 'result.json
 } else {
   [R.psi.mobile, R.psi.desktop, R.dom] = await Promise.all([psi('mobile'), psi('desktop'), dom().catch(e => ({ failed: true, err: String(e.message).slice(0, 120) }))]);
 }
-if (!R.reklama) R.reklama = await reklamniKody(url, [...(R.psi.mobile?.adHits || []), ...(R.psi.desktop?.adHits || [])]).catch(() => null);
+if (!R.reklama?.mereni) R.reklama = await reklamniKody(url, [...(R.psi.mobile?.adHits || []), ...(R.psi.desktop?.adHits || []), ...(R.psi.mobile?.measureHits || []), ...(R.psi.desktop?.measureHits || [])]).catch(() => null);
 fs.writeFileSync(path.join(outdir, 'result.json'), JSON.stringify(R, null, 2));
 const m = R.psi.mobile || {}, d = R.psi.desktop || {};
 console.log(JSON.stringify({ host, mobile: m.error ? m.error : { perf: m.scores?.performance, lcp: m.lcp, viewport: m.viewport, https: m.isOnHttps, final: m.finalUrl, analytics: m.analytics, e404: m.failed404?.length }, desktop: d.error ? d.error : { perf: d.scores?.performance, lcp: d.lcp }, dom: R.dom?.failed ? 'NEOVĚŘENO' : { cms: R.dom?.cms, forms: R.dom?.inquiryForms, tel1: R.dom?.telInFirstScreen, cta1: R.dom?.ctaInFirstScreen, copy: R.dom?.copyright, maxYear: R.dom?.maxYearInText, vp: R.dom?.viewportMeta, ico: R.dom?.ico, eshop: R.dom?.eshop, lorem: R.dom?.lorem }, reklama: R.reklama }));
