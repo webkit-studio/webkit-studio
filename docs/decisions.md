@@ -38,3 +38,6 @@
 | 14. 10. 2026 | Produktové stránky: méně textu a seznamů, víc velkého textu (statement), víc vyjádření. | Lukáš. |
 | 14. 10. 2026 | Hero homepage: místo řádku služeb loga klientů (MARV Travel, ELDR, CRR, Arbosis, Anse). FAQ na homepage skryté (vyvinout, nezobrazovat). Odkaz pro agentury jen v patičce. GDPR odkaz pod formulářem téměř neviditelný. | Lukáš. |
 | 14. 10. 2026 | Kontakt: osobní LinkedIn u jména a pozice, firemní LinkedIn v patičce. | Lukáš. |
+| 14. 10. 2026 | D03: barevné bloky Bílá, Tón `#EEF2FF`, Ink, Modrá jako varianta každé sekce. Dva stejné bloky nikdy vedle sebe, nejvýš dvě modré plochy (Reference a CTA). | Návrh ke schválení. Rytmus místo jedné modré plochy. |
+| 14. 10. 2026 | D03: hero má interaktivní pole dlaždic z loga (canvas), pod ním 5+ a 30+ a loga klientů. Štítky u projektů zrušené, portfolio fullscreen při scrollu s video smyčkou. | Zpětná vazba Lukáše k D02 (body 1 až 3, 18). Návrh ke schválení. |
+| 14. 10. 2026 | D03: formulář zůstává na stránce. Po odeslání kalendář, pak volitelný dotazník. Události GA4 `generate_lead`, `booking_*`, `questionnaire_*`. | Lead je zachycený hned, rezervace má přednost před dotazníkem. Návrh ke schválení. |
