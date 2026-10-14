@@ -31,3 +31,10 @@
 | 1. 10. 2026 | D02: jediný grafický doplněk jsou dlaždice ze symbolu loga (čtvrtkruh, čtverec), interaktivní otočení. Logo = symbol jako vektor + nápis Instrument Sans 600 podle OG obrázku, do dodání SVG. | Obrázky jen jako grafické doplňky. Nevymýšlet nápis jiným písmem. |
 | 1. 10. 2026 | D02: pořadí služeb ve 2 sloupcích. Vlevo weby (Tvorba webových stránek, Webflow vývoj, Redesign webu, Landing page), vpravo UX audit, Vývoj MVP, Vývoj webových aplikací, Vizuální identita. | Pořadí podle Lukáše, sloupce nahrazují kategorie. |
 | 1. 10. 2026 | D02: projekt Anse se v náhledu nepoužívá. Grafika ukazuje částky v Kč a jména. | Ceny nikde. Vrátí se s upravenou grafikou. |
+| 14. 10. 2026 | Fakta: 5+ let zkušeností a 30+ úspěšných projektů patří do hero homepage. | Lukáš. |
+| 14. 10. 2026 | Webflow: zatím „Webflow Foundations Partner“ se SVG logem Webflow. „Certifikovaný partner“ až po skutečné certifikaci; do té doby v textech „Webflow partner“. | Lukáš čeká certifikaci do měsíce. Fakta nevymýšlíme. |
+| 14. 10. 2026 | Ruší se pravidlo D01 „jediná sytě modrá plocha na stránce“. Barevné bloky (tmavý ink, modrá, světle modrý tón) střídají bílé sekce, aby stránka měla rytmus a šťávu. | Lukáš: stránky jsou mdlé, chce barevné bloky jako Halo Lab. |
+| 14. 10. 2026 | Náhled se zužuje na homepage + jednu vzorovou produktovou stránku (Webflow vývoj) se všemi komponentami. Ostatní stránky služeb jen mění argument a text. | Lukáš. |
+| 14. 10. 2026 | Produktové stránky: méně textu a seznamů, víc velkého textu (statement), víc vyjádření. | Lukáš. |
+| 14. 10. 2026 | Hero homepage: místo řádku služeb loga klientů (MARV Travel, ELDR, CRR, Arbosis, Anse). FAQ na homepage skryté (vyvinout, nezobrazovat). Odkaz pro agentury jen v patičce. GDPR odkaz pod formulářem téměř neviditelný. | Lukáš. |
+| 14. 10. 2026 | Kontakt: osobní LinkedIn u jména a pozice, firemní LinkedIn v patičce. | Lukáš. |
