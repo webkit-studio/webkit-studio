@@ -29,13 +29,13 @@ else if (kody.length) radky.push({ klic: 'plati', nazev: 'Platí za reklamu', ba
 else radky.push({ klic: 'plati', nazev: 'Platí za reklamu', barva: 'cervena', hodnota: 'ne, nic ověřeného' });
 
 /* 2. Měření: GA4 nebo jiná analytika. Samotný Universal Analytics neměří nic. */
-const pixely = [rk.meta && 'Meta pixel', rk.sklik && 'Sklik'].filter(Boolean);
+const pixely = [rk.google && 'Google Ads', rk.meta && 'Meta pixel', rk.sklik && 'Sklik'].filter(Boolean);
 let mereni;
-if (me.ga4 || me.jine) mereni = { barva: 'zelena', hodnota: [me.ga4 && 'Google Analytics 4', me.jine && 'jiná analytika', ...pixely].filter(Boolean).join(', ') };
+if (me.ga4 || me.jine) mereni = { barva: 'zelena', hodnota: [me.ga4 && 'Google Analytics 4', me.jine && 'jiná analytika'].filter(Boolean).join(', ') };
 else if (rk.gtm?.length) mereni = { barva: 'zluta', hodnota: 'Tag Manager, analytiku v něm nevidím (neověřeno)' };
-else if (pixely.length) mereni = { barva: 'oranzova', hodnota: 'jen reklamní ' + pixely.join(' a ') + ', analytika chybí' };
+else if (pixely.length) mereni = { barva: 'oranzova', hodnota: 'jen reklamní kódy (' + pixely.join(', ') + '), analytiku jsem nenašel' };
 else if (me.ua) mereni = { barva: 'cervena', hodnota: 'jen starý Universal Analytics, Google ho od 7/2023 nesbírá' };
-else mereni = { barva: 'cervena', hodnota: 'nic' };
+else mereni = { barva: 'cervena', hodnota: 'na webu jsem žádné nenašel' };
 radky.push({ klic: 'mereni', nazev: 'Měření návštěv', ...mereni });
 
 /* 3.–5. Skóre z Google PageSpeed (mobil). */
@@ -62,7 +62,7 @@ radky.push({ klic: 'konverze', nazev: 'Konverzní základ', barva: !d ? 'seda' :
 
 /* Vysvětlení: nejdřív to, co prodává (platí, ale neměří; konverze), pak doplňky. */
 const r = Object.fromEntries(radky.map(x => [x.klic, x]));
-if (r.plati.barva === 'zelena' && ['oranzova', 'cervena'].includes(r.mereni.barva)) vysvetleni.push('**Platí za reklamu, ale web neměří.** Firma neví, kolik lidí z reklamy přijde a kolik se ozve. Nejsilnější argument pro hovor.');
+if (r.plati.barva === 'zelena' && ['oranzova', 'cervena'].includes(r.mereni.barva)) vysvetleni.push('**Platí za reklamu a měření návštěv jsem na webu nenašel.** Nejspíš neví, kolik lidí z reklamy přijde a kolik se ozve. Neříkej „neměříte“, měření může běžet jinde. Zeptej se: „Víte, kolik lidí z reklamy se vám pak ozve?“');
 else if (r.plati.barva === 'zelena' && r.mereni.barva === 'zelena') vysvetleni.push('**Platí a měří.** Dá se mluvit o číslech: kolik lidí přijde a kolik se ozve. Zeptej se, jestli ta čísla sledují.');
 else if (r.plati.barva === 'zluta') vysvetleni.push('**Placení neověřené.** Kód reklamy může zůstat po staré kampani. V hovoru se zeptej: „Inzerujete teď?“');
 const DOPAD = { mobil: 'Web není přizpůsobený mobilu, v telefonu je celý zmenšený.', nahore: 'Na první obrazovce mobilu není telefon ani tlačítko, člověk musí hledat.', tel: 'Na telefon nejde ťuknout, z mobilu se musí opsat.', formular: 'Na úvodní stránce není formulář. Než řekneš „nikde“, podívej se na Kontakty.', pole: `Formulář má ${d?.formFields} polí, víc polí znamená méně odeslaných poptávek.` };
