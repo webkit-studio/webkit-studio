@@ -3,6 +3,7 @@
 <title>Webkit.Studio v2 náhled</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="robots" content="noindex">
+<link rel="icon" href="data:,">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..700&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Sans:wght@400..700&display=swap">
@@ -72,7 +73,7 @@ button{font:inherit;color:inherit}
 .pv__order li{display:flex;align-items:center;gap:5px}
 .pv__order li+li::before{content:"→";color:var(--c-line-strong);margin-right:1px}
 .pv__order i{width:10px;height:10px;border-radius:3px;display:inline-block;box-shadow:inset 0 0 0 1px rgba(12,14,28,.18)}
-.pv__order .is-hidden{text-decoration:line-through;opacity:.6}
+.pv__order .is-hidden{text-decoration:line-through}
 .pv button:focus-visible,.pv input:focus-visible{outline:2px solid var(--c-blue);outline-offset:2px}
 @media (max-width:720px){.pv__order{display:none}.pv__brand small{display:none}}
 .stage{padding:16px 16px 48px;display:flex;justify-content:center}
@@ -86,7 +87,7 @@ button{font:inherit;color:inherit}
   --gutter:clamp(16px,4.2cqi,56px);
   --sec-y:clamp(4.5rem,2.6rem + 7cqi,9.5rem);
   --t-h1:clamp(2.5rem,1rem + 4.6cqi,5.25rem);
-  --t-h1-home:clamp(2.75rem,.8rem + 6cqi,6.5rem);
+  --t-h1-home:clamp(2.75rem,.8rem + 5.4cqi,5.75rem);
   --t-h2:clamp(2rem,1rem + 3cqi,3.75rem);
   --t-h3:clamp(1.25rem,1.05rem + .7cqi,1.75rem);
   --t-statement:clamp(2rem,.9rem + 3.6cqi,4.5rem);
@@ -229,6 +230,7 @@ h1 .fill,h2 .fill,h3 .fill,blockquote .fill,.statement .fill,.work__h .fill,.big
 .logos img{height:var(--h,30px);width:auto;opacity:.62;transition:opacity var(--dur-2),transform var(--dur-2) var(--ease-out)}
 .logos li:hover img{opacity:1;transform:translateY(-2px)}
 @container site (max-width:860px){
+  .field-hint{display:none}
   .hero__grid{grid-template-columns:1fr}
   .hero__art{min-height:300px;margin:4px calc(-1 * var(--gutter)) 0;order:2}
   .logos{gap:20px 30px}
@@ -236,7 +238,7 @@ h1 .fill,h2 .fill,h3 .fill,blockquote .fill,.statement .fill,.work__h .fill,.big
 }
 
 /* ---------- Statement (velký text) ---------- */
-.statement{font:500 var(--t-statement)/1.1 var(--f-display);letter-spacing:-.035em;max-width:20ch;text-wrap:balance}
+.site .statement{font:500 var(--t-statement)/1.1 var(--f-display);letter-spacing:-.035em;max-width:20ch;text-wrap:balance}
 .statement--wide{max-width:24ch}
 .statement .w{transition:opacity .25s linear}
 .points{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px clamp(1.5rem,4cqi,4rem);margin-top:clamp(3rem,2rem + 4cqi,6rem)}
@@ -362,8 +364,12 @@ h1 .fill,h2 .fill,h3 .fill,blockquote .fill,.statement .fill,.work__h .fill,.big
 .step h3{font:500 var(--t-medium)/1.1 var(--f-display);letter-spacing:-.03em;display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px}
 .step__free{font:600 .8125rem/1 var(--f-body);letter-spacing:0;color:#fff;background:var(--c-blue);padding:7px 11px;border-radius:var(--r-pill)}
 .step p{color:var(--c-ink-2);max-width:52ch;font-size:1.0625rem}
-.js-motion .steps.is-live .step{opacity:.32}
-.js-motion .steps.is-live .step.is-on{opacity:1}
+/* Neaktivní krok: šedší nadpis (kontrast AA zůstává), aktivní: modré číslo a linka */
+.step{position:relative}
+.step::before{content:"";position:absolute;left:0;top:-1px;height:2px;width:100%;background:var(--c-blue);transform:scaleX(0);transform-origin:left;transition:transform .6s var(--ease-out)}
+.js-motion .steps.is-live .step h3{color:var(--c-ink-3);transition:color var(--dur-3)}
+.js-motion .steps.is-live .step.is-on h3{color:var(--c-ink)}
+.step.is-on::before{transform:none}
 .step.is-on .step__n{color:var(--c-blue)}
 @container site (max-width:860px){.proc{grid-template-columns:1fr}.proc__side{position:static}.proc__big{display:none}.proc__bar{display:none}}
 
@@ -396,7 +402,7 @@ h1 .fill,h2 .fill,h3 .fill,blockquote .fill,.statement .fill,.work__h .fill,.big
 .person__t a svg{width:16px;height:16px}
 .person__t a:hover{text-decoration:underline}
 .cta-mail{font-size:.9375rem;color:var(--c-on-blue-2)}
-.cta-mail a{color:#fff}
+.cta-mail a{color:#fff;display:inline-block;min-height:24px;line-height:24px}
 .form{background:#fff;color:var(--c-ink);border-radius:var(--r-md);padding:clamp(1.125rem,.9rem + 1cqi,1.75rem);display:grid;gap:16px;box-shadow:0 20px 60px rgba(8,10,60,.25)}
 .form__fields{display:grid;gap:14px}
 .form__row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
@@ -603,9 +609,9 @@ const sh = ({h, lead, solo=false, tag='h2'}) =>
 /* Služby: pořadí podle Lukáše (levý sloupec weby, pravý ostatní). Pozicování podle bodů 10 až 15. */
 const SERVICES = [
   {h:'Tvorba webových stránek', p:'Web s jasným cílem: od strategie a textů po design, vývoj a měření. Postavený tak, aby z návštěvníků dělal zákazníky.'},
-  {h:'Webflow vývoj', go:'webflow', p:'Webflow partner. Čistá struktura, napojení na CRM a automatizace, vlastní kód tam, kde Webflow nestačí.'},
+  {h:'Webflow vývoj', go:'webflow', p:'Jsme Webflow Foundations Partner. Čistá struktura, napojení na CRM a automatizace a vlastní kód tam, kde Webflow nestačí.'},
   {h:'Redesign webu', p:'Redesign, který vychází z dat a cílů firmy. Nový vzhled je výsledek, ne zadání.'},
-  {h:'Landing page', p:'Stránka pro kampaň nebo produkt, spuštěná rychle a postavená na konverze. Měříme ji od prvního dne.'},
+  {h:'Landing page', p:'Stránka pro kampaň nebo produkt, hotová rychle a navržená tak, aby z návštěvníků dělala poptávky. Měříme ji od prvního dne.'},
   {h:'UX audit', p:'Najdeme místa, kde zákazníci odcházejí, a seřadíme úpravy podle dopadu.'},
   {h:'Vývoj MVP', p:'První funkční verze produktu za týdny, ne měsíce. Nápad ověříte dřív, než do něj investujete víc.'},
   {h:'Vývoj webových aplikací', p:'Interní nástroje i aplikace pro vaše zákazníky. Od přechodu z tabulek přes testování a zpětnou vazbu po provoz.'},
@@ -623,9 +629,9 @@ const LOGOS = [
 const logoStrip = () => `<ul class="logos" aria-label="Klienti" data-reveal>${LOGOS.map(l=>`<li><img src="${l.src}" alt="${esc(l.n)}" style="--h:${l.h}px" loading="lazy"></li>`).join('')}</ul>`;
 
 const WORK = {
-  eldr:{logo:'img/logos/eldr.png', lh:34, name:'Elektro Drapač', h:'Nový web, který vedl růst na německý trh.', h2:'Navrhli jsme ho a postavili ve Webflow.', url:'https://www.eldr.cz/', host:'eldr.cz', img:'img/web-eldr.jpg'},
+  eldr:{logo:'img/logos/eldr.png', lh:34, name:'Elektro Drapač', h:'Nový web, který firmě pomohl růst na německém trhu.', h2:'Navrhli jsme ho a postavili ve Webflow.', url:'https://www.eldr.cz/', host:'eldr.cz', img:'img/web-eldr.jpg'},
   crr:{logo:'img/logos/crr-white.svg', lh:44, raw:true, name:'CRR', h:'Jednotný vizuální styl a šablony pro celou instituci.', h2:'[DOPLNIT: jedna věta s výsledkem]', url:'https://crr.gov.cz/', host:'crr.gov.cz', img:'img/web-crr.jpg'},
-  arb:{logo:'img/logos/arbosis.svg', lh:30, name:'Arbosis', h:'Značka zahradní firmy od logiky loga po polep aut.', h2:'[DOPLNIT: jedna věta s výsledkem]', url:'https://www.arbosis.cz/', host:'arbosis.cz', img:'img/web-arb.jpg'}
+  arb:{logo:'img/logos/arbosis.svg', lh:30, name:'Arbosis', h:'Značka od logiky loga po její použití v praxi.', h2:'[DOPLNIT: jedna věta s výsledkem]', url:'https://www.arbosis.cz/', host:'arbosis.cz', img:'img/web-arb.jpg'}
 };
 
 /* ============ Sekční komponenty ============ */
@@ -661,7 +667,7 @@ const facts = () => `<div class="facts" data-reveal>
   <div class="fact"><b>5<span>+</span></b><small>let zkušeností</small></div>
   <div class="fact"><b>30<span>+</span></b><small>úspěšných projektů</small></div>
 </div>`;
-const partnerBadge = () => `<a class="partner-badge" href="#" data-soon><img src="img/logos/webflow.svg" alt="" width="28" height="28"><span>Webflow partner <small>Foundations Partner</small></span></a>`;
+const partnerBadge = () => `<a class="partner-badge" href="#" data-soon><img src="img/logos/webflow.svg" alt="" width="28" height="28"><span>Webflow Foundations Partner</span></a>`;
 
 C.heroHome = p => sec('Hero','Home, pole dlaždic + loga','white',`<div class="container">
   <div class="hero__grid">
@@ -691,7 +697,7 @@ C.heroService = p => sec('Hero','Služba, pole dlaždic','white',`<div class="co
 </div>`,{cls:'hero'});
 
 C.statement = p => sec('Statement', p.variant||'Velký text','tint',`<div class="container">
-  <p class="statement ${p.wide?'statement--wide':''}" data-scrub>${t(p.text)}</p>
+  <h2 class="statement ${p.wide?'statement--wide':''}" data-scrub>${t(p.text)}</h2>
   ${p.points?`<div class="points">${p.points.map(x=>`<div class="point" data-reveal><span class="point__q">${QUARTER}</span><h3>${t(x.h)}</h3><p>${t(x.p)}</p></div>`).join('')}</div>`:''}
   ${p.cta?`<div class="statement-foot" data-reveal>${btn(p.cta,{v:'secondary'})}</div>`:''}
 </div>`,{id:p.id||'jak-pracujeme'});
@@ -739,12 +745,12 @@ C.work = p => sec('Naše práce', p.ids.length>1?'Fullscreen při scrollu ('+p.i
   </article>`}).join('')}</div>`,{id:'prace',cls:'works-sec'});
 
 const REASONS = [
-  {i:'years', h:'5+ let a 30+ projektů', p:'Víme, kde projekty obvykle drhnou. Hlídáme to dřív, než to začne stát čas.'},
-  {i:'target', h:'Strategie před designem', p:'Každý projekt začíná cílem, zákazníky a daty. Rozhodujeme podle nich, ne podle dojmu.'},
+  {i:'years', h:'Zkušenost z praxe', p:'Za 5+ let a 30+ projektů víme, kde projekty drhnou. Hlídáme to dřív, než vás to stojí čas.'},
+  {i:'target', h:'Strategie před designem', p:'Každý projekt začíná workshopem o cílech a zákaznících. Rozhodujeme podle dat, ne podle dojmu.'},
   {i:'pen', h:'Žádné šablony', p:'Design vzniká pro vaši firmu a vaše zákazníky. Hotové vzory nepřebarvujeme.'},
   {i:'layers', h:'Složité srozumitelně', p:'Složitou službu nebo produkt převedeme do designu, kterému zákazník rozumí na první pohled.'},
-  {i:'route', h:'Jasný postup', p:'Víte, co se právě děje a co přijde dál. Nemusíte se ptát, jak to vypadá.'},
-  {i:'scale', h:'Rozsah podle potřeby', p:'Začneme tím, co projekt potřebuje teď. Další části můžou přijít, až budou dávat smysl.'}
+  {i:'route', h:'Jasný postup', p:'Vždy víte, co je hotové a co přijde dál. Nemusíte se doptávat.'},
+  {i:'scale', h:'Rozsah podle možností', p:'Rozsah přizpůsobíme vašim možnostem. Začneme tím, co přinese nejvíc, další části přidáme, až budou dávat smysl.'}
 ];
 C.reasons = p => sec('Proč s námi','6 důvodů s ikonami','white',`<div class="container">
   ${sh({h:p.h})}
@@ -766,9 +772,9 @@ C.refs = p => sec('Reference', p.partner===false?'Jen citace':'Citace a Webflow 
 C.process = p => sec('Postup','Krok za krokem ('+p.steps.length+')','tint',`<div class="container">
   ${sh({h:p.h, lead:p.lead})}
   <div class="proc">
-    <div class="proc__side" aria-hidden="true">
-      <div class="proc__big"><span data-proc-n>01</span><small>/ ${String(p.steps.length).padStart(2,'0')}</small></div>
-      <div class="proc__bar"><i></i></div>
+    <div class="proc__side">
+      <div class="proc__big" aria-hidden="true"><span data-proc-n>01</span><small>/ ${String(p.steps.length).padStart(2,'0')}</small></div>
+      <div class="proc__bar" aria-hidden="true"><i></i></div>
       ${btn(p.cta)}
     </div>
     <ol class="steps" data-steps>${p.steps.map((x,i)=>`<li class="step"><span class="step__n">${String(i+1).padStart(2,'0')}</span><h3>${t(x.h)}${x.free?`<span class="step__free">${t(x.free)}</span>`:''}</h3><p>${t(x.p)}</p></li>`).join('')}</ol>
@@ -862,18 +868,18 @@ C.footer = () => `<footer class="foot" data-comp="Footer" data-label="Footer / v
 
 /* ============ Obsah stránek ============ */
 const HOME_STEPS = [
-  {h:'Úvodní hovor', free:'Nezávazně', p:'{50minutový} hovor online. Poznáme se a probereme, co má projekt vaší firmě přinést.'},
+  {h:'Úvodní hovor', p:'Nezávazný {hodinový} hovor online. Poznáme se a probereme, co má projekt vaší firmě přinést.'},
   {h:'Workshop', p:'{Dvouhodinový} workshop. Ujasníme cíle, zákazníky a podklady, které od vás budeme potřebovat.'},
-  {h:'Návrh', p:'Připravíme řešení a průběžně vám ukazujeme, jak vzniká. To, co máte teď, mezitím běží dál.'},
-  {h:'Připomínky', p:'Návrh vám pošleme {ve Figmě}. Vaše připomínky zapracujeme a doladíme detaily.'},
-  {h:'Spuštění', p:'Spustíme a otestujeme. Ukážeme vám, jak s výsledkem pracovat, abyste na nás nebyli závislí.'},
+  {h:'Návrh', p:'Připravíme řešení a průběžně vám ukazujeme, jak vzniká. Váš současný web nebo systém mezitím běží dál.'},
+  {h:'Připomínky', p:'Návrh vám pošleme {odkazem} a komentujete ho přímo v něm. Připomínky zapracujeme a doladíme detaily.'},
+  {h:'Spuštění', p:'Otestujeme a spustíme. Ukážeme vám, jak s výsledkem pracovat, abyste na nás nebyli závislí.'},
   {h:'Rozvoj', p:'Po spuštění sledujeme, co funguje. Podle dat to s vámi dál vylepšujeme.'}
 ];
 
 const PAGES = {
   home:{title:'Homepage', sections:()=>[
     C.heroHome({h:'Designové a vývojové studio, se kterým firmy *rostou*', lead:'Pomáháme firmám, startupům a agenturám s designem, vývojem a značkou. Od prvního nápadu po spuštění.', cta:'Probrat váš projekt'}),
-    C.statement({text:'Proč? Tou otázkou začíná každý náš projekt. *Co má vaší firmě přinést* a jak poznáte, že to funguje. Teprve potom řešíme design a kód.',
+    C.statement({text:'Proč? Tou otázkou začíná každý náš projekt. Ptáme se, *co má vaší firmě přinést* a jak poznáte, že to funguje. Teprve potom řešíme design a kód.',
       points:[
         {h:'Nejdřív posloucháme', p:'Než cokoli navrhneme, chceme pochopit vaši firmu, zákazníky a to, co vás brzdí.'},
         {h:'Mluvíme narovinu', p:'Bez žargonu. Když něco nedává smysl, řekneme to. I když to zrovna není to, co chcete slyšet.'},
@@ -883,7 +889,7 @@ const PAGES = {
     C.work({h:'Projekty, na které jsme hrdí', ids:['eldr','crr','arb']}),
     C.reasons({h:'Proč nám klienti důvěřují', items:REASONS}),
     C.refs({quote:'[DOPLNIT: citace od Marka K., jedna až dvě věty]', who:'Marek K.'}),
-    C.process({h:'Náš osvědčený postup, který přináší výsledky', steps:HOME_STEPS, cta:'Domluvit úvodní hovor'}),
+    C.process({h:'Náš osvědčený postup, který přináší výsledky', lead:'Rozsah, postup a termín dostanete písemně ještě před začátkem.', steps:HOME_STEPS, cta:'Domluvit úvodní hovor'}),
     C.faq({h:'Na co se nás ptáte nejčastěji', items:[
       {q:'Jak rychle se ozvete?', a:'Do 24 hodin. Po odeslání formuláře si můžete rovnou vybrat termín hovoru.'},
       {q:'Co potřebujete, abychom mohli začít?', a:'Stačí pár vět o tom, co řešíte. Zbytek zjistíme na hovoru. Podklady nemusíte mít připravené.'},
@@ -899,12 +905,12 @@ const PAGES = {
     C.bigrows({h:'Co pro vás uděláme', items:[
       {h:'Čistá struktura', p:'Třídy a komponenty podle standardu Client-First. Ve webu se vyzná váš tým i jiný vývojář.'},
       {h:'Napojení, která drží', p:'Formuláře do CRM, automatizace přes Make, měření přes Google Tag Manager a GA4.'},
-      {h:'Vlastní kód tam, kde je potřeba', p:'Co Webflow neumí, doplníme vlastním kódem. Verzujeme ho, takže víte, co se kdy změnilo.'},
+      {h:'Vlastní kód tam, kde je potřeba', p:'Co Webflow neumí, doplníme vlastním kódem. Každou změnu ukládáme s historií, takže víte, co se kdy změnilo.'},
       {h:'Web, který spravujete sami', p:'CMS a komponenty nastavíme tak, aby váš tým upravil texty i stránky bez nás.'}
     ]}),
     C.flow({h:'Napojíme web na nástroje, které už používáte', lead:'Poptávka z webu nemusí končit v e-mailu. Dorazí tam, kde s ní pracujete.',
       from:[{i:'form',h:'Formulář',s:'poptávka, přihláška'},{i:'cart',h:'Objednávka',s:'e-shop, rezervace'},{i:'chart',h:'Návštěvnost',s:'události a konverze'}],
-      hub:{h:'Make a API',s:'automatizace mezi nástroji'},
+      hub:{h:'Make nebo přímé napojení',s:'automatizace mezi nástroji'},
       to:[{i:'crm',h:'CRM',s:'nový lead s historií'},{i:'mail',h:'E-mailing',s:'kontakt do správného seznamu'},{i:'table',h:'Tabulky a reporty',s:'GA4, Looker Studio'}],
       note:'Konkrétní nástroje probereme na úvodním hovoru. Když nějaké napojení přes Make nejde, napíšeme ho přes API.'}),
     C.work({h:'Projekty, na které jsme hrdí', ids:['eldr']}),
@@ -923,6 +929,7 @@ const PAGES = {
       {q:'Převedete náš současný web do Webflow?', a:'Ano. Přeneseme obsah a staré adresy přesměrujeme na nové, aby vás lidé i vyhledávače dál našli.'},
       {q:'Jak dlouho to trvá?', a:'Obvykle 4 až 8 týdnů podle velikosti webu. Přesný termín dostanete písemně předem.'}
     ]}),
+    C.statement({variant:'Velký text, závěrečný', id:'zaver-webflow', wide:true, text:'Web, který *za rok upravíte sami*. Bez nás a bez strachu, že se něco rozbije.'}),
     C.cta({h:'Pojďme postavit váš Webflow web', lead:'Napište, co má web umět a na co ho chcete napojit. Zbytek probereme na hovoru.'})
   ]}
 };
@@ -932,7 +939,7 @@ const PAGES = {
 const COMPS = [
   ['Navbar','Výchozí, Mobil','Odkazy, CTA text','bílá (sklo)','ano','ano','Beze změny. „Pro agentury“ už jen v patičce.'],
   ['Hero','Home, Služba','H1, Perex, CTA, Slib „Ozveme se do 24 hodin“, Fakta 5+ a 30+, Partner odznak (Visibility), Pole dlaždic (varianta home / služba), Loga klientů (Visibility)','bílá','ano','ano','<b>Text:</b> H1, perex, CTA. <b>Argument:</b> partner odznak jen u Webflow vývoje. Pole dlaždic a loga stejné.'],
-  ['Statement','S body, Bez bodů','Výrok (rich text, modré zvýraznění), Bod ×3 (Visibility), CTA (Visibility)','tón','ano','ano','<b>Argument:</b> výrok podle hlavní obavy zákazníka dané služby. Body jen na homepage.'],
+  ['Statement','S body, Bez bodů, Závěrečný','Výrok (rich text, modré zvýraznění), Bod ×3 (Visibility), CTA (Visibility)','tón','ano','ano','<b>Argument:</b> výrok podle hlavní obavy zákazníka dané služby. Body jen na homepage.'],
   ['Seznam služeb','2 sloupce po 4','Nadpis, Perex s odkazem, Služba ×8 (název, věta, odkaz)','bílá','ano','ne','Jen homepage a stránka Služby. Na službách se vypne.'],
   ['Výroky','Velké řádky','Nadpis, Řádek ×3 až 5 (výrok, věta)','ink','ne','ano','<b>Text:</b> co pro vás uděláme. Nahrazuje seznamy „Co dostanete“ na všech službách.'],
   ['Podpis','Napojení (Webflow), Před a po (audit, redesign), Pro koho (MVP, aplikace)','Podle varianty','bílá','ne','ano','<b>Argument:</b> jedna podpisová sekce na službu. Před a po a Pro koho jsou v knihovně z D02, S01 je převede do stylu D03.'],
@@ -956,7 +963,7 @@ function lib(){
     <div class="swatches">${sw('Bílá','#FFFFFF','hero, služby, důvody, FAQ')}${sw('Tón','#EEF2FF','statement, postup')}${sw('Ink','#0C0E1C','výroky, naše práce, patička')}${sw('Modrá','#1D2BE8','reference, CTA')}${sw('Tmavě modrá','#0B1170','druhá karta projektu')}${sw('Modrá na ink','#8FA8FF','zvýraznění na tmavé')}</div>
     <div class="rhythm" style="margin-top:28px">
       ${rhythm('Homepage',[['white','Hero'],['tint','Statement'],['white','Služby'],['ink','Práce'],['white','Důvody'],['blue','Reference'],['tint','Postup'],['blue','CTA'],['ink','Patička']])}
-      ${rhythm('Webflow vývoj',[['white','Hero'],['tint','Statement'],['ink','Výroky'],['white','Napojení'],['ink','Práce'],['blue','Reference'],['tint','Postup'],['white','FAQ'],['blue','CTA'],['ink','Patička']])}
+      ${rhythm('Webflow vývoj',[['white','Hero'],['tint','Statement'],['ink','Výroky'],['white','Napojení'],['ink','Práce'],['blue','Reference'],['tint','Postup'],['white','FAQ'],['tint','Statement'],['blue','CTA'],['ink','Patička']])}
     </div>
     <ul class="rules">
       <li>Dva stejné bloky nikdy vedle sebe. Výjimka: bílá hero a bílá navigace.</li>
@@ -1106,10 +1113,10 @@ function calendar(box, onPick){
   const d = new Date(); const days=[];
   while(days.length<5){ d.setDate(d.getDate()+1); if(d.getDay()!==0 && d.getDay()!==6) days.push(new Date(d)); }
   const dn = ['Ne','Po','Út','St','Čt','Pá','So'];
-  box.innerHTML = `<div class="cal__head">Úvodní hovor online, {50 minut}</div>
+  box.innerHTML = `<div class="cal__head">Úvodní hovor online, {60 minut}</div>
     <div class="cal__days" role="group" aria-label="Den">${days.map((x,i)=>`<button type="button" class="cal__day" aria-pressed="${i===0}">${dn[x.getDay()]}<b>${x.getDate()}. ${x.getMonth()+1}.</b></button>`).join('')}</div>
     <div class="cal__slots" role="group" aria-label="Čas">${['9:00','10:30','13:00','15:30'].map(s=>`<button type="button" class="chip">${s}</button>`).join('')}</div>`;
-  box.querySelector('.cal__head').innerHTML = t('Úvodní hovor online, {50 minut}');
+  box.querySelector('.cal__head').innerHTML = t('Úvodní hovor online, {60 minut}');
   box.querySelectorAll('.cal__day').forEach(b=>b.addEventListener('click',()=>box.querySelectorAll('.cal__day').forEach(x=>x.setAttribute('aria-pressed',String(x===b)))));
   box.querySelectorAll('.cal__slots .chip').forEach(b=>b.addEventListener('click',()=>{ const day = box.querySelector('.cal__day[aria-pressed="true"] b').textContent; onPick(`${day} v ${b.textContent}`); }));
 }
@@ -1294,7 +1301,7 @@ function initScroll(){
       const r = el.getBoundingClientRect(); const ws = el._ws || (el._ws = [...el.querySelectorAll('.w')]);
       const p = Math.max(0, Math.min(1, (vh*.82 - r.top) / (r.height + vh*.32)));
       const n = ws.length;
-      ws.forEach((w,i)=>{ const o = Math.max(0, Math.min(1, p*n*1.15 - i)); w.style.opacity = (.22 + .78*o).toFixed(3); });
+      ws.forEach((w,i)=>{ const o = Math.max(0, Math.min(1, p*n*1.15 - i)); w.style.opacity = (.6 + .4*o).toFixed(3); });
     });
     works.forEach(w=>{
       if(getComputedStyle(w).position!=='sticky'){ w.style.setProperty('--inset',0); return; }

@@ -6,7 +6,7 @@ _Session D03 · 14. 10. 2026 · issue #52 · náhled: https://claude.ai/artifact
 
 - **Šťáva:** stránky střídají čtyři barevné bloky (bílá, světle modrý tón, tmavý ink, sytě modrá). Pravidlo „jedna modrá plocha“ je zrušené.
 - **Wow hero:** velké interaktivní pole z dlaždic loga. Dlaždice se natáčí ke kurzoru, bez myši běží pomalá vlna. Lehký canvas, bez knihoven.
-- **Velký text místo seznamů:** statement s odhalením po slovech, výroky na tmavém bloku, výsledky projektů jako medium text.
+- **Velký text místo seznamů:** statement s odhalením po slovech (na Webflow vývoji dvakrát), výroky na tmavém bloku, výsledky projektů jako medium text.
 - **Náhled se zúžil** na Homepage, Webflow vývoj (vzorová produktová stránka) a Komponenty. U každé komponenty je napsané, co se na jiné službě mění.
 - **Konverzní flow:** formulář → kalendář → volitelný dotazník. Každý krok jde přeskočit, každý má událost GA4.
 
@@ -14,7 +14,7 @@ _Session D03 · 14. 10. 2026 · issue #52 · náhled: https://claude.ai/artifact
 
 | # | Otázka | Doporučení |
 |---|---|---|
-| 1 | **Délky a nástroje v postupu** jsou návrh (tečkovaně podtržené): 50minutový hovor, dvouhodinový workshop, připomínky ve Figmě. Platí? | Ano, když to tak děláš. Jinak napiš skutečné hodnoty. |
+| 1 | **Délky a nástroje v postupu** jsou návrh (tečkovaně podtržené): hodinový hovor, dvouhodinový workshop, připomínky přes odkaz na návrh. Platí? | Ano, když to tak děláš. Jinak napiš skutečné hodnoty. |
 | 2 | **MVP „za týdny, ne měsíce“.** Můžeme slíbit konkrétně „první verze do 2 týdnů“? | Jen když to zvládneš u většiny projektů. Jinak nech „za týdny“. |
 | 3 | **Anse:** logo je z anse.cz (stínicí technika, FWDS Europe). Je to ten správný klient? | Potvrď. Když ne, pošli logo. |
 | 4 | **Loga v hero jsou jednobarevná** (tmavá, přebarvená z webů klientů). MARV a ELDR jsou jen PNG z webu. Stačí, nebo chceš od klientů SVG? | Stačí pro náhled. Pro S01 si řekni o SVG. |
@@ -48,25 +48,25 @@ Chybí dál (žluté `[DOPLNIT]` v náhledu): citace Marka K., druhá věta s v�
 | 2 | Loga klientů místo řádku služeb | Loga MARV Travel, ELDR, CRR, Arbosis a Anse z jejich webů, jednobarevně, po najetí zesílí. | Homepage → Hero |
 | 3 | 5+ let a 30+ projektů v hero | Dvě velká čísla pod CTA: „5+ let zkušeností“, „30+ úspěšných projektů“. | Homepage → Hero |
 | 4 | Jemný reveal textu při scrollu | Slova statementu se při scrollu po jednom rozsvěcují ze světlé do plné barvy. | Homepage → Statement |
-| 5 | Modré zvýraznění, začít otázkou „proč“ | „Proč? Tou otázkou začíná každý náš projekt. **Co má vaší firmě přinést** a jak poznáte, že to funguje. Teprve potom řešíme design a kód.“ Zvýraznění modře. | Homepage → Statement |
+| 5 | Modré zvýraznění, začít otázkou „proč“ | „Proč? Tou otázkou začíná každý náš projekt. Ptáme se, **co má vaší firmě přinést** a jak poznáte, že to funguje. Teprve potom řešíme design a kód.“ Zvýraznění modře. | Homepage → Statement |
 | 6 | Tři body strojové, bez lidskosti | Nově: „Nejdřív posloucháme“, „Mluvíme narovinu“ („…i když to zrovna není to, co chcete slyšet“), „Dotahujeme věci“ („…víte, komu napsat“). | Homepage → Statement |
 | 7 | Nadpis „Vyberte, s čím vám pomůžeme“ je divný | „S čím firmám pomáháme“. | Homepage → Služby |
 | 8 | Text pod nadpisem | „Nevíte, co vybrat? [Pomůžeme vám přijít na to, jaký problém řešíte.]“ Druhá věta je podtržený odkaz na formulář. | Homepage → Služby |
 | 9 | Podnadpisy služeb amatérské | Všech 8 vět přepsaných na pozicování: cíl, výsledek, jak pracujeme. Žádné vysvětlování, co je web. | Homepage → Služby |
-| 10 | Webflow: techstack, napojení, partner | „Webflow partner. Čistá struktura, napojení na CRM a automatizace, vlastní kód tam, kde Webflow nestačí.“ Slovo „certifikovaný“ nikde, dokud certifikace není. | Homepage → Služby |
+| 10 | Webflow: techstack, napojení, partner | „Jsme Webflow Foundations Partner. Čistá struktura, napojení na CRM a automatizace a vlastní kód tam, kde Webflow nestačí.“ Slovo „certifikovaný“ nikde, dokud certifikace není. | Homepage → Služby |
 | 11 | Redesign: smysl, ne vzhled | „Redesign, který vychází z dat a cílů firmy. Nový vzhled je výsledek, ne zadání.“ | Homepage → Služby |
-| 12 | Landing page: rychlost a konverze | „Stránka pro kampaň nebo produkt, spuštěná rychle a postavená na konverze. Měříme ji od prvního dne.“ | Homepage → Služby |
+| 12 | Landing page: rychlost a konverze | „Stránka pro kampaň nebo produkt, hotová rychle a navržená tak, aby z návštěvníků dělala poptávky. Měříme ji od prvního dne.“ | Homepage → Služby |
 | 13 | MVP: rychlost | „První funkční verze produktu za týdny, ne měsíce.“ Konkrétní „do 2 týdnů“ je otázka 2. | Homepage → Služby |
 | 14 | Aplikace: interní i externí, testování, zpětná vazba, servis | „Interní nástroje i aplikace pro vaše zákazníky. Od přechodu z tabulek přes testování a zpětnou vazbu po provoz.“ | Homepage → Služby |
 | 15 | Identita: systém, ne logo, pro firmy | „Vizuální systém, který váš tým snadno používá. Na webu, v prezentacích i na sociálních sítích.“ | Homepage → Služby |
 | 16 | „Jste agentura?“ smazat | Smazané ze Služeb i z navigace. Odkaz Pro agentury je jen v patičce. | Homepage → Služby, Footer |
 | 17 | Nadpis „Projekty, na které jsme hrdí“ | Hotovo. | Homepage → Naše práce |
-| 18 | Fullscreen při scrollu, medium nadpis 2 věty, logo + odkaz, bez štítků, interakce, video | Karty se při scrollu roztáhnou přes celou obrazovku a další projekt předchozí překryje. Každá karta má jinou barvu (ink, tmavě modrá, modrá). Logo klienta, výsledek ve 2 větách („Nový web, který vedl růst na německý trh. Navrhli jsme ho a postavili ve Webflow.“), odkaz na web. Štítky zrušené. Nad ukázkou se kurzor změní na kolo „Prozkoumat projekt“ a ukázka se natočí k myši. Komponenta počítá s videem MP4/WebM + poster, v náhledu je zástupná smyčka ze snímku. Anse v náhledu zatím není (grafika s částkami, rozhodnutí z 1. 10.). | Homepage → Naše práce |
+| 18 | Fullscreen při scrollu, medium nadpis 2 věty, logo + odkaz, bez štítků, interakce, video | Karty se při scrollu roztáhnou přes celou obrazovku a další projekt předchozí překryje. Každá karta má jinou barvu (ink, tmavě modrá, modrá). Logo klienta, výsledek ve 2 větách („Nový web, který firmě pomohl růst na německém trhu. Navrhli jsme ho a postavili ve Webflow.“, gramaticky upravená věta z tvého komentáře), odkaz na web. Štítky zrušené. Nad ukázkou se kurzor změní na kolo „Prozkoumat projekt“ a ukázka se natočí k myši. Komponenta počítá s videem MP4/WebM + poster, v náhledu je zástupná smyčka ze snímku. Anse v náhledu zatím není (grafika s částkami, rozhodnutí z 1. 10.). | Homepage → Naše práce |
 | 19 | Nadpis „Proč nám klienti důvěřují“ | Hotovo. | Homepage → Proč s námi |
-| 20 | 6 důvodů 1:1 Halo Lab, naše pravda, ikony a interakce, bez cen | 5+ let a 30+ projektů / Strategie před designem / Žádné šablony / Složité srozumitelně / Jasný postup / Rozsah podle potřeby (bez cen). Forma: **krátký nadpis + jedna věta**, protože samotných 6 medium textů se hůř skenuje. Ikona po najetí změní čtverec na čtvrtkruh z loga a zmodrá, karta se zvedne. | Homepage → Proč s námi |
+| 20 | 6 důvodů 1:1 Halo Lab, naše pravda, ikony a interakce, bez cen | Zkušenost z praxe (5+ let a 30+ projektů) / Strategie před designem / Žádné šablony / Složité srozumitelně / Jasný postup / Rozsah podle možností (bez cen). Forma: **krátký nadpis + jedna věta**, protože samotných 6 medium textů se hůř skenuje. Ikona po najetí změní čtverec na čtvrtkruh z loga a zmodrá, karta se zvedne. | Homepage → Proč s námi |
 | 21 | Citace Marek K., logo Anse | Citace na modrém bloku, velký text. Pod ní logo Anse a „Marek K.“. Text citace `[DOPLNIT]`. | Homepage → Reference |
 | 22 | Webflow partner podle chatu | SVG logo Webflow + „Webflow Foundations Partner“. Odkaz na profil čeká na URL. | Homepage → Reference |
-| 23 | Postup čistší, launchkit, velká čísla, animace | Nadpis „Náš osvědčený postup, který přináší výsledky“. 6 kroků jako medium text s jednou větou. Vlevo velké číslo aktivního kroku a ukazatel postupu, aktivní krok se rozsvítí. Univerzální kroky: Úvodní hovor, Workshop, Návrh, Připomínky, Spuštění, Rozvoj. Délky a nástroje jsou návrh (otázka 1). | Homepage → Postup |
+| 23 | Postup čistší, launchkit, velká čísla, animace | Nadpis „Náš osvědčený postup, který přináší výsledky“. 6 kroků jako medium text s jednou větou. Vlevo velké číslo aktivního kroku a ukazatel postupu, aktivní krok se rozsvítí. Univerzální kroky: Úvodní hovor (nezávazný), Workshop, Návrh, Připomínky, Spuštění, Rozvoj. Perex: „Rozsah, postup a termín dostanete písemně ještě před začátkem.“ Délky a nástroje jsou návrh (otázka 1). | Homepage → Postup |
 | 24 | FAQ skrýt | Sekce je vyvinutá a skrytá (v liště přeškrtnutá). Ukázka je v Komponenty → FAQ homepage. | Homepage, Komponenty |
 | 25 | Větší fotka Lukáše v sekci | Fotka 148 až 220 px se zaoblenými rohy, pod ní jméno s odkazem na osobní LinkedIn a role Studio Lead. | Homepage → CTA |
 | 26 | Formulář s menšími okraji | Menší vnitřní odsazení karty, pole 46 px místo 52 px, tenčí rámeček, menší mezery. | Homepage → CTA |
@@ -84,6 +84,7 @@ Chybí dál (žluté `[DOPLNIT]` v náhledu): citace Marka K., druhá věta s v�
 | Reference | modrá | Citace + partner |
 | Postup | tón | 6 kroků za 4 až 8 týdnů |
 | FAQ | bílá | 4 krátké otázky |
+| Statement (závěrečný) | tón | „Web, který za rok upravíte sami. Bez nás a bez strachu, že se něco rozbije.“ |
 | CTA | modrá | Téma dotazníku je předvybrané na Webflow |
 
 Co se mění na jiných službách, je v náhledu v Komponenty → Sekční komponenty (sloupec „Na jiné službě“) a v `D01-design-system.md`.
@@ -125,3 +126,29 @@ Rozpočet ani termín se neptáme (rozhodnutí z 30. 9.).
 - Canvas se kreslí jen ve viditelné části obrazovky, na dotykových zařízeních bez sledování prstu, při omezeném pohybu stojí.
 - `prefers-reduced-motion` (a přepínač „Bez animací“ v liště) vypne všechny animace. Statement je celý v plné barvě, projekty jsou pod sebou, kroky plně vidět.
 - Kontrast: bílá na ink 19,2 : 1, bílá na modré 8,2 : 1, `#8FA8FF` na ink 8,4 : 1, modrá na tónu 7,3 : 1, šedý GDPR odkaz `#6F7488` na bílé 4,6 : 1.
+
+## Review (subagent v rolích Lukáš a skeptický jednatel MSP)
+
+**Opraveno:** věta statementu bez slovesa, gramatika věty ELDR, Arbosis bez neověřených faktů („od logiky loga po její použití v praxi“), perex postupu s písemným termínem, krok 1 bez štítku („Nezávazný hovor“), pořadí „otestujeme a spustíme“, žargon (Figma, verzování, API), odznak bez zdvojeného „partner“, důvod 1 se neopakuje s hero, důvody „Jasný postup“ a „Rozsah podle možností“, druhý statement na Webflow vývoji, menší H1, aby fakta 5+ a 30+ byla vidět bez scrollu, nápověda „Pohněte myší“ skrytá na mobilu.
+
+**Neopraveno a proč:**
+- Anse v portfoliu: grafika ukazuje částky (rozhodnutí z 1. 10.). Vrátí se s upravenou grafikou nebo videem.
+- „Studio Lead“: role je dohodnutá 30. 9.
+- „Ozveme se do 24 hodin v pracovní dny“: omezení by bylo nové tvrzení. Rozhodne Lukáš.
+- Agentury v perexu hero: nadpis a podnadpis Lukáš schválil beze změny.
+- Konkrétní rychlost MVP a landing page: nemáme fakta, je to otázka 2.
+- Chybějící důkazy (citace, výsledky CRR a Arbosis): zůstávají `[DOPLNIT]`, nevymýšlíme je.
+
+## Brány
+
+| Brána | Výsledek |
+|---|---|
+| c Texty | Grep v HTML: 0 cen a Kč, 0 „jeden člověk“, 0 „certifikovan“, 0 štítků nad sekcemi, 0 vaty ze seznamu. Znaky „—“ a „·“ ve webových textech 0 (jen v popiscích náhledu). Chybějící fakta jsou `[DOPLNIT]`, návrhy tečkovaně. |
+| d Review | Subagent ve dvou rolích, 25 nálezů, opravy viz výše. |
+| h Konzole | Bez chyb (Playwright, obě stránky, 1440 a 390). |
+| h Reduced motion | Pole dlaždic stojí, výrok v plné barvě, projekty pod sebou, kroky plně. Ověřeno snímky s `reducedMotion: reduce`. |
+| h Klikací plochy | Žádný ovládací prvek pod 24 px. |
+| h Kontrast | AA. Výrok při odhalení drží v klidu aspoň 3 : 1 (velký text), neaktivní kroky postupu mají šedý nadpis místo průhlednosti. |
+| Lighthouse mobil (orientačně) | Homepage: výkon 75, přístupnost 96, best practices 96. Webflow vývoj: 78 / 96 / 96. Desktop výkon 100. TBT 0 ms, CLS 0. |
+
+**Lighthouse pod 90 na mobilu je vlastnost náhledu, ne návrhu.** Náhled kreslí celou stránku přes JS a tahá písma z Google Fonts, takže LCP je kolem 4 s. Ve Webflow bude HTML hned v odpovědi a písma lokálně s preloadem. Přístupnost a SEO chybí do 100 jen kvůli náhledu (chybí `lang`, záměrný `noindex`, bez meta description). Ostrou kontrolu dělá P01.
