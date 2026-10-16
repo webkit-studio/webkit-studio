@@ -67,4 +67,5 @@ Musí být (jsDelivr). Do repa, issues ani PR nic interního: žádné tokeny, c
 - `docs/web-v2/` – zadání a výstupy projektu v2 (analýza, strategie, návrhy, texty)
 - `docs/roadmap.md`, `docs/pipeline.md`, `docs/decisions.md`, `docs/koordinator.md`, `docs/sessions.md` – štafeta
 - `site/webflow/` – vlastní kód webu (v2 do `site/webflow/v2/`)
+- `.claude/skills/` – skilly studia: `stafeta`, `grilovani`, `kontrola`, `retro`, `anti-slop`, `web-animace`, `motion-video`. Kdy který: uzel mapy `standardy-ai`
 - `tools/lead-system/` – jiný projekt (hledání leadů), na v2 se nesahá
