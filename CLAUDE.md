@@ -68,4 +68,4 @@ Musí být (jsDelivr). Do repa, issues ani PR nic interního: žádné tokeny, c
 - `docs/roadmap.md`, `docs/pipeline.md`, `docs/decisions.md`, `docs/koordinator.md`, `docs/sessions.md` – štafeta
 - `site/webflow/` – vlastní kód webu (v2 do `site/webflow/v2/`)
 - `.claude/skills/` – skilly studia: `stafeta`, `grilovani`, `kontrola`, `retro`, `anti-slop`, `web-animace`, `motion-video`. Kdy který: uzel mapy `standardy-ai`
-- `tools/lead-system/` – jiný projekt (hledání leadů), na v2 se nesahá
+- `tools/lead-system/` – jiný projekt (hledání leadů), na v2 se nesahá. V repu je jen kód. Postupy, pravidla a navázání nového chatu jsou v Mapě firmy v dashboardu, uzel `obchod-ai-partak`.
