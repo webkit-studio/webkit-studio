@@ -14,6 +14,10 @@ flowchart LR
 
 Výtěžnost je kolem **5 %**: z 60 firem v oboru vyjdou 2–5 leady. Zbytek má web v pořádku.
 
+## Kde jsou pokyny
+
+Postupy, pravidla a navázání nového chatu jsou v Mapě firmy (dashboard Webkit.Studio), ne tady. Začni uzlem **AI parťák pro obchod**: https://webkit.studio/dashboard/firma/mapa?uzel=obchod-ai-partak
+
 ## Rutiny
 
 Pokyny pro rutiny (strategie, pravidla, postupy a zápis do dashboardu) jsou v Mapě firmy (dashboard Webkit.Studio), uzel Rutiny → Lead engine: https://webkit.studio/dashboard/firma/mapa?uzel=rutina-lead-engine
@@ -78,6 +82,7 @@ Menší města vychází líp. Na firmy.cz se nahoru dostávají firmy, které s
 | `reklama.mjs` | Najde reklamní kódy Google Ads, Mety a Skliku v HTML webu a v kontejneru Google Tag Manageru |
 | `inzeruje.mjs` | Zjistí v Google Ads Transparency, jestli na doménu běží reklamy na Googlu (Česko, posledních 30 dní) |
 | `karta.mjs` | Karta webu pro hovor: platí za reklamu, měření, rychlost, technické SEO, přístupnost a konverzní základ, s barvou a krátkým vysvětlením |
+| `karta-doplnit.py` | Doplní kartu webu k leadům ve stavu K oslovení (bez `--apply` jen náhled) |
 | `httpscheck.mjs` | Pustí PSI na `https://` verzi – potvrdí nebo vyvrátí „Nezabezpečeno“ |
 | `shortlist.py` | Projde všechny běhy a vypíše weby s nálezem. Přeskočí domény z `done_hosts.txt` |
 | `sheet.mjs` | Složí mobilní screenshoty ze shortlistu do přehledových obrázků (10 na list) |
