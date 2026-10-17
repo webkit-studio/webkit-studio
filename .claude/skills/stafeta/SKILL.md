@@ -53,3 +53,5 @@ Effort piš do promptu výslovně („Effort high – pracuj důkladně"), proto
 ## Když si nevíš rady
 
 Přečti `docs/pipeline.md` a sekci Stav v cílovém repu – projekt může mít vlastní úpravy protokolu, které mají přednost před tímto skillem. Rozhodnutí, které dokumenty neřeší, zapiš do `docs/decisions.md` a pokračuj; Lukáše se ptej jen na věci, které mění, co se staví.
+
+Principy tohohle skillu drží i mapa Dashboardu (uzel `standardy-stafeta`) pro chaty, kde skill není načtený. Když skill měníš, uprav i ten uzel.
