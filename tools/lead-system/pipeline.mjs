@@ -28,10 +28,12 @@ for (const d of details) {
   const lds = [...t.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/gs)].map(m => { try { return JSON.parse(m[1]); } catch { return null; } }).filter(Boolean).flat();
   const biz = lds.find(x => x && /LocalBusiness|Organization|Store|HomeAndConstructionBusiness|ProfessionalService|GeneralContractor/.test(String(x['@type']))) || {};
   const web = (typeof biz.url === 'string' && !/firmy\.cz/.test(biz.url)) ? biz.url : ([...t.matchAll(/"url"\s*:\s*"(https?:\/\/[^"]+)"/g)].map(m => m[1]).find(u => !/firmy\.cz|sdn\.cz|seznam|mapy/.test(u)) || null);
-  /* Placený profil na Firmy.cz (tarify Seznam Naplno): v detailu je u firmy "isPaid". */
+  /* Placený profil na Firmy.cz (tarify Seznam Naplno): v detailu je u firmy "isPaid".
+     Od října 2026 stojí za "mapyNav" ("id":<pid>,"mapyNav":"…","isPaid":…), dřív hned za id. */
   const pid = (d.match(/\/detail\/(\d+)-/) || [])[1];
-  const pm = pid ? t.match(new RegExp(`"id":${pid},"isPaid":(true|false)`)) : null;
-  const row = { detail: d, firmyRank: rankMap[d] || null, paid: pm ? pm[1] === 'true' : null, name: biz.name || (t.match(/<h1[^>]*>(.*?)<\/h1>/s) || [])[1]?.replace(/<[^>]+>/g, '').trim() || null, web, phone: biz.telephone || (t.match(/"telephone"\s*:\s*"([^"]+)"/) || [])[1] || null, address: [biz.address?.streetAddress, biz.address?.addressLocality].filter(Boolean).join(', ') || null, rating: biz.aggregateRating?.ratingValue || null, reviews: biz.aggregateRating?.reviewCount || biz.aggregateRating?.ratingCount || null };
+  const pm = pid ? (t.match(new RegExp(`"id":${pid},"mapyNav":"[^"]*","isPaid":(true|false)`)) || t.match(new RegExp(`"id":${pid},"isPaid":(true|false)`))) : null;
+  const icoFirmy = (t.match(/"subject":\{"ico":(\d+)/) || [])[1] || null;
+  const row = { detail: d, firmyRank: rankMap[d] || null, paid: pm ? pm[1] === 'true' : null, icoFirmy, name: biz.name || (t.match(/<h1[^>]*>(.*?)<\/h1>/s) || [])[1]?.replace(/<[^>]+>/g, '').trim() || null, web, phone: biz.telephone || (t.match(/"telephone"\s*:\s*"([^"]+)"/) || [])[1] || null, address: [biz.address?.streetAddress, biz.address?.addressLocality].filter(Boolean).join(', ') || null, rating: biz.aggregateRating?.ratingValue || null, reviews: biz.aggregateRating?.reviewCount || biz.aggregateRating?.ratingCount || null };
   const dm = dom(row.web);
   if (!row.web) { log('  - bez webu:', row.name); continue; }
   if (dm && known.has(dm)) { log('  - už v DB:', row.name, dm); continue; }
@@ -66,12 +68,26 @@ fs.writeFileSync(path.join(runDir, 'candidates.json'), JSON.stringify(cands, nul
 // 3) verify each (PSI + DOM), concurrency 4
 const runOne = c => new Promise(res => execFile('node', ['verify2.mjs', c.web, path.join(runDir, 'sites', dom(c.web))], { env: process.env, timeout: 400000, maxBuffer: 5e6 }, (e, out) => { log('  ✓', c.name, (out || '').trim().slice(0, 400)); res(); }));
 const q = [...cands]; await Promise.all(Array.from({ length: 4 }, async () => { while (q.length) await runOne(q.shift()); }));
+// 3b) běží reklama? Google Ads Transparency (inzeruje.mjs) a Meta Knihovna reklam (meta.mjs), jeden prohlížeč na skript
+const radky = (skript, args) => new Promise(res => args.length ? execFile('node', [skript, ...args], { env: process.env, timeout: 30 * 60000, maxBuffer: 5e6 }, (e, out) => res((out || '').split('\n').map(l => { try { return JSON.parse(l); } catch { return null; } }).filter(Boolean))) : res([]));
+if (process.env.REKLAMY !== '0' && cands.length) {
+  const g = await radky('inzeruje.mjs', cands.map(c => dom(c.web)));
+  const m = await radky('meta.mjs', cands.map(c => `${dom(c.web)}|${c.name || ''}`));
+  for (const c of cands) {
+    const gi = g.find(x => x.domena === dom(c.web)), mi = m.find(x => x.domena === dom(c.web));
+    c.google30 = gi ? gi.google30 : null; c.googleInzerenti = gi?.inzerenti || [];
+    c.metaAktivni = mi ? mi.meta : null; c.metaStranky = mi?.stranky || [];
+    log('  $', c.name, '| Google 30 dní:', c.google30 ?? '?', '| Meta aktivní:', c.metaAktivni ?? '?');
+  }
+}
 // 4) ARES for IČO found on site
 for (const c of cands) {
   try { const r = JSON.parse(fs.readFileSync(path.join(runDir, 'sites', dom(c.web), 'result.json'), 'utf8')); c.verify = r; let ico = r.dom?.ico;
     /* Web IČO neuvádí: dohledat v ARES podle názvu a obce z Firmy.cz. Automaticky jen
        při jednoznačné shodě v obci, jinak kandidáti v `aresHledani` k ručnímu ověření. */
     if (!ico) { ico = await icoZWebu(c.web).catch(() => null); if (ico) c.icoZdroj = 'web, stránka Kontakt nebo O nás'; }
+    /* IČO z profilu Firmy.cz může patřit provozovateli se sídlem jinde, proto až po webu. */
+    if (!ico && c.icoFirmy) { ico = c.icoFirmy; c.icoZdroj = 'profil Firmy.cz'; }
     if (!ico) { c.aresHledani = await aresPodleNazvu(c.name, c.address).catch(() => null); if (c.aresHledani?.ico) { ico = c.aresHledani.ico; c.icoZdroj = 'ARES podle názvu a obce'; } }
     if (ico) { const a = JSON.parse(await curl(`https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-res/${ico}`) || '{}').zaznamy?.[0]; const a2 = JSON.parse(await curl(`https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/${ico}`) || '{}');
       c.ares = a ? { ico, name: a.obchodniJmeno, pravniForma: a.pravniForma, kat: a.statistickeUdaje?.kategoriePoctuPracovniku, kraj: a2.sidlo?.nazevKraje, obec: a2.sidlo?.nazevObce, vznik: a2.datumVzniku, zanik: a2.datumZaniku || null } : { ico, notFound: true }; }
