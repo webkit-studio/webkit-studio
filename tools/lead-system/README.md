@@ -81,6 +81,7 @@ Menší města vychází líp. Na firmy.cz se nahoru dostávají firmy, které s
 | `ares.mjs` | Dohledá IČO v ARES podle názvu firmy a obce, když ho web neuvádí |
 | `reklama.mjs` | Najde reklamní kódy Google Ads, Mety a Skliku v HTML webu a v kontejneru Google Tag Manageru |
 | `inzeruje.mjs` | Zjistí v Google Ads Transparency, jestli na doménu běží reklamy na Googlu (Česko, posledních 30 dní) |
+| `meta.mjs` | Zjistí v Meta Knihovně reklam (bez přihlášení), jestli firmě běží reklama na Facebooku a Instagramu. Pipeline oba skripty pouští sama pro každého kandidáta (`google30`, `metaAktivni`), vypnout jde `REKLAMY=0` |
 | `karta.mjs` | Karta webu pro hovor: platí za reklamu, měření, rychlost, technické SEO, přístupnost a konverzní základ, s barvou a krátkým vysvětlením |
 | `karta-doplnit.py` | Doplní kartu webu k leadům ve stavu K oslovení (bez `--apply` jen náhled) |
 | `httpscheck.mjs` | Pustí PSI na `https://` verzi – potvrdí nebo vyvrátí „Nezabezpečeno“ |
