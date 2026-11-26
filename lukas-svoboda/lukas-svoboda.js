@@ -16,7 +16,7 @@
 
   ID:        WKS/lukas-svoboda/lukas-svoboda.js
   Repo:      github.com/webkit-studio/webkit-studio → lukas-svoboda/lukas-svoboda.js
-  Verze:     1.1.0 · 26.11.2026
+  Verze:     1.2.0 · 26.11.2026
   Autor:     Webkit.Studio – Lukáš Svoboda · lukas@webkit.studio
   Vlastník:  © 2026 Lukáš Svoboda (Webkit.Studio). Interní projekt.
 */
@@ -58,7 +58,7 @@
       done: 'Hotovo', of: ' z 6 · ', pct: ' %',
       publish: 'Publikovat', live: 'Spuštěno',
       kpis: ['návštěv', 'poptávek', 'konverze'],
-      frame: 'snímek', copied: 'Zkopírováno.', selected: 'Text je označený, zkopírujte ho.'
+      frame: 'snímek', tempoCalm: 'Zklidnit střídání snímků', tempoFast: 'Zrychlit střídání snímků', copied: 'Zkopírováno.', selected: 'Text je označený, zkopírujte ho.'
     },
     en: {
       bubbles: [['Why are we doing this?', 24, 18], ['Who is it for?', 72, 15], ['What should change?', 79, 42], ['What no longer works?', 21, 45],
@@ -73,7 +73,7 @@
       done: 'Done', of: ' of 6 · ', pct: '%',
       publish: 'Publish', live: 'Live',
       kpis: ['visits', 'enquiries', 'conversion'],
-      frame: 'frame', copied: 'Copied.', selected: 'Text selected, copy it.'
+      frame: 'frame', tempoCalm: 'Slow the images down', tempoFast: 'Speed the images up', copied: 'Copied.', selected: 'Text selected, copy it.'
     }
   };
   const T = TEXT[LANG];
@@ -310,25 +310,61 @@
   addEventListener('touchstart', cancelTween, { passive: true });
 
   /* ---------- 07 projekty: střídané snímky ---------- */
-  const shows = $$('.ls-projects_panel'), FRAMES = 6;
+  /* Panel s atributem data-frames="adresa1 adresa2 …" střídá skutečné obrázky, panel bez něj zástupné plochy.
+     Tlačítko vpravo nahoře přepíná tempo pro všechny panely: rychlý střih, nebo klidné prolínání. Volba se pamatuje. */
+  const shows = $$('.ls-projects_panel'), FRAMES = 6, TEMPO_KEY = 'ls-tempo';
   const showTimers = shows.map(() => null);
+  let calm = false;
+  try { calm = localStorage.getItem(TEMPO_KEY) === 'calm'; } catch (err) { calm = false; }
+  const tempoBtns = [];
   shows.forEach(sh => {
     const fw = $('.ls-projects_frames', sh);
     if (!fw) return;
-    for (let f = 0; f < FRAMES; f++) {
-      const fr = el('div', 'ls-projects_frame' + (f ? '' : ' is-on'));
-      fr.appendChild(el('span', 'ls-projects_frame-label', T.frame + ' ' + (f + 1) + ' / ' + FRAMES));
-      fr.style.setProperty('--frbg', 'var(--fr-' + (1 + f % 3) + ')');
-      fw.appendChild(fr);
+    const urls = (sh.dataset.frames || '').split(/\s+/).filter(Boolean);
+    if (urls.length) {
+      urls.forEach((u, f) => {
+        const fr = el('div', 'ls-projects_frame is-image' + (f ? '' : ' is-on')), im = new Image();
+        im.className = 'ls-projects_frame-img'; im.alt = ''; im.decoding = 'async'; im.dataset.src = u;
+        if (!f) { im.src = u; }
+        fr.appendChild(im); fw.appendChild(fr);
+      });
+    } else {
+      for (let f = 0; f < FRAMES; f++) {
+        const fr = el('div', 'ls-projects_frame' + (f ? '' : ' is-on'));
+        fr.appendChild(el('span', 'ls-projects_frame-label', T.frame + ' ' + (f + 1) + ' / ' + FRAMES));
+        fr.style.setProperty('--frbg', 'var(--fr-' + (1 + f % 3) + ')');
+        fw.appendChild(fr);
+      }
+    }
+    if (!reduce) {
+      const btn = el('button', 'ls-projects_tempo'); btn.type = 'button';
+      sh.appendChild(btn); tempoBtns.push(btn);
     }
   });
+  const showRun = k => {
+    clearInterval(showTimers[k]); showTimers[k] = null;
+    const frs = $$('.ls-projects_frame', shows[k]); if (frs.length < 2) return;
+    frs.forEach(fr => { const im = fr.firstElementChild; if (im && im.dataset && im.dataset.src && !im.src) im.src = im.dataset.src; });
+    let f = frs.findIndex(x => x.classList.contains('is-on')); if (f < 0) f = 0;
+    showTimers[k] = setInterval(() => { frs[f].classList.remove('is-on'); f = (f + 1) % frs.length; frs[f].classList.add('is-on'); }, calm ? 2600 : 340);
+  };
+  const showSeen = shows.map(() => false);
+  function setTempo(on) {
+    calm = on;
+    $$('.ls-projects_frames').forEach(fw => fw.classList.toggle('is-calm', calm));
+    tempoBtns.forEach(b => { b.classList.toggle('is-calm', calm); b.setAttribute('aria-label', calm ? T.tempoFast : T.tempoCalm); b.title = calm ? T.tempoFast : T.tempoCalm; b.setAttribute('aria-pressed', String(calm)); });
+    shows.forEach((sh, k) => { if (showSeen[k]) showRun(k); });
+  }
+  tempoBtns.forEach(b => b.addEventListener('click', () => {
+    setTempo(!calm);
+    try { localStorage.setItem(TEMPO_KEY, calm ? 'calm' : 'fast'); } catch (err) { /* bez úložiště platí jen do načtení */ }
+  }));
+  setTempo(calm);
   if (!reduce && shows.length && 'IntersectionObserver' in window) {
     const sio = new IntersectionObserver(es => es.forEach(e => {
-      const k = shows.indexOf(e.target); clearInterval(showTimers[k]); showTimers[k] = null;
-      if (!e.isIntersecting) return;
-      const frs = $$('.ls-projects_frame', e.target); if (!frs.length) return;
-      let f = frs.findIndex(x => x.classList.contains('is-on')); if (f < 0) f = 0;
-      showTimers[k] = setInterval(() => { frs[f].classList.remove('is-on'); f = (f + 1) % frs.length; frs[f].classList.add('is-on'); }, 340);
+      const k = shows.indexOf(e.target);
+      showSeen[k] = e.isIntersecting;
+      if (e.isIntersecting) showRun(k); else { clearInterval(showTimers[k]); showTimers[k] = null; }
     }), { threshold: .2 });
     shows.forEach(sh => sio.observe(sh));
   }

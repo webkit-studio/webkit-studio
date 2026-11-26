@@ -16,7 +16,7 @@
 
   ID:        WKS/lukas-svoboda/lukas-svoboda.css
   Repo:      github.com/webkit-studio/webkit-studio → lukas-svoboda/lukas-svoboda.css
-  Verze:     1.1.1 · 26.11.2026
+  Verze:     1.2.0 · 26.11.2026
   Autor:     Webkit.Studio – Lukáš Svoboda · lukas@webkit.studio
   Vlastník:  © 2026 Lukáš Svoboda (Webkit.Studio). Interní projekt.
 */
@@ -267,6 +267,8 @@ body:has(.ls-page) .wk-ck{display:none!important}
 .ls-experience_date{color:var(--muted)}
 .ls-experience_date.is-now::before{content:"";display:inline-block;width:.5rem;height:.5rem;border-radius:50%;background:var(--pop);margin-right:.5rem;vertical-align:.06em}
 .ls-experience_title{font-size:var(--h4)}
+/* krátký název role na dva řádky, aby tři karty vedle sebe působily zarovnaně (atribut data-lines="2" na nadpisu) */
+@media (min-width:62rem){.ls-experience_title[data-lines="2"]{width:min-content}}
 .ls-experience_company{display:flex;align-items:center;gap:.6rem}
 .ls-experience_logo{display:block;flex:none;width:1.75rem;height:1.75rem;max-width:none;object-fit:contain}
 .ls-experience_list{margin:.6rem 0 0;padding-left:1.1rem;list-style:disc;display:grid;gap:.4rem;align-content:start}
@@ -282,11 +284,23 @@ body:has(.ls-page) .wk-ck{display:none!important}
 .ls-page .section_ls-projects{position:relative}
 .ls-projects_panel{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;display:flex;align-items:flex-start;background:var(--fr-1)}
 .ls-projects_frames,.ls-projects_frame{position:absolute;inset:0}
-.ls-projects_frame{display:none;background:
+.ls-projects_frame{opacity:0;background:
   linear-gradient(to top right,transparent calc(50% - .5px),var(--fr-4) calc(50% - .5px),var(--fr-4) calc(50% + .5px),transparent calc(50% + .5px)),
   linear-gradient(to bottom right,transparent calc(50% - .5px),var(--fr-4) calc(50% - .5px),var(--fr-4) calc(50% + .5px),transparent calc(50% + .5px)),
   var(--frbg,var(--fr-1))}
-.ls-projects_frame.is-on{display:block}
+.ls-projects_frame.is-on{opacity:1}
+/* klidné tempo: snímky se prolínají, rychlé tempo: střih */
+.ls-projects_frames.is-calm .ls-projects_frame{transition:opacity .9s ease}
+/* skutečné obrázky projektu (adresy v atributu data-frames na panelu), ztmavené kvůli čitelnosti textu */
+.ls-projects_frame.is-image{background:var(--ink)}
+.ls-projects_frame-img{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover}
+.ls-projects_frame.is-image::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,rgba(0,0,0,.92) 0%,rgba(0,0,0,.84) 42%,rgba(0,0,0,.5) 100%)}
+.ls-projects_tempo{position:absolute;z-index:2;top:calc(var(--nav-h) + 1.25rem + env(safe-area-inset-top,0px));right:calc(var(--gr) - .75rem);width:2.75rem;height:2.75rem;display:grid;place-items:center;color:var(--on-ink);opacity:.55;cursor:pointer;transition:opacity .2s ease-out,transform .15s ease-out}
+.ls-projects_tempo:hover,.ls-projects_tempo:focus-visible{opacity:1}
+.ls-projects_tempo:active{transform:scale(.92)}
+.ls-projects_tempo::before{content:"";width:1.75rem;height:1.75rem;border:1px solid currentColor;border-radius:50%;grid-area:1/1}
+.ls-projects_tempo::after{content:"";grid-area:1/1;width:.5rem;height:.625rem;border-left:2px solid currentColor;border-right:2px solid currentColor}
+.ls-projects_tempo.is-calm::after{width:0;height:0;border:0;border-left:.5625rem solid currentColor;border-top:.375rem solid transparent;border-bottom:.375rem solid transparent;margin-left:.125rem}
 .ls-projects_frame-label{position:absolute;left:var(--gl);bottom:calc(1.5rem + env(safe-area-inset-bottom,0px));font-size:.75rem;font-weight:400;color:var(--on-ink-muted);font-variant-numeric:tabular-nums}
 .ls-projects_content{position:relative;z-index:1;width:100%;padding-top:calc(var(--nav-h) + 1.5rem + env(safe-area-inset-top,0px))}
 .ls-projects_name{font-size:clamp(2.25rem,7vw,6rem);line-height:1.05;letter-spacing:-.045em;max-width:60rem}
