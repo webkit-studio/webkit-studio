@@ -16,7 +16,7 @@
 
   ID:        WKS/lukas-svoboda/lukas-svoboda.js
   Repo:      github.com/webkit-studio/webkit-studio → lukas-svoboda/lukas-svoboda.js
-  Verze:     1.11.0 · 26.11.2026
+  Verze:     1.11.1 · 26.11.2026
   Autor:     Webkit.Studio – Lukáš Svoboda · lukas@webkit.studio
   Vlastník:  © 2026 Lukáš Svoboda (Webkit.Studio). Interní projekt.
 */
@@ -323,7 +323,9 @@
     const notch = e.deltaMode === 1 || (!!e.wheelDeltaY && Math.abs(e.wheelDeltaY) % 120 === 0 && abs >= 50 && dt > 30 && abs >= (dt < 150 ? lastAbs : 0));
     /* Nový pohyb = pauza, zub kolečka, nebo zřetelné zesílení oproti nejslabšímu místu dojezdu (lowest).
        Drobné kolísání dojezdu se za nový pohyb nepočítá, takže jeden švih udělá nejvýš jeden krok. */
-    const fresh = notch || dt > 110 || abs >= lowest * 2 + 8;
+    /* Kolečko s volným doběhem (a Magic Mouse) pošle po jednom švihu zuby ještě skoro vteřinu. Další krok proto
+       spustí až zub po krátké pauze, ne každý. */
+    const fresh = (notch && dt > 150) || dt > 150 || abs >= lowest * 3 + 15;
     lowest = fresh ? abs : Math.min(lowest, abs);
     lastT = now; lastAbs = abs;
     if (fresh) tail = false;
@@ -340,7 +342,7 @@
     }
     e.preventDefault();
     if (now < lockUntil || tail || abs < 2) return;
-    tail = true; lockUntil = now + 560;
+    tail = true; lockUntil = now + 700;
     if (to.entering) {
       /* vjezd zvenku: převzít rozjetý scroll stejnou rychlostí, jakou právě jede, a plynule dobrzdit na pozici */
       const dist = Math.abs(to.y - scrollY), speed = Math.max(abs / clamp(dt, 8, 40), .35);
