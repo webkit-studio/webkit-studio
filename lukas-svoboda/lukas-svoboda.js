@@ -16,7 +16,7 @@
 
   ID:        WKS/lukas-svoboda/lukas-svoboda.js
   Repo:      github.com/webkit-studio/webkit-studio → lukas-svoboda/lukas-svoboda.js
-  Verze:     1.9.2 · 26.11.2026
+  Verze:     1.10.0 · 26.11.2026
   Autor:     Webkit.Studio – Lukáš Svoboda · lukas@webkit.studio
   Vlastník:  © 2026 Lukáš Svoboda (Webkit.Studio). Interní projekt.
 */
@@ -103,7 +103,8 @@
     const t0 = performance.now(); tweening = true;
     (function f(t) {
       if (id !== tweenId) return;
-      const k = clamp((t - t0) / dur), e = out ? 1 - Math.pow(1 - k, 3) : k < .5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
+      /* out = 'quad': plynulé dobrzdění, jehož počáteční rychlost je 2 × vzdálenost / čas (navazuje na rozjetý scroll) */
+      const k = clamp((t - t0) / dur), e = out === 'quad' ? 1 - (1 - k) * (1 - k) : out ? 1 - Math.pow(1 - k, 3) : k < .5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
       scrollTo(0, s + d * e);
       if (k < 1) requestAnimationFrame(f); else tweening = false;
     })(t0);
@@ -287,11 +288,11 @@
     } else if (!mqDesk.matches) steps.forEach((s, k) => sceneAt(k).start());
     stepIdx = -1; update();
   }
-  mqDesk.addEventListener('change', bindMode);
+  mqDesk.addEventListener('change', () => { bindMode(); measureHero(); });
 
   // počítač: jedno scrollnutí = další krok postupu nebo další projekt, vždy dojede na pevnou pozici
   const hijack = () => mqDesk.matches && mqFine.matches && !reduce;
-  let lockUntil = 0, lastT = 0, lastAbs = 0, tail = false;
+  let lockUntil = 0, lastT = 0, lastAbs = 0, lowest = 0, tail = false, notches = [], freeUntil = 0;
   const zones = () => {
     const z = [];
     if (proc) z.push({ top: docTop(proc), size: innerHeight, n: 4 });
@@ -317,15 +318,20 @@
     const dir = Math.sign(e.deltaY); if (!dir) return;
     /* čas vzniku události, ne čas zpracování: když stránka zrovna načítá obrázky, zpracování se zpozdí
        a dojezd gesta by vypadal jako nový pohyb */
-    const now = e.timeStamp || performance.now(), abs = Math.abs(e.deltaY);
-    /* Nový pohyb = pauza, zrychlení, nebo další zub kolečka myši (stejně velké skoky s odstupem; dojezd touchpadu
-       chodí hustěji). "tail" = dojezd gesta, které už krok spustilo: ten stránku dál neposouvá, ani za poslední
-       snímek ven ze sekce. Nový pohyb dojezd ukončí. */
-    /* zub kolečka má stejný nebo větší skok než předchozí; dojezd touchpadu se zmenšuje */
-    const notch = e.deltaMode === 1 || (!!e.wheelDeltaY && Math.abs(e.wheelDeltaY) % 120 === 0 && abs >= 50 && now - lastT > 30 && abs >= (now - lastT < 150 ? lastAbs : 0));
-    const fresh = notch || now - lastT > 85 || abs > lastAbs + 5;
+    const now = e.timeStamp || performance.now(), abs = Math.abs(e.deltaY), dt = now - lastT;
+    /* zub kolečka myši: stejně velké skoky s odstupem, nikdy menší než ten předchozí (dojezd touchpadu slábne) */
+    const notch = e.deltaMode === 1 || (!!e.wheelDeltaY && Math.abs(e.wheelDeltaY) % 120 === 0 && abs >= 50 && dt > 30 && abs >= (dt < 150 ? lastAbs : 0));
+    /* Nový pohyb = pauza, zub kolečka, nebo zřetelné zesílení oproti nejslabšímu místu dojezdu (lowest).
+       Drobné kolísání dojezdu se za nový pohyb nepočítá, takže jeden švih udělá nejvýš jeden krok. */
+    const fresh = notch || dt > 110 || abs >= lowest * 2 + 8;
+    lowest = fresh ? abs : Math.min(lowest, abs);
     lastT = now; lastAbs = abs;
     if (fresh) tail = false;
+    /* Hodně silný švih (nebo rychlé protočení kolečka) krokování na chvíli vypne: stránka projede sekcí volně
+       a rychle, třeba při návratu na začátek. Až zeslábne, dosedne na nejbližší pozici. */
+    if (notch) { notches.push(now); notches = notches.filter(t => now - t < 350); }
+    if (abs >= 220 || notches.length >= 4) freeUntil = now + 260;
+    if (now < freeUntil) { tail = false; if (tweening) cancelTween(); return; }
     const to = stepTarget(dir);
     if (!to) {
       if (tail) { e.preventDefault(); return; }
@@ -334,9 +340,12 @@
     }
     e.preventDefault();
     if (now < lockUntil || tail || abs < 2) return;
-    tail = true; lockUntil = now + 470;
-    /* při vjezdu zvenku přebíráme rozjetý scroll: začít rychle a dobrzdit, délka podle vzdálenosti */
-    if (to.entering) scrollToY(to.y, clamp(Math.abs(to.y - scrollY) * 1.3, 320, 560), true); else scrollToY(to.y, 450);
+    tail = true; lockUntil = now + 560;
+    if (to.entering) {
+      /* vjezd zvenku: převzít rozjetý scroll stejnou rychlostí, jakou právě jede, a plynule dobrzdit na pozici */
+      const dist = Math.abs(to.y - scrollY), speed = Math.max(abs / clamp(dt, 8, 40), .35);
+      scrollToY(to.y, clamp(2 * dist / speed, 420, 950), 'quad');
+    } else scrollToY(to.y, 480);
   }, { passive: false });
   /* Když stránka zůstane stát uvnitř krokované části mezi dvěma pozicemi (tažení posuvníku, dojezd), dorovná se na bližší. */
   let settleT = 0;
@@ -484,6 +493,16 @@
     heroM = Math.max(0, Math.round(pin.clientHeight - low - clamp(innerHeight * .06, 28, 64)));
     page.style.setProperty('--ls-m', heroM + 'px');
     page.classList.add('is-merged');
+    /* Postup je na počítači připnutý a pod obsahem zbývá prázdné místo, na velkém monitoru hodně. Další sekce se
+       proto zčásti nasune do něj: o 60 % volného místa, nejvýš 16 rem. Na posledním kroku tak lehce vykukuje. */
+    const pp = $('.ls-process_pin');
+    let pm = 0;
+    if (pp && mqDesk.matches) {
+      const pr = pp.getBoundingClientRect(), rem = parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
+      const low = Math.max(...$$('.ls-process_stage,.ls-process_text,.ls-process_head', pp).map(n => n.getBoundingClientRect().bottom - pr.top));
+      pm = Math.round(clamp((pr.height - low - 4 * rem) * .6, 0, 16 * rem));
+    }
+    page.style.setProperty('--ls-pm', pm + 'px');
   }
 
   /* ---------- přepínač jazyka drží místo na stránce ---------- */

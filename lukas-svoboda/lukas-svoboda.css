@@ -16,7 +16,7 @@
 
   ID:        WKS/lukas-svoboda/lukas-svoboda.css
   Repo:      github.com/webkit-studio/webkit-studio → lukas-svoboda/lukas-svoboda.css
-  Verze:     1.9.2 · 26.11.2026
+  Verze:     1.10.0 · 26.11.2026
   Autor:     Webkit.Studio – Lukáš Svoboda · lukas@webkit.studio
   Vlastník:  © 2026 Lukáš Svoboda (Webkit.Studio). Interní projekt.
 */
@@ -108,6 +108,8 @@
 /* JS měří volné místo pod pozdravem (--ls-m). O tolik je hero delší a o tolik se sekce role nasune pod pozdrav. */
 .ls-page.is-merged .section_ls-hero{height:calc(200vh + var(--ls-m,0px))}
 .ls-page.is-merged .section_ls-role{margin-top:calc(-1*var(--ls-m,0px));padding-top:0}
+/* totéž lehce pod postupem: sekce zkušeností se zčásti nasune do volného místa pod posledním krokem (--ls-pm měří JS) */
+.ls-page.is-merged .section_ls-experience{margin-top:calc(-1*var(--ls-pm,0px))}
 /* Cookie lišta webu se na těchto dvou stránkách nezobrazuje. Bez volby zůstává souhlas zamítnutý, nic se neukládá.
    Jediný selektor mimo .ls-page: lišta je přímo v body. */
 body:has(.ls-page) .wk-ck{display:none!important}
@@ -308,11 +310,11 @@ body:has(.ls-page) .wk-ck{display:none!important}
 /* Na šířku: nahoře úzký černý pruh (název, vedle popis a čísla, úplně vpravo tempo), pod ním celý obrázek.
    Na výšku: text nahoře na černé, celý obrázek 16:9 bez ořezu dole. */
 @media (orientation:landscape){
-  .ls-page .section_ls-projects{--bar:6rem}
+  .ls-page .section_ls-projects{--bar:7rem}
   .ls-page .ls-projects_frames{top:var(--bar)}
   .ls-page .ls-projects_content{max-width:none;margin:0;min-height:var(--bar);display:flex;align-items:center;gap:.25rem 2.5rem;background:var(--ink);
     padding:.75rem calc(var(--gr) + 7rem) .75rem max(var(--gl),calc((100% - 80rem)/2))}
-  .ls-page .ls-projects_name{flex:0 1 auto;max-width:24rem;font-size:clamp(1.5rem,2.3vw,2.25rem);line-height:1.1;letter-spacing:-.03em;text-wrap:balance}
+  .ls-page .ls-projects_name{flex:0 1 auto;max-width:26rem;font-size:clamp(1.625rem,2.5vw,2.5rem);line-height:1.1;letter-spacing:-.03em;text-wrap:balance}
   .ls-page .ls-projects_text{flex:0 1 26rem;min-width:13rem;max-width:26rem;margin:0 auto 0 0;font-size:1rem;line-height:1.35;color:var(--on-ink-muted)}
   .ls-page .ls-projects_numbers{flex:none;display:flex;flex-wrap:nowrap;gap:1.5rem;margin:0}
   .ls-page .ls-projects_number{min-width:0;display:flex;align-items:baseline;gap:.4rem;border:0;padding:0}
