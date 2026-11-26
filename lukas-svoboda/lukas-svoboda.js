@@ -16,7 +16,7 @@
 
   ID:        WKS/lukas-svoboda/lukas-svoboda.js
   Repo:      github.com/webkit-studio/webkit-studio → lukas-svoboda/lukas-svoboda.js
-  Verze:     1.9.1 · 26.11.2026
+  Verze:     1.9.2 · 26.11.2026
   Autor:     Webkit.Studio – Lukáš Svoboda · lukas@webkit.studio
   Vlastník:  © 2026 Lukáš Svoboda (Webkit.Studio). Interní projekt.
 */
@@ -315,7 +315,9 @@
   addEventListener('wheel', e => {
     if (!hijack() || e.ctrlKey) { if (tweening) cancelTween(); return; }
     const dir = Math.sign(e.deltaY); if (!dir) return;
-    const now = performance.now(), abs = Math.abs(e.deltaY);
+    /* čas vzniku události, ne čas zpracování: když stránka zrovna načítá obrázky, zpracování se zpozdí
+       a dojezd gesta by vypadal jako nový pohyb */
+    const now = e.timeStamp || performance.now(), abs = Math.abs(e.deltaY);
     /* Nový pohyb = pauza, zrychlení, nebo další zub kolečka myši (stejně velké skoky s odstupem; dojezd touchpadu
        chodí hustěji). "tail" = dojezd gesta, které už krok spustilo: ten stránku dál neposouvá, ani za poslední
        snímek ven ze sekce. Nový pohyb dojezd ukončí. */
