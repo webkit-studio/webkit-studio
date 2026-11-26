@@ -1,6 +1,6 @@
 # Osobní stránka Lukáše Svobody je samostatný projekt, proto má vlastní
 # purge. jsDelivr drží soubory z větve v cache 12 hodin; po tomhle je
-# nová verze na webu do minuty.
+# nová verze na webu zhruba do dvou minut.
 name: Purge jsDelivr (lukas-svoboda)
 
 on:
@@ -15,30 +15,35 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # jsDelivr chvíli po pushi ještě neví o novém commitu, takže jeden
-      # purge nemusí stačit. Čistí a ověřuje se opakovaně, nejvýš 6×.
+      # Pozor: jsDelivr opakované čištění stejné cesty zablokuje až na
+      # desítky minut ("throttled"). Proto se čistí nejvýš dvakrát a jen
+      # soubory, které se od repa liší. Mezi tím se jen čeká a ověřuje.
       - name: Vyčistit cache a ověřit, že CDN vrací novou verzi
         run: |
           set -euo pipefail
           cesta="gh/${GITHUB_REPOSITORY}@main/lukas-svoboda"
-          for pokus in 1 2 3 4 5 6; do
-            chyby=0
+          lisi_se() {
+            curl -sS --retry 3 --retry-delay 3 "https://cdn.jsdelivr.net/$cesta/$(basename "$1")" -o /tmp/cdn.tmp
+            ! cmp -s "$1" /tmp/cdn.tmp
+          }
+          sleep 30   # jsDelivr chvíli po pushi ještě neví o novém commitu
+          for kolo in 1 2; do
             for soubor in lukas-svoboda/*.css lukas-svoboda/*.js; do
-              jmeno=$(basename "$soubor")
-              curl -sS --retry 3 --retry-delay 2 "https://purge.jsdelivr.net/$cesta/$jmeno" > /dev/null
-            done
-            sleep 15
-            for soubor in lukas-svoboda/*.css lukas-svoboda/*.js; do
-              jmeno=$(basename "$soubor")
-              curl -sS --retry 3 --retry-delay 3 "https://cdn.jsdelivr.net/$cesta/$jmeno" -o "/tmp/$jmeno"
-              if cmp -s "$soubor" "/tmp/$jmeno"; then
-                echo "✓ $jmeno sedí"
-              else
-                echo "✗ $jmeno se liší od repa (v repu $(wc -c < "$soubor") B, z CDN $(wc -c < "/tmp/$jmeno") B)"
-                chyby=1
+              if lisi_se "$soubor"; then
+                echo "→ čistím $(basename "$soubor")"
+                curl -sS --retry 3 --retry-delay 2 "https://purge.jsdelivr.net/$cesta/$(basename "$soubor")"
+                echo
               fi
             done
-            if [ "$chyby" = 0 ]; then exit 0; fi
-            echo "Pokus $pokus nestačil, zkouším znovu."
+            for pokus in 1 2 3 4 5 6; do
+              sleep 15
+              chyby=0
+              for soubor in lukas-svoboda/*.css lukas-svoboda/*.js; do
+                if lisi_se "$soubor"; then chyby=1; fi
+              done
+              if [ "$chyby" = 0 ]; then echo "✓ CDN vrací verzi z repa"; exit 0; fi
+            done
+            echo "Kolo $kolo nestačilo."
           done
+          echo "✗ CDN pořád vrací starou verzi. Pokud je čištění zablokované (throttled), projeví se změna po uvolnění nebo nejpozději do 12 hodin."
           exit 1
