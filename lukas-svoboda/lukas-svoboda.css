@@ -16,7 +16,7 @@
 
   ID:        WKS/lukas-svoboda/lukas-svoboda.css
   Repo:      github.com/webkit-studio/webkit-studio → lukas-svoboda/lukas-svoboda.css
-  Verze:     1.4.2 · 26.11.2026
+  Verze:     1.5.0 · 26.11.2026
   Autor:     Webkit.Studio – Lukáš Svoboda · lukas@webkit.studio
   Vlastník:  © 2026 Lukáš Svoboda (Webkit.Studio). Interní projekt.
 */
@@ -286,10 +286,9 @@ body:has(.ls-page) .wk-ck{display:none!important}
 .ls-projects_frame.is-on{opacity:1}
 /* klidné tempo: snímky se prolínají, rychlé tempo: střih */
 .ls-projects_frames.is-calm .ls-projects_frame{transition:opacity .75s ease}
-/* skutečné obrázky projektu (adresy v atributu data-frames na panelu), ztmavené kvůli čitelnosti textu */
+/* skutečné obrázky projektu (adresy v atributu data-frames na panelu), v plné barvě */
 .ls-projects_frame.is-image{background:var(--ink)}
 .ls-projects_frame-img{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover}
-.ls-projects_frame.is-image::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,rgba(0,0,0,.92) 0%,rgba(0,0,0,.84) 42%,rgba(0,0,0,.5) 100%)}
 /* jedno tlačítko tempa pro celou sekci: drží nahoře přes všechny panely. Ikona = tři šipky, v klidném tempu svítí jen první. */
 .ls-projects_tempo-bar{position:sticky;top:0;z-index:3;height:0}
 .ls-projects_tempo{position:absolute;top:calc(var(--nav-h) + 1.25rem + env(safe-area-inset-top,0px));right:calc(var(--gr) - .5rem);width:3.25rem;height:2.75rem;display:grid;place-items:center;color:var(--on-ink);opacity:.65;cursor:pointer;transition:opacity .2s ease-out,transform .15s ease-out}
@@ -298,10 +297,29 @@ body:has(.ls-page) .wk-ck{display:none!important}
 .ls-projects_tempo svg{display:block;width:1.875rem;height:.75rem;fill:currentColor}
 .ls-projects_tempo path{transition:opacity .2s ease-out}
 .ls-projects_tempo.is-calm .ls-projects_tempo-more{opacity:.28}
+/* Na šířku: obrázek přes celý panel, čitelnost drží černé pruhy těsně pod názvem a pod každým řádkem textu
+   (span .ls-mark vkládá JS). Na výšku: text nahoře na černé, celý obrázek 16:9 bez ořezu dole. */
+@media (orientation:landscape){
+  .ls-projects_panel.has-images .ls-mark{background:var(--ink);-webkit-box-decoration-break:clone;box-decoration-break:clone;padding:.06em .2em .1em}
+  .ls-projects_panel.has-images .ls-projects_name{margin-left:-.2em}
+  .ls-projects_panel.has-images .ls-projects_text{line-height:1.5;margin-left:-.6em;margin-top:1rem}
+  .ls-projects_panel.has-images .ls-projects_text .ls-mark{padding:.25em .6em}
+  .ls-projects_panel.has-images .ls-projects_numbers{gap:.5rem;margin-top:1rem;margin-left:-1rem}
+  .ls-projects_panel.has-images .ls-projects_number{background:var(--ink);padding:.75rem 1rem}
+  .ls-projects_tempo{background:var(--ink);opacity:1}
+}
+@media (orientation:portrait){
+  .ls-projects_panel{background:var(--ink)}
+  .ls-projects_frames{inset:auto 0 0 0;height:56.25vw}
+  /* text má vlastní černý podklad: na nízkém displeji smí zakrýt horní okraj obrázku, ale zůstane čitelný */
+  .ls-page .ls-projects_content{background:var(--ink);padding-bottom:1.25rem}
+  .ls-page .ls-projects_numbers{display:grid;grid-template-columns:1fr 1fr;gap:1rem 1.5rem}
+  .ls-page .ls-projects_number{min-width:0}
+}
 .ls-projects_frame-label{position:absolute;left:var(--gl);bottom:calc(1.5rem + env(safe-area-inset-bottom,0px));font-size:.75rem;font-weight:400;color:var(--on-ink-muted);font-variant-numeric:tabular-nums}
 .ls-projects_content{position:relative;z-index:1;width:100%;padding-top:calc(var(--nav-h) + 1.5rem + env(safe-area-inset-top,0px))}
 .ls-projects_name{font-size:clamp(2.25rem,7vw,6rem);line-height:1.05;letter-spacing:-.045em;max-width:60rem}
-.ls-projects_text{font-size:1.125rem;max-width:34rem;margin-top:1.5rem}
+.ls-projects_text{font-size:1.125rem;max-width:34rem;margin-top:1.5rem;text-wrap:balance}
 .ls-projects_numbers{display:flex;flex-wrap:wrap;gap:1.5rem 3.5rem;margin-top:2rem}
 .ls-projects_number{min-width:9rem;border-top:2px solid var(--pop);padding-top:.75rem}
 .ls-projects_number-value{display:block;font-size:var(--h2);font-weight:700;line-height:1.1;letter-spacing:-.04em;font-variant-numeric:tabular-nums}

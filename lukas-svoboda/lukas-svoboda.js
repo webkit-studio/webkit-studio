@@ -16,7 +16,7 @@
 
   ID:        WKS/lukas-svoboda/lukas-svoboda.js
   Repo:      github.com/webkit-studio/webkit-studio → lukas-svoboda/lukas-svoboda.js
-  Verze:     1.4.2 · 26.11.2026
+  Verze:     1.5.0 · 26.11.2026
   Autor:     Webkit.Studio – Lukáš Svoboda · lukas@webkit.studio
   Vlastník:  © 2026 Lukáš Svoboda (Webkit.Studio). Interní projekt.
 */
@@ -79,14 +79,17 @@
   const T = TEXT[LANG];
 
   /* ---------- typografie ---------- */
-  /* Webflow při publikaci zahazuje pevné mezery. V češtině je proto skript vrací za jednopísmenné předložky
-     a spojky (a, i, k, o, s, u, v, z), aby nezůstávaly na konci řádku. Platí i pro texty upravené v Designeru. */
-  if (!EN) {
+  /* Webflow při publikaci zahazuje pevné mezery, proto je skript vrací sám, i u textů upravených v Designeru:
+     za jednopísmenná slova (a, i, k, o, s, u, v, z; v angličtině a, I), za číslo před dalším slovem nebo číslem
+     (5 let, 10 000, 30+ projektů) a před pomlčku. Nic z toho pak nezůstane na konci nebo začátku řádku. */
+  {
     const tw = document.createTreeWalker(page, NodeFilter.SHOW_TEXT), nodes = [];
     while (tw.nextNode()) nodes.push(tw.currentNode);
+    const one = /(^|[\s(„“"])([AIKOSUVZaikosuvz]) (?=\S)/g;
     nodes.forEach(n => {
       if (/^(SCRIPT|STYLE)$/.test(n.parentNode.nodeName)) return;
-      const t = n.nodeValue.replace(/(^|[\s(„])([AIKOSUVZaikosuvz]) (?=\S)/g, '$1$2' + NB);
+      const t = n.nodeValue.replace(one, '$1$2' + NB).replace(one, '$1$2' + NB)
+        .replace(/(\d\+?) (?=[\d\p{L}%])/gu, '$1' + NB).replace(/ ([–—])/g, NB + '$1');
       if (t !== n.nodeValue) n.nodeValue = t;
     });
   }
@@ -325,17 +328,24 @@
   /* ---------- 07 projekty: střídané snímky ---------- */
   /* Panel s atributem data-frames="adresa1 adresa2 …" střídá skutečné obrázky, panel bez něj zástupné plochy.
      Jedno tlačítko vpravo nahoře (drží přes všechny panely) přepíná tempo: rychlý střih, nebo klidné prolínání.
-     Ikona jsou tři šipky, v klidném tempu svítí jen první. Volba se pamatuje. */
-  const shows = $$('.ls-projects_panel'), FRAMES = 6, TEMPO_KEY = 'ls-tempo';
+     Ikona jsou tři šipky, v klidném tempu svítí jen první. */
+  const shows = $$('.ls-projects_panel'), FRAMES = 6, TEMPO_KEY = 'ls-tempo-2';
   const showTimers = shows.map(() => null);
   let calm = false;
-  try { calm = localStorage.getItem(TEMPO_KEY) === 'calm'; } catch (err) { calm = false; }
+  /* výchozí je rychlé tempo; volba platí jen pro tuhle návštěvu (i po přepnutí jazyka), příště se začne zase rychle */
+  try { calm = sessionStorage.getItem(TEMPO_KEY) === 'calm'; } catch (err) { calm = false; }
   const tempoBtns = [];
   shows.forEach(sh => {
     const fw = $('.ls-projects_frames', sh);
     if (!fw) return;
     const urls = (sh.dataset.frames || '').split(/\s+/).filter(Boolean);
+    /* obal pro černé pruhy pod názvem a textem (styluje se jen u panelů s obrázky) */
+    $$('.ls-projects_name,.ls-projects_text', sh).forEach(n => {
+      if ($('.ls-mark', n)) return;
+      const m = el('span', 'ls-mark'); while (n.firstChild) m.appendChild(n.firstChild); n.appendChild(m);
+    });
     if (urls.length) {
+      sh.classList.add('has-images');
       urls.forEach((u, f) => {
         const fr = el('div', 'ls-projects_frame is-image' + (f ? '' : ' is-on')), im = new Image();
         im.className = 'ls-projects_frame-img'; im.alt = ''; im.decoding = 'async'; im.dataset.src = u;
@@ -372,7 +382,7 @@
   }
   tempoBtns.forEach(b => b.addEventListener('click', () => {
     setTempo(!calm);
-    try { localStorage.setItem(TEMPO_KEY, calm ? 'calm' : 'fast'); } catch (err) { /* bez úložiště platí jen do načtení */ }
+    try { sessionStorage.setItem(TEMPO_KEY, calm ? 'calm' : 'fast'); } catch (err) { /* bez úložiště platí jen do načtení */ }
   }));
   setTempo(calm);
   if (!reduce && shows.length && 'IntersectionObserver' in window) {
