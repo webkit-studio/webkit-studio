@@ -16,7 +16,7 @@
 
   ID:        WKS/lukas-svoboda/lukas-svoboda.css
   Repo:      github.com/webkit-studio/webkit-studio → lukas-svoboda/lukas-svoboda.css
-  Verze:     1.1.0 · 26.11.2026
+  Verze:     1.1.1 · 26.11.2026
   Autor:     Webkit.Studio – Lukáš Svoboda · lukas@webkit.studio
   Vlastník:  © 2026 Lukáš Svoboda (Webkit.Studio). Interní projekt.
 */
@@ -111,6 +111,9 @@
 .ls-hero_icon svg{display:block;width:100%;height:100%;overflow:visible;fill:none;stroke:currentColor;stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round}
 .ls-hero_icon.is-wet svg{filter:url(#ls-liquid)}
 .ls-hero_defs{position:absolute;width:0;height:0}
+/* Cookie lišta webu se na těchto dvou stránkách nezobrazuje. Bez volby zůstává souhlas zamítnutý, nic se neukládá.
+   Jediný selektor mimo .ls-page: lišta je přímo v body. */
+body:has(.ls-page) .wk-ck{display:none!important}
 .ls-hero_hint::after{content:"";display:block;width:2px;height:2rem;margin:.5rem auto 0;background:var(--pop);transform-origin:top;animation:ls-hint 1.8s ease-in-out infinite}
 @keyframes ls-hint{0%{transform:scaleY(0)}60%,100%{transform:scaleY(1)}}
 @media (max-width:47.99rem){
