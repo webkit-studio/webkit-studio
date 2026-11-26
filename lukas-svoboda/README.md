@@ -2,7 +2,7 @@
 
 Samostatný projekt. S webem studia ani s projektem v2 nesouvisí, jen sdílí repo kvůli jsDelivr.
 
-Stránky `webkit.studio/lukas-svoboda` (CZ) a `webkit.studio/en/lukas-svoboda` (EN). Obě jsou `noindex` a nejsou v mapě webu.
+Stránky `webkit.studio/cv-lukas-svoboda` (CZ) a `webkit.studio/en/cv-lukas-svoboda` (EN). Obě jsou `noindex` a nejsou v mapě webu.
 
 ## Co tu je
 

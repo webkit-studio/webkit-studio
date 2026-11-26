@@ -21,7 +21,7 @@
   Vlastník:  © 2026 Lukáš Svoboda (Webkit.Studio). Interní projekt.
 */
 
-/* Chování stránky /lukas-svoboda a /en/lukas-svoboda. Bez závislostí, jedna IIFE, načítat s defer.
+/* Chování stránky /cv-lukas-svoboda a /en/cv-lukas-svoboda. Bez závislostí, jedna IIFE, načítat s defer.
    Struktura a texty jsou ve Webflow. JS jen řídí scroll (hero, menu, proces, projekty, odhalení nadpisu),
    přepíná role a kopíruje kontakty. Dekorativní aria-hidden vnitřky (scény procesu, snímky projektů,
    slova nadpisu) si vytváří sám. Jazyk (cs/en) čte z data-lang na .ls-page. */
