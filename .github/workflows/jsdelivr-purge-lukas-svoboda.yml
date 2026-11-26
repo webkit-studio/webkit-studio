@@ -1,0 +1,45 @@
+# Osobní stránka Lukáše Svobody je samostatný projekt, proto má vlastní
+# purge. jsDelivr drží soubory z větve v cache 12 hodin; po tomhle je
+# nová verze na webu do pár vteřin.
+name: Purge jsDelivr (lukas-svoboda)
+
+on:
+  push:
+    branches: [main]
+    paths: ['lukas-svoboda/*.css', 'lukas-svoboda/*.js']
+  workflow_dispatch:
+
+jobs:
+  purge:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Vyčistit cache
+        run: |
+          set -euo pipefail
+          zaklad="https://purge.jsdelivr.net/gh/${GITHUB_REPOSITORY}@main/lukas-svoboda"
+          for soubor in lukas-svoboda/*.css lukas-svoboda/*.js; do
+            jmeno=$(basename "$soubor")
+            echo "→ $jmeno"
+            curl -sS --retry 3 --retry-delay 2 "$zaklad/$jmeno"
+            echo
+          done
+
+      - name: Ověřit, že CDN vrací novou verzi
+        run: |
+          set -euo pipefail
+          sleep 5
+          chyby=0
+          for soubor in lukas-svoboda/*.css lukas-svoboda/*.js; do
+            jmeno=$(basename "$soubor")
+            url="https://cdn.jsdelivr.net/gh/${GITHUB_REPOSITORY}@main/lukas-svoboda/$jmeno"
+            curl -sS --retry 3 --retry-delay 3 "$url" -o "/tmp/$jmeno"
+            if cmp -s "$soubor" "/tmp/$jmeno"; then
+              echo "✓ $jmeno sedí"
+            else
+              echo "✗ $jmeno se liší od repa (v repu $(wc -c < "$soubor") B, z CDN $(wc -c < "/tmp/$jmeno") B)"
+              chyby=1
+            fi
+          done
+          exit $chyby
