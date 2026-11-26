@@ -1,6 +1,6 @@
 # Osobní stránka Lukáše Svobody je samostatný projekt, proto má vlastní
 # purge. jsDelivr drží soubory z větve v cache 12 hodin; po tomhle je
-# nová verze na webu do pár vteřin.
+# nová verze na webu do minuty.
 name: Purge jsDelivr (lukas-svoboda)
 
 on:
@@ -15,31 +15,30 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Vyčistit cache
+      # jsDelivr chvíli po pushi ještě neví o novém commitu, takže jeden
+      # purge nemusí stačit. Čistí a ověřuje se opakovaně, nejvýš 6×.
+      - name: Vyčistit cache a ověřit, že CDN vrací novou verzi
         run: |
           set -euo pipefail
-          zaklad="https://purge.jsdelivr.net/gh/${GITHUB_REPOSITORY}@main/lukas-svoboda"
-          for soubor in lukas-svoboda/*.css lukas-svoboda/*.js; do
-            jmeno=$(basename "$soubor")
-            echo "→ $jmeno"
-            curl -sS --retry 3 --retry-delay 2 "$zaklad/$jmeno"
-            echo
+          cesta="gh/${GITHUB_REPOSITORY}@main/lukas-svoboda"
+          for pokus in 1 2 3 4 5 6; do
+            chyby=0
+            for soubor in lukas-svoboda/*.css lukas-svoboda/*.js; do
+              jmeno=$(basename "$soubor")
+              curl -sS --retry 3 --retry-delay 2 "https://purge.jsdelivr.net/$cesta/$jmeno" > /dev/null
+            done
+            sleep 15
+            for soubor in lukas-svoboda/*.css lukas-svoboda/*.js; do
+              jmeno=$(basename "$soubor")
+              curl -sS --retry 3 --retry-delay 3 "https://cdn.jsdelivr.net/$cesta/$jmeno" -o "/tmp/$jmeno"
+              if cmp -s "$soubor" "/tmp/$jmeno"; then
+                echo "✓ $jmeno sedí"
+              else
+                echo "✗ $jmeno se liší od repa (v repu $(wc -c < "$soubor") B, z CDN $(wc -c < "/tmp/$jmeno") B)"
+                chyby=1
+              fi
+            done
+            if [ "$chyby" = 0 ]; then exit 0; fi
+            echo "Pokus $pokus nestačil, zkouším znovu."
           done
-
-      - name: Ověřit, že CDN vrací novou verzi
-        run: |
-          set -euo pipefail
-          sleep 5
-          chyby=0
-          for soubor in lukas-svoboda/*.css lukas-svoboda/*.js; do
-            jmeno=$(basename "$soubor")
-            url="https://cdn.jsdelivr.net/gh/${GITHUB_REPOSITORY}@main/lukas-svoboda/$jmeno"
-            curl -sS --retry 3 --retry-delay 3 "$url" -o "/tmp/$jmeno"
-            if cmp -s "$soubor" "/tmp/$jmeno"; then
-              echo "✓ $jmeno sedí"
-            else
-              echo "✗ $jmeno se liší od repa (v repu $(wc -c < "$soubor") B, z CDN $(wc -c < "/tmp/$jmeno") B)"
-              chyby=1
-            fi
-          done
-          exit $chyby
+          exit 1
