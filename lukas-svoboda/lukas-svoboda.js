@@ -16,7 +16,7 @@
 
   ID:        WKS/lukas-svoboda/lukas-svoboda.js
   Repo:      github.com/webkit-studio/webkit-studio → lukas-svoboda/lukas-svoboda.js
-  Verze:     1.4.0 · 26.11.2026
+  Verze:     1.4.1 · 26.11.2026
   Autor:     Webkit.Studio – Lukáš Svoboda · lukas@webkit.studio
   Vlastník:  © 2026 Lukáš Svoboda (Webkit.Studio). Interní projekt.
 */
@@ -77,6 +77,19 @@
     }
   };
   const T = TEXT[LANG];
+
+  /* ---------- typografie ---------- */
+  /* Webflow při publikaci zahazuje pevné mezery. V češtině je proto skript vrací za jednopísmenné předložky
+     a spojky (a, i, k, o, s, u, v, z), aby nezůstávaly na konci řádku. Platí i pro texty upravené v Designeru. */
+  if (!EN) {
+    const tw = document.createTreeWalker(page, NodeFilter.SHOW_TEXT), nodes = [];
+    while (tw.nextNode()) nodes.push(tw.currentNode);
+    nodes.forEach(n => {
+      if (/^(SCRIPT|STYLE)$/.test(n.parentNode.nodeName)) return;
+      const t = n.nodeValue.replace(/(^|[\s(„])([AIKOSUVZaikosuvz]) (?=\S)/g, '$1$2' + NB);
+      if (t !== n.nodeValue) n.nodeValue = t;
+    });
+  }
 
   /* ---------- plynulý posun ---------- */
   let tweenId = 0, tweening = false;
