@@ -16,7 +16,7 @@
 
   ID:        WKS/lukas-svoboda/lukas-svoboda.css
   Repo:      github.com/webkit-studio/webkit-studio → lukas-svoboda/lukas-svoboda.css
-  Verze:     1.3.0 · 26.11.2026
+  Verze:     1.4.0 · 26.11.2026
   Autor:     Webkit.Studio – Lukáš Svoboda · lukas@webkit.studio
   Vlastník:  © 2026 Lukáš Svoboda (Webkit.Studio). Interní projekt.
 */
@@ -118,13 +118,14 @@ body:has(.ls-page) .wk-ck{display:none!important}
 }
 
 /* ---------- 02 role ---------- */
-.ls-role_heading{font-size:clamp(2rem,6vw,5rem);line-height:1.08;letter-spacing:-.04em;max-width:62rem;text-wrap:initial}
-.ls-role_row{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:3rem clamp(2rem,6vw,6rem);margin-top:var(--head-gap);align-items:end}
-.ls-role_stats{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+/* sekce role navazuje na pozdrav v hero, proto je celá na středu */
+.ls-role_heading{font-size:clamp(2rem,6vw,5rem);line-height:1.08;letter-spacing:-.04em;max-width:62rem;margin-inline:auto;text-align:center;text-wrap:initial}
+.ls-role_row{display:grid;grid-template-columns:minmax(0,1fr);justify-items:center;gap:2.5rem;margin-top:var(--head-gap);text-align:center}
+.ls-role_row .ls-lead{max-width:42rem}
+.ls-role_stats{display:grid;grid-template-columns:1fr 1fr;gap:2rem;width:min(100%,34rem)}
 .ls-role_stat{border-top:2px solid var(--pop);padding-top:1rem}
 .ls-role_stat-value{display:block;font-size:var(--h2);font-weight:700;line-height:1.1;letter-spacing:-.04em}
 .ls-role_stat-label{color:var(--on-ink-muted)}
-@media (max-width:47.99rem){.ls-role_row{grid-template-columns:minmax(0,1fr)}}
 
 /* ---------- 03 role a silné stránky: role nad neroztříděným gridem schopností ---------- */
 .ls-skills_head{margin-bottom:var(--head-gap)}
