@@ -16,7 +16,7 @@
 
   ID:        WKS/lukas-svoboda/lukas-svoboda.js
   Repo:      github.com/webkit-studio/webkit-studio → lukas-svoboda/lukas-svoboda.js
-  Verze:     1.12.0 · 26.11.2026
+  Verze:     1.12.1 · 26.11.2026
   Autor:     Webkit.Studio – Lukáš Svoboda · lukas@webkit.studio
   Vlastník:  © 2026 Lukáš Svoboda (Webkit.Studio). Interní projekt.
 */
@@ -292,7 +292,7 @@
 
   // počítač: jedno scrollnutí = další krok postupu nebo další projekt, vždy dojede na pevnou pozici
   const hijack = () => mqDesk.matches && mqFine.matches && !reduce;
-  let lockUntil = 0, lastT = 0, lastAbs = 0, lowest = 0, tail = false, notches = [], freeUntil = 0;
+  let lockUntil = 0, lastT = 0, lastAbs = 0, lowest = 0, tail = false, travelled = 0, lastStepT = 0, freeUntil = 0;
   const zones = () => {
     const z = [];
     if (proc) z.push({ top: docTop(proc), size: innerHeight, n: 4 });
@@ -319,20 +319,21 @@
     /* čas vzniku události, ne čas zpracování: když stránka zrovna načítá obrázky, zpracování se zpozdí
        a dojezd gesta by vypadal jako nový pohyb */
     const now = e.timeStamp || performance.now(), abs = Math.abs(e.deltaY), dt = now - lastT;
-    /* zub kolečka myši: stejně velké skoky s odstupem, nikdy menší než ten předchozí (dojezd touchpadu slábne) */
-    const notch = e.deltaMode === 1 || (!!e.wheelDeltaY && Math.abs(e.wheelDeltaY) % 120 === 0 && abs >= 50 && dt > 30 && abs >= (dt < 150 ? lastAbs : 0));
-    /* Nový pohyb = pauza, zub kolečka, nebo zřetelné zesílení oproti nejslabšímu místu dojezdu (lowest).
-       Drobné kolísání dojezdu se za nový pohyb nepočítá, takže jeden švih udělá nejvýš jeden krok. */
-    /* Kolečko s volným doběhem (a Magic Mouse) pošle po jednom švihu zuby ještě skoro vteřinu. Další krok proto
-       spustí až zub po krátké pauze, ne každý. */
-    const fresh = (notch && dt > 150) || dt > 150 || abs >= lowest * 3 + 15;
+    /* Jedno gesto = souvislý proud událostí bez pauzy delší než 260 ms (švih i s dojezdem, protočení kolečka).
+       Gesto udělá nejvýš jeden krok. Další krok chce buď nové gesto po pauze, nebo zřetelně nový švih uprostřed
+       dojezdu (aspoň čtyřnásobek nejslabšího místa a nejdřív 400 ms po kroku). */
+    const newGesture = dt > 260;
+    if (newGesture) { travelled = 0; lowest = abs; }
+    travelled += abs;
+    const rebound = !newGesture && abs >= lowest * 4 + 30 && now - lastStepT > 400;
+    const fresh = newGesture || rebound;
     lowest = fresh ? abs : Math.min(lowest, abs);
+    if (rebound) travelled = abs;
     lastT = now; lastAbs = abs;
     if (fresh) tail = false;
-    /* Hodně silný švih (nebo rychlé protočení kolečka) krokování na chvíli vypne: stránka projede sekcí volně
-       a rychle, třeba při návratu na začátek. Až zeslábne, dosedne na nejbližší pozici. */
-    if (notch) { notches.push(now); notches = notches.filter(t => now - t < 350); }
-    if (abs >= 220 || notches.length >= 4) freeUntil = now + 260;
+    /* Opravdu velký švih (gesto ujede přes 9000 px) krokování pustí: stránka projede sekcí volně a rychle,
+       třeba při návratu na začátek. Až dojezd skončí, dosedne na nejbližší pozici. */
+    if (travelled > 9000) freeUntil = now + 300;
     if (now < freeUntil) { tail = false; if (tweening) cancelTween(); return; }
     const to = stepTarget(dir);
     if (!to) {
@@ -342,7 +343,7 @@
     }
     e.preventDefault();
     if (now < lockUntil || tail || abs < 2) return;
-    tail = true; lockUntil = now + 700;
+    tail = true; lockUntil = now + 500; lastStepT = now;
     if (to.entering) {
       /* vjezd zvenku: převzít rozjetý scroll stejnou rychlostí, jakou právě jede, a plynule dobrzdit na pozici */
       const dist = Math.abs(to.y - scrollY), speed = Math.max(abs / clamp(dt, 8, 40), .35);
