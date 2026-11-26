@@ -49,3 +49,7 @@ Action po pushi vyčistí cache jsDelivru. Kdyby se změna neprojevila, ručně:
 ## Kde je zbytek
 
 Prototyp, struktura stránek, popis tříd a fotky jsou v soukromém repu projektu. Sem patří jen to, co musí být veřejné kvůli CDN.
+
+## Ikony
+
+Slabé ručně kreslené ikony na černé ploše úvodu jsou vložené přímo v `lukas-svoboda.js`. Sada: Oreo Doodle Icons, © 2026 Nicole Tang, licence MIT (`IKONY-LICENCE.txt`). Kafe, golf a kancelářská židle jsou dokreslené ve stejném stylu.

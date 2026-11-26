@@ -16,7 +16,7 @@
 
   ID:        WKS/lukas-svoboda/lukas-svoboda.css
   Repo:      github.com/webkit-studio/webkit-studio → lukas-svoboda/lukas-svoboda.css
-  Verze:     1.0.0 · 26.11.2026
+  Verze:     1.1.0 · 26.11.2026
   Autor:     Webkit.Studio – Lukáš Svoboda · lukas@webkit.studio
   Vlastník:  © 2026 Lukáš Svoboda (Webkit.Studio). Interní projekt.
 */
@@ -53,10 +53,11 @@
 .ls-page,.ls-page *,.ls-page *::before,.ls-page *::after{box-sizing:border-box}
 
 /* malý lokální reset (specificita jedné třídy) */
-.ls-page :where(h1,h2,h3,h4,p,ul,ol,dl,dd){margin:0}
+.ls-page :where(h1,h2,h3,h4,h5,h6,p,ul,ol,li,dl,dd,figure){margin:0}
+.ls-page :where(li){padding:0}
 .ls-page :where(ul,ol){padding:0;list-style:none}
-.ls-page :where(h1,h2,h3,h4){font-size:inherit;font-weight:700;line-height:1.1;letter-spacing:-.03em;text-wrap:balance;color:inherit}
-.ls-page :where(p,li,dt,dd){font-size:inherit;line-height:inherit;color:inherit}
+.ls-page :where(h1,h2,h3,h4,h5,h6){font-family:inherit;font-variation-settings:normal;font-style:normal;text-transform:none;font-size:inherit;font-weight:700;line-height:1.1;letter-spacing:-.03em;text-wrap:balance;color:inherit}
+.ls-page :where(p,li,dt,dd){font-family:inherit;font-size:inherit;line-height:inherit;color:inherit}
 .ls-page :where(a){color:inherit;background:none;text-decoration:none;cursor:pointer}
 .ls-page :where(button){appearance:none;-webkit-appearance:none;margin:0;padding:0;border:0;border-radius:0;background:none;box-shadow:none;font:inherit;color:inherit;letter-spacing:inherit;text-transform:none;text-align:inherit;cursor:pointer}
 .ls-page :where(img){display:block;max-width:100%;border:0}
@@ -101,6 +102,15 @@
 .ls-hero_img{display:block;width:100%;height:100%;max-width:none;border-radius:50%;object-fit:cover}
 .ls-hero_overlay{position:absolute;z-index:0;left:50%;top:50%;width:170vmax;height:170vmax;margin:-85vmax 0 0 -85vmax;border-radius:50%;background:var(--ink);transform:scale(var(--ov,0))}
 .ls-hero_hint{position:absolute;z-index:2;left:0;right:0;bottom:calc(1.75rem + env(safe-area-inset-bottom,0px));text-align:center;font-size:.875rem;color:var(--ink);opacity:calc(1 - var(--a,0)*4)}
+/* JS měří volné místo pod pozdravem (--ls-m). O tolik je hero delší a o tolik se sekce role nasune pod pozdrav. */
+.ls-page.is-merged .section_ls-hero{height:calc(200vh + var(--ls-m,0px))}
+.ls-page.is-merged .section_ls-role{margin-top:calc(-1*var(--ls-m,0px));padding-top:0}
+/* ručně kreslené ikony na černé: odkrývá je stejný kruh jako černou plochu, reagují na kurzor */
+.ls-hero_icons{position:absolute;z-index:0;inset:0;pointer-events:none;color:var(--on-ink);clip-path:circle(var(--ls-r,0px) at var(--ls-cx,50%) var(--ls-cy,50%))}
+.ls-hero_icon{position:absolute;left:0;top:0;width:var(--s);height:var(--s);margin:calc(var(--s)/-2) 0 0 calc(var(--s)/-2);opacity:.16;will-change:transform,opacity}
+.ls-hero_icon svg{display:block;width:100%;height:100%;overflow:visible;fill:none;stroke:currentColor;stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round}
+.ls-hero_icon.is-wet svg{filter:url(#ls-liquid)}
+.ls-hero_defs{position:absolute;width:0;height:0}
 .ls-hero_hint::after{content:"";display:block;width:2px;height:2rem;margin:.5rem auto 0;background:var(--pop);transform-origin:top;animation:ls-hint 1.8s ease-in-out infinite}
 @keyframes ls-hint{0%{transform:scaleY(0)}60%,100%{transform:scaleY(1)}}
 @media (max-width:47.99rem){
@@ -285,6 +295,8 @@
 
 /* ---------- 08 kontakt: velká fotka vestoje, vedle nadpis a kontakty ---------- */
 .ls-page .section_ls-contact{padding-bottom:0}
+.ls-page .section_ls-contact[id]{display:block;min-height:0}
+.ls-page #kontakt.section_ls-contact{display:block;min-height:0}
 .ls-contact_grid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:2rem clamp(2rem,6vw,6rem);align-items:end}
 .ls-contact_portrait{width:100%;max-width:34rem;aspect-ratio:2/3;justify-self:center}
 .ls-contact_img{display:block;width:100%;height:100%;max-width:none;object-fit:contain;object-position:bottom}
@@ -292,11 +304,10 @@
 .ls-contact_heading{font-size:clamp(1.875rem,3.8vw,3.25rem);font-weight:700;line-height:1.08;letter-spacing:-.035em}
 .ls-contact_word{opacity:.2}
 .ls-contact_list{list-style:none;display:grid;justify-items:start;margin:2.5rem 0 0;padding:0}
-.ls-contact_row{display:inline-flex;align-items:center;gap:.25rem;background:none;border:0;padding:0;font-size:clamp(1.25rem,2.2vw,1.75rem);font-weight:500;letter-spacing:-.01em;line-height:1.2;text-align:left;text-decoration:none;cursor:pointer;transition:color .2s ease-out}
-.ls-contact_row:hover{color:var(--pop)}
+.ls-contact_row{display:inline-flex;align-items:center;gap:.25rem;background:none;border:0;padding:0;font-size:clamp(1.25rem,2.2vw,1.75rem);font-weight:500;letter-spacing:-.01em;line-height:1.2;text-align:left;text-decoration:none;cursor:pointer}
 .ls-contact_row-text{min-width:0;overflow-wrap:anywhere}
 .ls-contact_icon{flex:none;width:2.75rem;height:2.75rem;display:inline-grid;place-items:center;color:var(--pop);transition:transform .2s var(--ease)}
-.ls-contact_row:hover .ls-contact_icon{transform:translateX(3px)}
+.ls-contact_row:hover .ls-contact_icon{transform:scale(1.2)}
 .ls-contact_row:active .ls-contact_icon{transform:scale(.9)}
 /* ikony kopírovat / hotovo: maska z data-URI, bez inline SVG v HTML */
 .ls-contact_icon-copy,.ls-contact_icon-ok{grid-area:1/1;display:block;width:18px;height:18px;background-color:currentColor;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:center;mask-position:center;-webkit-mask-size:100% 100%;mask-size:100% 100%;transition:opacity .15s ease-out}
