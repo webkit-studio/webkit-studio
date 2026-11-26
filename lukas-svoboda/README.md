@@ -53,3 +53,7 @@ Prototyp, struktura stránek, popis tříd a fotky jsou v soukromém repu projek
 ## Ikony
 
 Slabé ručně kreslené ikony na černé ploše úvodu jsou vložené přímo v `lukas-svoboda.js`. Sada: Oreo Doodle Icons, © 2026 Nicole Tang, licence MIT (`IKONY-LICENCE.txt`). Kafe, golf a kancelářská židle jsou dokreslené ve stejném stylu.
+
+## Pozor: Webflow načítá připnutý commit, ne `@main`
+
+Od verze 1.2.0 mají obě stránky v hlavičce a v embedu adresu s konkrétním commitem (`@<sha>` místo `@main`). jsDelivr totiž drží `@main` v cache 12 hodin a opakované čištění zablokuje. Sekce „Co je vložené ve Webflow“ a „Jak se nasazuje změna“ výše proto platí s touhle úpravou: po pushi je potřeba zapsat nové `<sha>` do obou stránek a web publikovat.
