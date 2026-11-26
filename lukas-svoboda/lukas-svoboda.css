@@ -16,7 +16,7 @@
 
   ID:        WKS/lukas-svoboda/lukas-svoboda.css
   Repo:      github.com/webkit-studio/webkit-studio → lukas-svoboda/lukas-svoboda.css
-  Verze:     1.10.0 · 26.11.2026
+  Verze:     1.11.0 · 26.11.2026
   Autor:     Webkit.Studio – Lukáš Svoboda · lukas@webkit.studio
   Vlastník:  © 2026 Lukáš Svoboda (Webkit.Studio). Interní projekt.
 */
@@ -25,6 +25,11 @@
    Nic neuniká do global.css webu a global.css do stránky nezasahuje: písmo, barvy, okraje
    a box-sizing se nastavují výslovně uvnitř .ls-page. Reset používá :where(), takže má
    specificitu jedné třídy (přebije tagové selektory webu) a třídy níže ho přepíšou. */
+
+/* Velké monitory: od šířky 1600 px se celá stránka jemně zvětšuje (písmo, mezery i šířka obsahu, všechno je v rem),
+   na 1920 px o 8 %, od 2560 px o 25 %. V procentech, aby platilo i vlastní nastavení písma v prohlížeči.
+   Selektor mimo .ls-page: mění základní velikost písma jen na stránkách, kde .ls-page je. */
+html:has(.ls-page){font-size:clamp(100%,58.33% + .4167vw,125%)}
 
 /* ---------- základ a proměnné ---------- */
 .ls-page{
