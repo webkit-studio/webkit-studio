@@ -16,7 +16,7 @@
 
   ID:        WKS/lukas-svoboda/lukas-svoboda.js
   Repo:      github.com/webkit-studio/webkit-studio → lukas-svoboda/lukas-svoboda.js
-  Verze:     1.11.1 · 26.11.2026
+  Verze:     1.12.0 · 26.11.2026
   Autor:     Webkit.Studio – Lukáš Svoboda · lukas@webkit.studio
   Vlastník:  © 2026 Lukáš Svoboda (Webkit.Studio). Interní projekt.
 */
@@ -61,10 +61,10 @@
       frame: 'snímek', tempoLabel: 'Tempo střídání snímků', tempoNames: ['klidnější', 'rychlé'], talk: 'dáme o tom řeč', copied: 'Zkopírováno.', selected: 'Text je označený, zkopírujte ho.'
     },
     en: {
-      bubbles: [['Why are we doing this?', 24, 18], ['Who is it for?', 72, 15], ['What should change?', 79, 42], ['What no longer works?', 21, 45],
-        ['What if we do nothing?', 50, 31], ['How will we know it worked?', 31, 71], ['Who decides?', 73, 70], ['What does it cost today?', 52, 88]],
+      bubbles: [['Why are we doing this?', 24, 18], ['Who is it for?', 72, 15], ['What should change?', 79, 42], ['What’s stopped working?', 21, 45],
+        ['What if we do nothing?', 50, 31], ['How will we know it worked?', 31, 71], ['Who decides?', 73, 70], ['What is it costing us now?', 52, 88]],
       problem: 'The problem in one sentence',
-      problemText: 'The website brings in no enquiries because it doesn’t say clearly what the company does.',
+      problemText: 'The website isn’t bringing in enquiries because it doesn’t make clear what the company does.',
       layers: [['Goal', 'More enquiries from the website'], ['Outcome', 'Visitors see right away what the company does'], ['Output', 'A new homepage and copy']],
       cols: ['Content', 'Design', 'Features', 'Tech', 'Growth'],
       pick: 'Chosen direction: Features',
@@ -73,7 +73,7 @@
       done: 'Done', of: ' of 6 · ', pct: '%',
       publish: 'Publish', live: 'Live',
       kpis: ['visits', 'enquiries', 'conversion'],
-      frame: 'frame', tempoLabel: 'Image tempo', tempoNames: ['calmer', 'fast'], talk: 'let’s talk', copied: 'Copied.', selected: 'Text selected, copy it.'
+      frame: 'frame', tempoLabel: 'Slideshow speed', tempoNames: ['slow', 'fast'], talk: 'let’s talk', copied: 'Copied.', selected: 'Text selected. Please copy it.'
     }
   };
   const T = TEXT[LANG];
