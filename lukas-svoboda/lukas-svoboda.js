@@ -16,7 +16,7 @@
 
   ID:        WKS/lukas-svoboda/lukas-svoboda.js
   Repo:      github.com/webkit-studio/webkit-studio → lukas-svoboda/lukas-svoboda.js
-  Verze:     1.12.1 · 26.11.2026
+  Verze:     1.13.0 · 26.11.2026
   Autor:     Webkit.Studio – Lukáš Svoboda · lukas@webkit.studio
   Vlastník:  © 2026 Lukáš Svoboda (Webkit.Studio). Interní projekt.
 */
@@ -292,7 +292,7 @@
 
   // počítač: jedno scrollnutí = další krok postupu nebo další projekt, vždy dojede na pevnou pozici
   const hijack = () => mqDesk.matches && mqFine.matches && !reduce;
-  let lockUntil = 0, lastT = 0, lastAbs = 0, lowest = 0, tail = false, travelled = 0, lastStepT = 0, freeUntil = 0;
+  let lockUntil = 0, lastT = 0, lastAbs = 0, lowest = 0, tail = false, travelled = 0, lastStepT = 0, freeUntil = 0, freeGesture = false;
   const zones = () => {
     const z = [];
     if (proc) z.push({ top: docTop(proc), size: innerHeight, n: 4 });
@@ -323,7 +323,14 @@
        Gesto udělá nejvýš jeden krok. Další krok chce buď nové gesto po pauze, nebo zřetelně nový švih uprostřed
        dojezdu (aspoň čtyřnásobek nejslabšího místa a nejdřív 400 ms po kroku). */
     const newGesture = dt > 260;
-    if (newGesture) { travelled = 0; lowest = abs; }
+    if (newGesture) {
+      travelled = 0; lowest = abs;
+      /* Krokuje jen gesto, které začalo v klidu na některé pozici. Gesto, které začalo jinde (nájezd do sekce,
+         výjezd z ní), nechává stránku scrollovat volně a nic nepřebírá; po zastavení se jen dorovná na pozici. */
+      const y0 = scrollY;
+      freeGesture = !zones().some(z => { const k = (y0 - z.top) / z.size; return k > -.01 && k < z.n - .99 && Math.abs(k - Math.round(k)) * z.size < 3; });
+    }
+    if (freeGesture) { tail = false; if (tweening) cancelTween(); return; }
     travelled += abs;
     const rebound = !newGesture && abs >= lowest * 4 + 30 && now - lastStepT > 400;
     const fresh = newGesture || rebound;
@@ -362,10 +369,10 @@
         const end = z.top + (z.n - 1) * z.size;
         if (y <= z.top + 2 || y >= end - 2) continue;
         const near = z.top + Math.round((y - z.top) / z.size) * z.size, d = Math.abs(near - y);
-        if (d > 2) scrollToY(near, clamp(d * 1.2, 260, 520), true);
+        if (d > 2) scrollToY(near, clamp(d * 1.6, 380, 750));
         return;
       }
-    }, 170);
+    }, 130);
   }, { passive: true });
   addEventListener('keydown', e => {
     if (!hijack() || e.altKey || e.ctrlKey || e.metaKey) return;
