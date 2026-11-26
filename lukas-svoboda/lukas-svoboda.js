@@ -16,7 +16,7 @@
 
   ID:        WKS/lukas-svoboda/lukas-svoboda.js
   Repo:      github.com/webkit-studio/webkit-studio → lukas-svoboda/lukas-svoboda.js
-  Verze:     1.4.1 · 26.11.2026
+  Verze:     1.4.2 · 26.11.2026
   Autor:     Webkit.Studio – Lukáš Svoboda · lukas@webkit.studio
   Vlastník:  © 2026 Lukáš Svoboda (Webkit.Studio). Interní projekt.
 */
@@ -361,7 +361,7 @@
     const frs = $$('.ls-projects_frame', shows[k]); if (frs.length < 2) return;
     frs.forEach(fr => { const im = fr.firstElementChild; if (im && im.dataset && im.dataset.src && !im.src) im.src = im.dataset.src; });
     let f = frs.findIndex(x => x.classList.contains('is-on')); if (f < 0) f = 0;
-    showTimers[k] = setInterval(() => { frs[f].classList.remove('is-on'); f = (f + 1) % frs.length; frs[f].classList.add('is-on'); }, calm ? 2600 : 340);
+    showTimers[k] = setInterval(() => { frs[f].classList.remove('is-on'); f = (f + 1) % frs.length; frs[f].classList.add('is-on'); }, calm ? 2080 : 357);
   };
   const showSeen = shows.map(() => false);
   function setTempo(on) {

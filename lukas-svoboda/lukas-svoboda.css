@@ -16,7 +16,7 @@
 
   ID:        WKS/lukas-svoboda/lukas-svoboda.css
   Repo:      github.com/webkit-studio/webkit-studio → lukas-svoboda/lukas-svoboda.css
-  Verze:     1.4.1 · 26.11.2026
+  Verze:     1.4.2 · 26.11.2026
   Autor:     Webkit.Studio – Lukáš Svoboda · lukas@webkit.studio
   Vlastník:  © 2026 Lukáš Svoboda (Webkit.Studio). Interní projekt.
 */
@@ -285,7 +285,7 @@ body:has(.ls-page) .wk-ck{display:none!important}
   var(--frbg,var(--fr-1))}
 .ls-projects_frame.is-on{opacity:1}
 /* klidné tempo: snímky se prolínají, rychlé tempo: střih */
-.ls-projects_frames.is-calm .ls-projects_frame{transition:opacity .9s ease}
+.ls-projects_frames.is-calm .ls-projects_frame{transition:opacity .75s ease}
 /* skutečné obrázky projektu (adresy v atributu data-frames na panelu), ztmavené kvůli čitelnosti textu */
 .ls-projects_frame.is-image{background:var(--ink)}
 .ls-projects_frame-img{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover}
