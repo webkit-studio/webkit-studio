@@ -16,7 +16,7 @@
 
   ID:        WKS/lukas-svoboda/lukas-svoboda.js
   Repo:      github.com/webkit-studio/webkit-studio → lukas-svoboda/lukas-svoboda.js
-  Verze:     1.0.0 · 26.11.2026
+  Verze:     1.0.1 · 26.11.2026
   Autor:     Webkit.Studio – Lukáš Svoboda · lukas@webkit.studio
   Vlastník:  © 2026 Lukáš Svoboda (Webkit.Studio). Interní projekt.
 */
@@ -121,7 +121,8 @@
     if (roleIdx < 0) setRole(0);
     roleTimer = setInterval(() => setRole((roleIdx + 1) % roleBtns.length), 1800);
   }
-  roleBtns.forEach((b, i) => b.addEventListener('click', () => {
+  roleBtns.forEach((b, i) => b.addEventListener('click', e => {
+    e.preventDefault();
     clearInterval(roleTimer); roleTimer = null; clearTimeout(rolePause);
     setRole(i === roleIdx ? -1 : i);
     rolePause = setTimeout(roleAuto, 6000);
@@ -343,11 +344,18 @@
       words.push(add(reveal, 'span', 'ls-contact_word', w));
     });
   }
-  $$('[data-copy]').forEach(b => b.addEventListener('click', () => {
+  $$('[data-copy]').forEach(b => b.addEventListener('click', e => {
+    e.preventDefault();
     const src = $('.ls-contact_row-text', b) || b, txt = src.textContent.trim();
     const done = msg => { b.classList.add('is-ok'); if (copyMsg) copyMsg.textContent = msg; setTimeout(() => { b.classList.remove('is-ok'); if (copyMsg) copyMsg.textContent = ''; }, 1500); };
     const fallback = () => { const r = document.createRange(); r.selectNodeContents(src); const s = getSelection(); s.removeAllRanges(); s.addRange(r); done(T.selected); };
     try { navigator.clipboard.writeText(txt).then(() => done(T.copied), fallback); } catch (err) { fallback(); }
+  }));
+
+  /* Webflow tlačítka rolí a kopírování vykreslí jako odkaz s role="button". Mezerník je musí spustit
+     vždy, Enter jen když odkaz nemá href (s href ho spustí prohlížeč sám). */
+  $$('.ls-page a[role="button"]').forEach(b => b.addEventListener('keydown', e => {
+    if (e.key === ' ' || (e.key === 'Enter' && !b.hasAttribute('href'))) { e.preventDefault(); b.click(); }
   }));
 
   /* ---------- menu ---------- */
