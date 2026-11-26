@@ -16,7 +16,7 @@
 
   ID:        WKS/lukas-svoboda/lukas-svoboda.css
   Repo:      github.com/webkit-studio/webkit-studio → lukas-svoboda/lukas-svoboda.css
-  Verze:     1.5.0 · 26.11.2026
+  Verze:     1.6.0 · 26.11.2026
   Autor:     Webkit.Studio – Lukáš Svoboda · lukas@webkit.studio
   Vlastník:  © 2026 Lukáš Svoboda (Webkit.Studio). Interní projekt.
 */
@@ -92,12 +92,12 @@
 
 /* ---------- 01 hero ---------- */
 .ls-page .section_ls-hero{position:relative;height:200vh;background:var(--paper)}
-.ls-hero_pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;isolation:isolate;background:var(--paper);display:grid;grid-template-columns:repeat(3,max-content);justify-content:center;align-content:center;align-items:center;column-gap:clamp(1rem,2.2vw,2rem);padding-left:var(--gl);padding-right:var(--gr);--min:.2}
+.ls-hero_pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;isolation:isolate;background:var(--paper);display:grid;grid-template-columns:repeat(3,max-content);justify-content:start;align-content:center;align-items:center;column-gap:clamp(1rem,2.2vw,2rem);padding-left:max(var(--gl),calc((100% - 80rem)/2));padding-right:var(--gr);--min:.2;--cell:min(22rem,26vw)}
 .ls-hero_word{position:relative;z-index:2;font-size:clamp(2.5rem,5.6vw,6rem);font-weight:700;line-height:1.1;letter-spacing:-.045em;white-space:nowrap;color:var(--diff-on);mix-blend-mode:difference}
-.ls-hero_word.is-left{transform:translateX(calc((1 - var(--a,0))*8.75rem))}
-.ls-hero_word.is-right{transform:translateX(calc((1 - var(--a,0))*-8.75rem))}
+/* Pozdrav drží levou hranu stránky. Dokud je fotka malá, přisune se k levému slovu ona a pravé slovo za ní. */
+.ls-hero_word.is-right{transform:translateX(calc((1 - var(--a,0))*(1 - var(--min))*-1*var(--cell)))}
 .ls-hero_word.is-mobile{display:none}
-.ls-hero_cell{position:relative;width:min(22rem,26vw);aspect-ratio:1}
+.ls-hero_cell{position:relative;width:var(--cell);aspect-ratio:1;transform:translateX(calc((1 - var(--a,0))*(1 - var(--min))*-.5*var(--cell)))}
 .ls-hero_photo{position:relative;z-index:1;width:100%;height:100%;transform:scale(calc(var(--min) + (1 - var(--min))*var(--a,0)))}
 .ls-hero_img{display:block;width:100%;height:100%;max-width:none;border-radius:50%;object-fit:cover}
 .ls-hero_overlay{position:absolute;z-index:0;left:50%;top:50%;width:170vmax;height:170vmax;margin:-85vmax 0 0 -85vmax;border-radius:50%;background:var(--ink);transform:scale(var(--ov,0))}
@@ -111,21 +111,22 @@ body:has(.ls-page) .wk-ck{display:none!important}
 .ls-hero_hint::after{content:"";display:block;width:2px;height:2rem;margin:.5rem auto 0;background:var(--pop);transform-origin:top;animation:ls-hint 1.8s ease-in-out infinite}
 @keyframes ls-hint{0%{transform:scaleY(0)}60%,100%{transform:scaleY(1)}}
 @media (max-width:47.99rem){
-  .ls-hero_pin{grid-template-columns:minmax(0,60%);justify-items:center;row-gap:2rem;--min:.7}
+  .ls-hero_pin{grid-template-columns:minmax(0,60%);justify-items:start;row-gap:2rem;--min:.7}
   .ls-hero_word.is-left,.ls-hero_word.is-right{display:none}
   .ls-hero_word.is-mobile{display:block;font-size:clamp(1.75rem,8.4vw,3rem)}
-  .ls-hero_cell{width:100%}
+  .ls-hero_cell{width:100%;transform:none}
+  .ls-hero_photo{transform-origin:left center}
 }
 
 /* ---------- 02 role ---------- */
-/* sekce role navazuje na pozdrav v hero, proto je celá na středu */
-.ls-role_heading{font-size:clamp(2rem,6vw,5rem);line-height:1.08;letter-spacing:-.04em;max-width:62rem;margin-inline:auto;text-align:center;text-wrap:initial}
-.ls-role_row{display:grid;grid-template-columns:minmax(0,1fr);justify-items:center;gap:2.5rem;margin-top:var(--head-gap);text-align:center}
-.ls-role_row .ls-lead{max-width:42rem}
-.ls-role_stats{display:grid;grid-template-columns:1fr 1fr;gap:2rem;width:min(100%,34rem)}
+/* sekce role navazuje na pozdrav v hero: stejná levá hrana */
+.ls-role_heading{font-size:clamp(2rem,6vw,5rem);line-height:1.08;letter-spacing:-.04em;max-width:62rem;text-wrap:initial}
+.ls-role_row{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:3rem clamp(2rem,6vw,6rem);margin-top:var(--head-gap);align-items:end}
+.ls-role_stats{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
 .ls-role_stat{border-top:2px solid var(--pop);padding-top:1rem}
 .ls-role_stat-value{display:block;font-size:var(--h2);font-weight:700;line-height:1.1;letter-spacing:-.04em}
 .ls-role_stat-label{color:var(--on-ink-muted)}
+@media (max-width:47.99rem){.ls-role_row{grid-template-columns:minmax(0,1fr)}}
 
 /* ---------- 03 role a silné stránky: role nad neroztříděným gridem schopností ---------- */
 .ls-skills_head{margin-bottom:var(--head-gap)}
