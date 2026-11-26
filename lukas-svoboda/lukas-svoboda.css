@@ -16,7 +16,7 @@
 
   ID:        WKS/lukas-svoboda/lukas-svoboda.css
   Repo:      github.com/webkit-studio/webkit-studio → lukas-svoboda/lukas-svoboda.css
-  Verze:     1.8.0 · 26.11.2026
+  Verze:     1.9.1 · 26.11.2026
   Autor:     Webkit.Studio – Lukáš Svoboda · lukas@webkit.studio
   Vlastník:  © 2026 Lukáš Svoboda (Webkit.Studio). Interní projekt.
 */
@@ -61,6 +61,8 @@
 .ls-page :where(a){color:inherit;background:none;text-decoration:none;cursor:pointer}
 .ls-page :where(button){appearance:none;-webkit-appearance:none;margin:0;padding:0;border:0;border-radius:0;background:none;box-shadow:none;font:inherit;color:inherit;letter-spacing:inherit;text-transform:none;text-align:inherit;cursor:pointer}
 .ls-page :where(img){display:block;max-width:100%;border:0}
+/* obrázky nejdou přetáhnout ani uložit z kontextové nabídky (jen ztížení, snímek obrazovky to neobejde) */
+.ls-page img{pointer-events:none;user-select:none;-webkit-user-select:none;-webkit-user-drag:none;-webkit-touch-callout:none}
 .ls-page :focus-visible{outline:2px solid;outline-offset:3px}
 
 .ls-sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
@@ -122,6 +124,8 @@ body:has(.ls-page) .wk-ck{display:none!important}
 /* ---------- 02 role ---------- */
 /* sekce role navazuje na pozdrav v hero: stejná levá hrana */
 .ls-role_heading{font-size:clamp(2rem,6vw,5rem);line-height:1.08;letter-spacing:-.04em;max-width:62rem;text-wrap:initial}
+/* první věta nadpisu (modrá) má od tabletu výš vlastní řádek, druhá začíná na dalším */
+@media (min-width:48rem){.ls-role_heading .ls-hl{display:block}}
 .ls-role_row{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:3rem clamp(2rem,6vw,6rem);margin-top:var(--head-gap);align-items:start}
 .ls-role_stats{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
 .ls-role_stat-value{display:block;font-size:var(--h2);font-weight:700;line-height:1.1;letter-spacing:-.04em}
@@ -289,24 +293,27 @@ body:has(.ls-page) .wk-ck{display:none!important}
 /* skutečné obrázky projektu (adresy v atributu data-frames na panelu), v plné barvě */
 .ls-projects_frame.is-image{background:var(--ink)}
 .ls-projects_frame-img{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover}
-/* jedno tlačítko tempa pro celou sekci: drží nahoře přes všechny panely. Ikona = tři šipky, svítí jedna, dvě, nebo tři podle tempa. */
-/* výška + záporný okraj: lišta nezabírá místo, ale na konci sekce odjede s ní a tlačítko nepřeteče do další sekce */
-.ls-projects_tempo-bar{position:sticky;top:0;z-index:3;height:4.25rem;margin-bottom:-4.25rem;pointer-events:none}
+.ls-projects_frame-img.is-top{object-position:center top}
+/* jedno tlačítko tempa pro celou sekci: drží nahoře přes všechny panely. Ikona = tři šipky: v klidnějším tempu svítí jedna, v rychlém všechny tři. */
+/* Lišta je průhledná vrstva vysoká jako panel a první panel je vytažený přes ni. Chová se tedy jako panel:
+   drží nahoře a na konci sekce odjede spolu s posledním panelem, takže tlačítko nepřeteče do další sekce. */
+.ls-projects_tempo-bar{position:sticky;top:0;z-index:3;height:100vh;height:100svh;pointer-events:none}
+.ls-projects_tempo-bar+.ls-projects_panel{margin-top:-100vh;margin-top:-100svh}
 .ls-projects_tempo{position:absolute;top:calc(1rem + env(safe-area-inset-top,0px));right:calc(var(--gr) - .5rem);width:3.25rem;height:2.75rem;display:grid;place-items:center;color:var(--on-ink);opacity:.65;cursor:pointer;pointer-events:auto;transition:opacity .2s ease-out,transform .15s ease-out}
 .ls-projects_tempo:hover,.ls-projects_tempo:focus-visible{opacity:1}
 .ls-projects_tempo:active{transform:scale(.92)}
 .ls-projects_tempo svg{display:block;width:1.875rem;height:.75rem;fill:currentColor}
 .ls-projects_tempo path{transition:opacity .2s ease-out}
-.ls-projects_tempo.is-1 .ls-projects_tempo-2,.ls-projects_tempo.is-1 .ls-projects_tempo-3,.ls-projects_tempo.is-2 .ls-projects_tempo-3{opacity:.28}
+.ls-projects_tempo.is-1 .ls-projects_tempo-2,.ls-projects_tempo.is-1 .ls-projects_tempo-3{opacity:.28}
 /* Na šířku: nahoře úzký černý pruh (název, vedle popis a čísla, úplně vpravo tempo), pod ním celý obrázek.
    Na výšku: text nahoře na černé, celý obrázek 16:9 bez ořezu dole. */
 @media (orientation:landscape){
-  .ls-page .section_ls-projects{--bar:4.25rem}
+  .ls-page .section_ls-projects{--bar:6rem}
   .ls-page .ls-projects_frames{top:var(--bar)}
-  .ls-page .ls-projects_content{max-width:none;margin:0;min-height:var(--bar);display:flex;align-items:center;gap:.25rem 2rem;background:var(--ink);
-    padding:.6rem calc(var(--gr) + 3.5rem) .6rem max(var(--gl),calc((100% - 80rem)/2))}
-  .ls-page .ls-projects_name{flex:none;max-width:none;font-size:clamp(1.125rem,1.6vw,1.5rem);line-height:1.15;letter-spacing:-.02em;white-space:nowrap}
-  .ls-page .ls-projects_text{flex:1;min-width:0;max-width:none;margin:0;font-size:.9375rem;line-height:1.35;color:var(--on-ink-muted)}
+  .ls-page .ls-projects_content{max-width:none;margin:0;min-height:var(--bar);display:flex;align-items:center;gap:.25rem 2.5rem;background:var(--ink);
+    padding:.75rem calc(var(--gr) + 7rem) .75rem max(var(--gl),calc((100% - 80rem)/2))}
+  .ls-page .ls-projects_name{flex:0 1 auto;max-width:24rem;font-size:clamp(1.5rem,2.3vw,2.25rem);line-height:1.1;letter-spacing:-.03em;text-wrap:balance}
+  .ls-page .ls-projects_text{flex:0 1 26rem;min-width:13rem;max-width:26rem;margin:0 auto 0 0;font-size:1rem;line-height:1.35;color:var(--on-ink-muted)}
   .ls-page .ls-projects_numbers{flex:none;display:flex;flex-wrap:nowrap;gap:1.5rem;margin:0}
   .ls-page .ls-projects_number{min-width:0;display:flex;align-items:baseline;gap:.4rem;border:0;padding:0}
   .ls-page .ls-projects_number-value{font-size:1rem;letter-spacing:-.01em}

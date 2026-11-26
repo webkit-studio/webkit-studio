@@ -16,7 +16,7 @@
 
   ID:        WKS/lukas-svoboda/lukas-svoboda.js
   Repo:      github.com/webkit-studio/webkit-studio → lukas-svoboda/lukas-svoboda.js
-  Verze:     1.8.0 · 26.11.2026
+  Verze:     1.9.1 · 26.11.2026
   Autor:     Webkit.Studio – Lukáš Svoboda · lukas@webkit.studio
   Vlastník:  © 2026 Lukáš Svoboda (Webkit.Studio). Interní projekt.
 */
@@ -58,7 +58,7 @@
       done: 'Hotovo', of: ' z 6 · ', pct: ' %',
       publish: 'Publikovat', live: 'Spuštěno',
       kpis: ['návštěv', 'poptávek', 'konverze'],
-      frame: 'snímek', tempoLabel: 'Tempo střídání snímků', tempoNames: ['pomalé', 'střední', 'rychlé'], talk: 'dáme o tom řeč', copied: 'Zkopírováno.', selected: 'Text je označený, zkopírujte ho.'
+      frame: 'snímek', tempoLabel: 'Tempo střídání snímků', tempoNames: ['klidnější', 'rychlé'], talk: 'dáme o tom řeč', copied: 'Zkopírováno.', selected: 'Text je označený, zkopírujte ho.'
     },
     en: {
       bubbles: [['Why are we doing this?', 24, 18], ['Who is it for?', 72, 15], ['What should change?', 79, 42], ['What no longer works?', 21, 45],
@@ -73,7 +73,7 @@
       done: 'Done', of: ' of 6 · ', pct: '%',
       publish: 'Publish', live: 'Live',
       kpis: ['visits', 'enquiries', 'conversion'],
-      frame: 'frame', tempoLabel: 'Image tempo', tempoNames: ['slow', 'medium', 'fast'], talk: 'let’s talk', copied: 'Copied.', selected: 'Text selected, copy it.'
+      frame: 'frame', tempoLabel: 'Image tempo', tempoNames: ['calmer', 'fast'], talk: 'let’s talk', copied: 'Copied.', selected: 'Text selected, copy it.'
     }
   };
   const T = TEXT[LANG];
@@ -96,14 +96,14 @@
 
   /* ---------- plynulý posun ---------- */
   let tweenId = 0, tweening = false;
-  function scrollToY(y, dur) {
+  function scrollToY(y, dur, out) {
     const s = scrollY, d = y - s, id = ++tweenId;
     if (reduce || Math.abs(d) < 2) { scrollTo(0, y); return; }
     dur = dur || clamp(Math.abs(d) * 0.5, 500, 1300);
     const t0 = performance.now(); tweening = true;
     (function f(t) {
       if (id !== tweenId) return;
-      const k = clamp((t - t0) / dur), e = k < .5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
+      const k = clamp((t - t0) / dur), e = out ? 1 - Math.pow(1 - k, 3) : k < .5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
       scrollTo(0, s + d * e);
       if (k < 1) requestAnimationFrame(f); else tweening = false;
     })(t0);
@@ -291,23 +291,24 @@
 
   // počítač: jedno scrollnutí = další krok postupu nebo další projekt, vždy dojede na pevnou pozici
   const hijack = () => mqDesk.matches && mqFine.matches && !reduce;
-  let lockUntil = 0, lastT = 0, lastAbs = 0, inGesture = false;
+  let lockUntil = 0, lastT = 0, lastAbs = 0, tail = false;
   const zones = () => {
     const z = [];
     if (proc) z.push({ top: docTop(proc), size: innerHeight, n: 4 });
     if (shows.length > 1) { const sec = shows[0].parentNode, size = shows[0].offsetHeight; z.push({ top: docTop(sec) + sec.offsetHeight - shows.length * size, size, n: shows.length }); }
     return z;
   };
+  /* vrací cílovou pozici a to, jestli do krokované části teprve vjíždíme zvenku */
   function stepTarget(dir) {
     const y = scrollY;
     for (const z of zones()) {
       const end = z.top + (z.n - 1) * z.size, m = z.size * .35;
       if (y < z.top - m || y > end + m) continue;
-      let t;
-      if (y < z.top - 1) { if (dir < 0) return null; t = 0; }
-      else if (y > end + 1) { if (dir > 0) return null; t = z.n - 1; }
+      let t, entering = false;
+      if (y < z.top - 1) { if (dir < 0) return null; t = 0; entering = true; }
+      else if (y > end + 1) { if (dir > 0) return null; t = z.n - 1; entering = true; }
       else { const q = (y - z.top) / z.size; t = dir > 0 ? Math.floor(q + .02) + 1 : Math.ceil(q - .02) - 1; if (t < 0 || t > z.n - 1) return null; }
-      return z.top + t * z.size;
+      return { y: z.top + t * z.size, entering };
     }
     return null;
   }
@@ -316,36 +317,61 @@
     const dir = Math.sign(e.deltaY); if (!dir) return;
     const now = performance.now(), abs = Math.abs(e.deltaY);
     /* Nový pohyb = pauza, zrychlení, nebo další zub kolečka myši (stejně velké skoky s odstupem; dojezd touchpadu
-       chodí hustěji). Bez toho by rovnoměrné točení kolečkem krok nespustilo. */
-    const notch = e.deltaMode === 1 || (!!e.wheelDeltaY && Math.abs(e.wheelDeltaY) % 120 === 0 && abs >= 50 && now - lastT > 30);
+       chodí hustěji). "tail" = dojezd gesta, které už krok spustilo: ten stránku dál neposouvá, ani za poslední
+       snímek ven ze sekce. Nový pohyb dojezd ukončí. */
+    /* zub kolečka má stejný nebo větší skok než předchozí; dojezd touchpadu se zmenšuje */
+    const notch = e.deltaMode === 1 || (!!e.wheelDeltaY && Math.abs(e.wheelDeltaY) % 120 === 0 && abs >= 50 && now - lastT > 30 && abs >= (now - lastT < 150 ? lastAbs : 0));
     const fresh = notch || now - lastT > 85 || abs > lastAbs + 5;
     lastT = now; lastAbs = abs;
-    const y = stepTarget(dir);
-    if (y == null) { if (tweening) cancelTween(); return; }
+    if (fresh) tail = false;
+    const to = stepTarget(dir);
+    if (!to) {
+      if (tail) { e.preventDefault(); return; }
+      if (tweening) cancelTween();
+      return;
+    }
     e.preventDefault();
-    if (now < lockUntil) return;
-    if (inGesture && !fresh) return;
-    if (abs < 2) return;
-    inGesture = true; lockUntil = now + 470; scrollToY(y, 450);
+    if (now < lockUntil || tail || abs < 2) return;
+    tail = true; lockUntil = now + 470;
+    /* při vjezdu zvenku přebíráme rozjetý scroll: začít rychle a dobrzdit, délka podle vzdálenosti */
+    if (to.entering) scrollToY(to.y, clamp(Math.abs(to.y - scrollY) * 1.3, 320, 560), true); else scrollToY(to.y, 450);
   }, { passive: false });
+  /* Když stránka zůstane stát uvnitř krokované části mezi dvěma pozicemi (tažení posuvníku, dojezd), dorovná se na bližší. */
+  let settleT = 0;
+  addEventListener('scroll', () => {
+    clearTimeout(settleT);
+    if (!hijack()) return;
+    settleT = setTimeout(() => {
+      if (tweening) return;
+      const y = scrollY;
+      for (const z of zones()) {
+        const end = z.top + (z.n - 1) * z.size;
+        if (y <= z.top + 2 || y >= end - 2) continue;
+        const near = z.top + Math.round((y - z.top) / z.size) * z.size, d = Math.abs(near - y);
+        if (d > 2) scrollToY(near, clamp(d * 1.2, 260, 520), true);
+        return;
+      }
+    }, 170);
+  }, { passive: true });
   addEventListener('keydown', e => {
     if (!hijack() || e.altKey || e.ctrlKey || e.metaKey) return;
     const tag = document.activeElement && document.activeElement.tagName;
     const dir = ['ArrowDown', 'PageDown'].includes(e.key) ? 1 : ['ArrowUp', 'PageUp'].includes(e.key) ? -1 : (e.key === ' ' && !/^(BUTTON|A|INPUT)$/.test(tag || '')) ? (e.shiftKey ? -1 : 1) : 0;
     if (!dir) return;
-    const y = stepTarget(dir); if (y == null) return;
-    e.preventDefault(); if (!tweening) scrollToY(y, 450);
+    const to = stepTarget(dir); if (!to) return;
+    e.preventDefault(); if (!tweening) scrollToY(to.y, 450);
   });
   addEventListener('touchstart', cancelTween, { passive: true });
 
   /* ---------- 07 projekty: střídané snímky ---------- */
   /* Panel s atributem data-frames="adresa1 adresa2 …" střídá skutečné obrázky, panel bez něj zástupné plochy.
-     Jedno tlačítko vpravo nahoře (drží přes všechny panely) přepíná tři tempa, vždy ostrým střihem.
-     Ikona jsou tři šipky: svítí jedna, dvě, nebo tři. Začíná se na středním, volba platí pro jednu návštěvu. */
-  const shows = $$('.ls-projects_panel'), FRAMES = 6, TEMPO_KEY = 'ls-tempo-3', TEMPO_MS = [0, 2080, 850, 357];
+     Adresa zakončená #top = screenshot: drží horní hranu pod pruhem. Bez toho je obrázek vystředěný (mockupy).
+     Jedno tlačítko vpravo nahoře (drží přes všechny panely) přepíná dvě tempa, vždy ostrým střihem.
+     Ikona jsou tři šipky: v klidnějším tempu svítí jedna, v rychlém tři. Začíná se na klidnějším, volba platí pro jednu návštěvu. */
+  const shows = $$('.ls-projects_panel'), FRAMES = 6, TEMPO_KEY = 'ls-tempo-4', TEMPO_MS = { 1: 850, 3: 375 };
   const showTimers = shows.map(() => null);
-  let tempo = 2, tempoBtn = null;
-  try { const v = +sessionStorage.getItem(TEMPO_KEY); if (v >= 1 && v <= 3) tempo = v; } catch (err) { tempo = 2; }
+  let tempo = 1, tempoBtn = null;
+  try { if (sessionStorage.getItem(TEMPO_KEY) === '3') tempo = 3; } catch (err) { tempo = 1; }
   shows.forEach(sh => {
     const fw = $('.ls-projects_frames', sh);
     if (!fw) return;
@@ -354,8 +380,9 @@
       sh.classList.add('has-images');
       urls.forEach((u, f) => {
         const fr = el('div', 'ls-projects_frame is-image' + (f ? '' : ' is-on')), im = new Image();
-        im.className = 'ls-projects_frame-img'; im.alt = ''; im.decoding = 'async'; im.dataset.src = u;
-        if (!f) { im.src = u; }
+        const top = /#top$/.test(u), src = u.replace(/#top$/, '');
+        im.className = 'ls-projects_frame-img' + (top ? ' is-top' : ''); im.alt = ''; im.decoding = 'async'; im.dataset.src = src;
+        if (!f) { im.src = src; }
         fr.appendChild(im); fw.appendChild(fr);
       });
     } else {
@@ -379,7 +406,7 @@
     tempo = n;
     if (tempoBtn) {
       tempoBtn.className = 'ls-projects_tempo is-' + n;
-      const label = T.tempoLabel + ': ' + T.tempoNames[n - 1];
+      const label = T.tempoLabel + ': ' + T.tempoNames[n === 3 ? 1 : 0];
       tempoBtn.setAttribute('aria-label', label); tempoBtn.title = label;
     }
     shows.forEach((sh, k) => { if (showSeen[k]) showRun(k); });
@@ -390,7 +417,7 @@
     tempoBtn.innerHTML = '<svg viewBox="0 0 30 12" aria-hidden="true"><path d="M1 1l7.5 5L1 11z"/><path class="ls-projects_tempo-2" d="M11 1l7.5 5-7.5 5z"/><path class="ls-projects_tempo-3" d="M21 1l7.5 5-7.5 5z"/></svg>';
     bar.appendChild(tempoBtn); shows[0].parentNode.insertBefore(bar, shows[0]);
     tempoBtn.addEventListener('click', () => {
-      setTempo(tempo % 3 + 1);
+      setTempo(tempo === 1 ? 3 : 1);
       try { sessionStorage.setItem(TEMPO_KEY, String(tempo)); } catch (err) { /* bez úložiště platí jen do načtení */ }
     });
   }
