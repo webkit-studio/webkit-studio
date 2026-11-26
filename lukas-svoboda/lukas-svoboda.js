@@ -16,7 +16,7 @@
 
   ID:        WKS/lukas-svoboda/lukas-svoboda.js
   Repo:      github.com/webkit-studio/webkit-studio → lukas-svoboda/lukas-svoboda.js
-  Verze:     1.6.0 · 26.11.2026
+  Verze:     1.8.0 · 26.11.2026
   Autor:     Webkit.Studio – Lukáš Svoboda · lukas@webkit.studio
   Vlastník:  © 2026 Lukáš Svoboda (Webkit.Studio). Interní projekt.
 */
@@ -58,7 +58,7 @@
       done: 'Hotovo', of: ' z 6 · ', pct: ' %',
       publish: 'Publikovat', live: 'Spuštěno',
       kpis: ['návštěv', 'poptávek', 'konverze'],
-      frame: 'snímek', tempoCalm: 'Zklidnit střídání snímků', tempoFast: 'Zrychlit střídání snímků', copied: 'Zkopírováno.', selected: 'Text je označený, zkopírujte ho.'
+      frame: 'snímek', tempoLabel: 'Tempo střídání snímků', tempoNames: ['pomalé', 'střední', 'rychlé'], talk: 'dáme o tom řeč', copied: 'Zkopírováno.', selected: 'Text je označený, zkopírujte ho.'
     },
     en: {
       bubbles: [['Why are we doing this?', 24, 18], ['Who is it for?', 72, 15], ['What should change?', 79, 42], ['What no longer works?', 21, 45],
@@ -73,7 +73,7 @@
       done: 'Done', of: ' of 6 · ', pct: '%',
       publish: 'Publish', live: 'Live',
       kpis: ['visits', 'enquiries', 'conversion'],
-      frame: 'frame', tempoCalm: 'Slow the images down', tempoFast: 'Speed the images up', copied: 'Copied.', selected: 'Text selected, copy it.'
+      frame: 'frame', tempoLabel: 'Image tempo', tempoNames: ['slow', 'medium', 'fast'], talk: 'let’s talk', copied: 'Copied.', selected: 'Text selected, copy it.'
     }
   };
   const T = TEXT[LANG];
@@ -289,31 +289,44 @@
   }
   mqDesk.addEventListener('change', bindMode);
 
-  // desktop: jedno scrollnutí = další krok
-  const hijack = () => !!proc && mqDesk.matches && mqFine.matches && !reduce;
+  // počítač: jedno scrollnutí = další krok postupu nebo další projekt, vždy dojede na pevnou pozici
+  const hijack = () => mqDesk.matches && mqFine.matches && !reduce;
   let lockUntil = 0, lastT = 0, lastAbs = 0, inGesture = false;
+  const zones = () => {
+    const z = [];
+    if (proc) z.push({ top: docTop(proc), size: innerHeight, n: 4 });
+    if (shows.length > 1) { const sec = shows[0].parentNode, size = shows[0].offsetHeight; z.push({ top: docTop(sec) + sec.offsetHeight - shows.length * size, size, n: shows.length }); }
+    return z;
+  };
   function stepTarget(dir) {
-    const top = docTop(proc), vh = innerHeight, end = top + 3 * vh, y = scrollY, m = vh * .35;
-    if (y < top - m || y > end + m) return null;
-    let t;
-    if (y < top - 1) { if (dir < 0) return null; t = 0; }
-    else if (y > end + 1) { if (dir > 0) return null; t = 3; }
-    else { const p = (y - top) / vh; t = dir > 0 ? Math.floor(p + .02) + 1 : Math.ceil(p - .02) - 1; if (t < 0 || t > 3) return null; }
-    return top + t * vh;
+    const y = scrollY;
+    for (const z of zones()) {
+      const end = z.top + (z.n - 1) * z.size, m = z.size * .35;
+      if (y < z.top - m || y > end + m) continue;
+      let t;
+      if (y < z.top - 1) { if (dir < 0) return null; t = 0; }
+      else if (y > end + 1) { if (dir > 0) return null; t = z.n - 1; }
+      else { const q = (y - z.top) / z.size; t = dir > 0 ? Math.floor(q + .02) + 1 : Math.ceil(q - .02) - 1; if (t < 0 || t > z.n - 1) return null; }
+      return z.top + t * z.size;
+    }
+    return null;
   }
   addEventListener('wheel', e => {
     if (!hijack() || e.ctrlKey) { if (tweening) cancelTween(); return; }
     const dir = Math.sign(e.deltaY); if (!dir) return;
     const now = performance.now(), abs = Math.abs(e.deltaY);
-    const fresh = now - lastT > 140 || abs > lastAbs + 8;
+    /* Nový pohyb = pauza, zrychlení, nebo další zub kolečka myši (stejně velké skoky s odstupem; dojezd touchpadu
+       chodí hustěji). Bez toho by rovnoměrné točení kolečkem krok nespustilo. */
+    const notch = e.deltaMode === 1 || (!!e.wheelDeltaY && Math.abs(e.wheelDeltaY) % 120 === 0 && abs >= 50 && now - lastT > 30);
+    const fresh = notch || now - lastT > 85 || abs > lastAbs + 5;
     lastT = now; lastAbs = abs;
     const y = stepTarget(dir);
     if (y == null) { if (tweening) cancelTween(); return; }
     e.preventDefault();
     if (now < lockUntil) return;
     if (inGesture && !fresh) return;
-    if (abs < 3) return;
-    inGesture = true; lockUntil = now + 780; scrollToY(y, 620);
+    if (abs < 2) return;
+    inGesture = true; lockUntil = now + 470; scrollToY(y, 450);
   }, { passive: false });
   addEventListener('keydown', e => {
     if (!hijack() || e.altKey || e.ctrlKey || e.metaKey) return;
@@ -321,29 +334,22 @@
     const dir = ['ArrowDown', 'PageDown'].includes(e.key) ? 1 : ['ArrowUp', 'PageUp'].includes(e.key) ? -1 : (e.key === ' ' && !/^(BUTTON|A|INPUT)$/.test(tag || '')) ? (e.shiftKey ? -1 : 1) : 0;
     if (!dir) return;
     const y = stepTarget(dir); if (y == null) return;
-    e.preventDefault(); if (!tweening) scrollToY(y, 620);
+    e.preventDefault(); if (!tweening) scrollToY(y, 450);
   });
   addEventListener('touchstart', cancelTween, { passive: true });
 
   /* ---------- 07 projekty: střídané snímky ---------- */
   /* Panel s atributem data-frames="adresa1 adresa2 …" střídá skutečné obrázky, panel bez něj zástupné plochy.
-     Jedno tlačítko vpravo nahoře (drží přes všechny panely) přepíná tempo: rychlý střih, nebo klidné prolínání.
-     Ikona jsou tři šipky, v klidném tempu svítí jen první. */
-  const shows = $$('.ls-projects_panel'), FRAMES = 6, TEMPO_KEY = 'ls-tempo-2';
+     Jedno tlačítko vpravo nahoře (drží přes všechny panely) přepíná tři tempa, vždy ostrým střihem.
+     Ikona jsou tři šipky: svítí jedna, dvě, nebo tři. Začíná se na středním, volba platí pro jednu návštěvu. */
+  const shows = $$('.ls-projects_panel'), FRAMES = 6, TEMPO_KEY = 'ls-tempo-3', TEMPO_MS = [0, 2080, 850, 357];
   const showTimers = shows.map(() => null);
-  let calm = false;
-  /* výchozí je rychlé tempo; volba platí jen pro tuhle návštěvu (i po přepnutí jazyka), příště se začne zase rychle */
-  try { calm = sessionStorage.getItem(TEMPO_KEY) === 'calm'; } catch (err) { calm = false; }
-  const tempoBtns = [];
+  let tempo = 2, tempoBtn = null;
+  try { const v = +sessionStorage.getItem(TEMPO_KEY); if (v >= 1 && v <= 3) tempo = v; } catch (err) { tempo = 2; }
   shows.forEach(sh => {
     const fw = $('.ls-projects_frames', sh);
     if (!fw) return;
     const urls = (sh.dataset.frames || '').split(/\s+/).filter(Boolean);
-    /* obal pro černé pruhy pod názvem a textem (styluje se jen u panelů s obrázky) */
-    $$('.ls-projects_name,.ls-projects_text', sh).forEach(n => {
-      if ($('.ls-mark', n)) return;
-      const m = el('span', 'ls-mark'); while (n.firstChild) m.appendChild(n.firstChild); n.appendChild(m);
-    });
     if (urls.length) {
       sh.classList.add('has-images');
       urls.forEach((u, f) => {
@@ -361,30 +367,34 @@
       }
     }
   });
-  if (!reduce && shows.length) {
-    const bar = el('div', 'ls-projects_tempo-bar'), btn = el('button', 'ls-projects_tempo'); btn.type = 'button';
-    btn.innerHTML = '<svg viewBox="0 0 30 12" aria-hidden="true"><path d="M1 1l7.5 5L1 11z"/><path class="ls-projects_tempo-more" d="M11 1l7.5 5-7.5 5z"/><path class="ls-projects_tempo-more" d="M21 1l7.5 5-7.5 5z"/></svg>';
-    bar.appendChild(btn); shows[0].parentNode.insertBefore(bar, shows[0]); tempoBtns.push(btn);
-  }
   const showRun = k => {
     clearInterval(showTimers[k]); showTimers[k] = null;
     const frs = $$('.ls-projects_frame', shows[k]); if (frs.length < 2) return;
     frs.forEach(fr => { const im = fr.firstElementChild; if (im && im.dataset && im.dataset.src && !im.src) im.src = im.dataset.src; });
     let f = frs.findIndex(x => x.classList.contains('is-on')); if (f < 0) f = 0;
-    showTimers[k] = setInterval(() => { frs[f].classList.remove('is-on'); f = (f + 1) % frs.length; frs[f].classList.add('is-on'); }, calm ? 2080 : 357);
+    showTimers[k] = setInterval(() => { frs[f].classList.remove('is-on'); f = (f + 1) % frs.length; frs[f].classList.add('is-on'); }, TEMPO_MS[tempo]);
   };
   const showSeen = shows.map(() => false);
-  function setTempo(on) {
-    calm = on;
-    $$('.ls-projects_frames').forEach(fw => fw.classList.toggle('is-calm', calm));
-    tempoBtns.forEach(b => { b.classList.toggle('is-calm', calm); b.setAttribute('aria-label', calm ? T.tempoFast : T.tempoCalm); b.title = calm ? T.tempoFast : T.tempoCalm; b.setAttribute('aria-pressed', String(calm)); });
+  function setTempo(n) {
+    tempo = n;
+    if (tempoBtn) {
+      tempoBtn.className = 'ls-projects_tempo is-' + n;
+      const label = T.tempoLabel + ': ' + T.tempoNames[n - 1];
+      tempoBtn.setAttribute('aria-label', label); tempoBtn.title = label;
+    }
     shows.forEach((sh, k) => { if (showSeen[k]) showRun(k); });
   }
-  tempoBtns.forEach(b => b.addEventListener('click', () => {
-    setTempo(!calm);
-    try { sessionStorage.setItem(TEMPO_KEY, calm ? 'calm' : 'fast'); } catch (err) { /* bez úložiště platí jen do načtení */ }
-  }));
-  setTempo(calm);
+  if (!reduce && shows.length) {
+    const bar = el('div', 'ls-projects_tempo-bar');
+    tempoBtn = el('button', 'ls-projects_tempo'); tempoBtn.type = 'button';
+    tempoBtn.innerHTML = '<svg viewBox="0 0 30 12" aria-hidden="true"><path d="M1 1l7.5 5L1 11z"/><path class="ls-projects_tempo-2" d="M11 1l7.5 5-7.5 5z"/><path class="ls-projects_tempo-3" d="M21 1l7.5 5-7.5 5z"/></svg>';
+    bar.appendChild(tempoBtn); shows[0].parentNode.insertBefore(bar, shows[0]);
+    tempoBtn.addEventListener('click', () => {
+      setTempo(tempo % 3 + 1);
+      try { sessionStorage.setItem(TEMPO_KEY, String(tempo)); } catch (err) { /* bez úložiště platí jen do načtení */ }
+    });
+  }
+  setTempo(tempo);
   if (!reduce && shows.length && 'IntersectionObserver' in window) {
     const sio = new IntersectionObserver(es => es.forEach(e => {
       const k = shows.indexOf(e.target);
@@ -400,10 +410,19 @@
   if (reveal) {
     const text = reveal.textContent.trim();
     reveal.textContent = '';
-    text.split(/[ \n\t]+/).forEach((w, i) => {
-      if (i) reveal.appendChild(document.createTextNode(' '));
-      words.push(add(reveal, 'span', 'ls-contact_word', w));
+    /* každé slovo zvlášť; pevná mezera mezi slovy zůstane pevná */
+    text.split(/([ \n\t\u00a0]+)/).forEach(tok => {
+      if (!tok) return;
+      if (/^[ \n\t\u00a0]+$/.test(tok)) reveal.appendChild(document.createTextNode(tok.includes(NB) ? NB : ' '));
+      else words.push(add(reveal, 'span', 'ls-contact_word', tok));
     });
+    /* závěrečná výzva (v textech T.talk) zmodrá, až je nadpis celý vybarvený */
+    const norm = x => x.replace(/\u00a0/g, ' ').replace(/[.,!?]/g, '').toLowerCase(), want = norm(T.talk).split(' '), toks = [];
+    words.forEach((w, i) => norm(w.textContent).split(' ').filter(Boolean).forEach(t => toks.push([t, i])));
+    for (let i = 0; i + want.length <= toks.length; i++) {
+      if (want.every((t, k) => toks[i + k][0] === t)) { want.forEach((t, k) => words[toks[i + k][1]].classList.add('is-talk')); break; }
+    }
+    if (reduce) reveal.classList.add('is-done');
   }
   $$('[data-copy]').forEach(b => b.addEventListener('click', e => {
     e.preventDefault();
@@ -420,19 +439,9 @@
   }));
 
   /* ---------- menu ---------- */
+  /* Menu je jen nahoře. Přesune se do připnuté části úvodu: drží po dobu jeho animace a odjede s ním. */
   const nav = $('.ls-nav'), hero = $('.section_ls-hero'), heroCell = $('.ls-hero_cell');
-  let navY = scrollY, wasPast = false, entryTimer = null;
-  const showNav = on => { if (nav) nav.classList.toggle('is-shown', on); };
-  function navUpdate() {
-    const y = scrollY, past = hero ? hero.getBoundingClientRect().bottom <= 2 : true, dy = y - navY;
-    if (!past) { clearTimeout(entryTimer); entryTimer = null; showNav(false); }
-    else if (!wasPast) { showNav(true); clearTimeout(entryTimer); entryTimer = setTimeout(() => { entryTimer = null; showNav(false); }, 1800); }
-    else if (dy < -4) { clearTimeout(entryTimer); entryTimer = null; showNav(true); }
-    else if (dy > 4 && !entryTimer) showNav(false);
-    wasPast = past;
-    if (Math.abs(dy) > 4) navY = y;
-  }
-
+  { const hp = $('.ls-hero_pin'); if (nav && hp) hp.appendChild(nav); }
 
   /* ---------- 01 hero: role pod pozdravem ---------- */
   /* Po odkrytí černé zůstane pozdrav připnutý a sekce role se pod něj nasune, pak odjedou spolu.
@@ -473,7 +482,6 @@
   function update() {
     ticking = false;
     const vh = innerHeight;
-    navUpdate();
     if (!reduce && hero && heroCell) {
       const r = hero.getBoundingClientRect();
       if (r.bottom > -vh) {
@@ -493,8 +501,12 @@
     if (!reduce && reveal) {
       const rr = reveal.getBoundingClientRect();
       if (rr.top < vh && rr.bottom > 0) {
-        const pg = clamp((vh * .85 - rr.top) / (rr.height + vh * .2)) * (words.length + 1);
+        /* začíná, až je nadpis ve dvou třetinách výšky okna, a končí těsně před koncem stránky, aby byl efekt vidět */
+        const remain = document.documentElement.scrollHeight - vh - scrollY;
+        const end = Math.max(rr.top - remain + vh * .06, vh * .14), start = Math.max(vh * .62, end + vh * .22);
+        const pg = clamp((start - rr.top) / (start - end)) * (words.length + 1);
         words.forEach((w, i) => { w.style.opacity = (.2 + .8 * clamp(pg - i)).toFixed(3); });
+        reveal.classList.toggle('is-done', pg >= words.length);
       }
     }
   }
